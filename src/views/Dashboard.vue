@@ -19,7 +19,7 @@
 
         </v-navigation-drawer>
         
-        <v-app-bar app color="#1BA174">
+        <v-app-bar app color="#009B8B">
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
             <v-toolbar-title>AIOn</v-toolbar-title>
         </v-app-bar>
