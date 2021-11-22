@@ -11,15 +11,6 @@
   @Component
   export default class App extends Vue {
 
-    faults: Fault[] = [];
-    
-    async created() {
-
-      const faults = await this.$api.getAllFaults()
-      console.log(faults)
-      this.faults = faults
-      
-    }
 
   }
 </script>
