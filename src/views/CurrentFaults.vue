@@ -1,17 +1,4 @@
 <template>
-<<<<<<< HEAD
-    <div>
-        <v-row align="center" justify="center">
-            <v-col cols="12" class="col-md-6" style="background:red" align="center">
-                <v-btn color="error">Add Fault</v-btn>
-            </v-col>
-            <v-col cols="12" class="col-md-6" style="background:blue">
-                <v-btn color="error">Add Fault</v-btn>
-            </v-col>
-        </v-row>
-    </div>
-
-=======
   <div>
     <v-container>
       <v-row>
@@ -52,7 +39,6 @@
       </v-row>
     </v-container>
   </div>
->>>>>>> c5bf7a401b5e64481d618d5cd7720946d4123c5b
 </template>
 
 <script lang="ts">
