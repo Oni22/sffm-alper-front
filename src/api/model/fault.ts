@@ -23,4 +23,15 @@ export default class Fault {
 
     }
 
+    toJson() {
+        return {
+            "reason": this.reason,
+            "category": this.category,
+            "workplace": this.workplace,
+            "department": this.department,
+            "product": this.product,
+            "dispolevel": this.dispolevel
+        }
+    }
+
 }

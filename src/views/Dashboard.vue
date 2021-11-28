@@ -11,11 +11,7 @@
             </v-list-item>
             <v-divider/>
             <v-list-item-group>
-                <v-list-item>Aktuelle Fehler</v-list-item>
-                <v-list-item>Fehler eintragen</v-list-item>
-                <v-list-item>Fehler analysieren</v-list-item>
-                <v-list-item>Fehlerliste</v-list-item>
-                <v-list-item>Informationen zur App</v-list-item>
+                <v-list-item v-for="route in routes" :key="route.path" @click="openPage(route.path)" >{{route.name}}</v-list-item>
             </v-list-item-group>
         </v-list>
 
@@ -35,6 +31,7 @@
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
+    import { Routes } from '@/router/utils'
 
     @Component({
         name: "Dashboard"
@@ -42,6 +39,34 @@
     export default class Dashboard extends Vue {
         
         drawer = true
+
+        routes = [
+            {
+                name: "Aktueller Fehler",
+                path: Routes.CURRENT_FAULT
+            },
+            {
+                name: "Fehler Eintrag",
+                path: Routes.NEW_FAILURE
+            },
+            {
+                name: "Fehler analysieren",
+                path: Routes.FAILURE_ANALYZE
+            },
+            {
+                name: "Fehlerliste",
+                path: Routes.FAILURE_LIST
+            },
+            {
+                name: "Information zur App",
+                path: Routes.APP_INFO
+            }
+            
+        ]
+
+        openPage(path: string) {
+            this.$router.push(path)
+        }
         
     }
 </script>

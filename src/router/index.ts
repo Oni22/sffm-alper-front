@@ -6,6 +6,7 @@ import NewFailure from '../views/NewFailure.vue'
 import FailureAnalyze from '../views/FailureAnalyze.vue'
 import FailureList from '../views/FailureList.vue'
 import AppInformation from '../views/AppInformation.vue'
+import { Routes } from './utils'
 
 Vue.use(VueRouter)
 
@@ -16,27 +17,27 @@ const routes: Array<RouteConfig> = [
     component: Dashboard,
     children: [
       {
-        path: '/current-faults',
+        path: Routes.CURRENT_FAULT,
         name: 'CurrentFaults',
         component: CurrentFaults
       },
       {
-        path: '/new-failure',
+        path: Routes.NEW_FAILURE,
         name: 'NewFailure',
         component: NewFailure
       },
       {
-        path: '/failure-analyze',
+        path: Routes.FAILURE_ANALYZE,
         name: 'FailureAnalyze',
         component: FailureAnalyze
       },
       {
-        path: '/failure-list',
+        path: Routes.FAILURE_LIST,
         name: 'FailureList',
         component: FailureList
       },
       {
-        path: '/app-information',
+        path: Routes.APP_INFO,
         name: 'AppInformation',
         component: AppInformation
       }
