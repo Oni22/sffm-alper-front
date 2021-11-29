@@ -106,13 +106,37 @@ import Fault from '@/api/model/fault';
       "OSM-Planfertigung",
       "OSM-Vorfertigung",
       "OSM-Zylinderfertigung",
-      "OSM-Zwsichenprozesse"
+      "OSM-Zwsichenprozesse",
+      "OSM",
+      "SBT",
+      "WTC",
+      "CS",
+      "RR",
+      "ILM",
+      "EUV",
+      "EMU",
+      "ESC",
     ]
 
     dispoLevels = [
       "ESC GT_1",
       "ESC MMP_2",
       "ESC MMP_3",
+      "ESC SMMP_2",
+      "ESC SMMP_3",
+      "ESC SMMP_4",
+      "Block GT_1",
+      "Block MMP_2",
+      "Block MMP_3",
+      "GL MMP_4",
+      "GL MMP_5",
+      "Block SMMP_2",
+      "GL SMMP_5",
+      "GL SMMP_6",
+      "Side Mirror B CNC Dis.1 (1041869)",
+      "Side Mirror B FEPO Dis.2 (1054275)",
+      "Side Mirror B FEPO Dis.3 (1042663)",
+      "Block GT_2",
     ]
 
     async send() {

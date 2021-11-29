@@ -1,9 +1,40 @@
 
 
 export const actions : Record<string,string> = {
-    "10": "Kommunikation OEK",
+    
+    "1": "Abstimmung individuell",
+    "2": "Planungsfehler prüfen",
+    "3": "AAW/REZ/PBX lesen",
+    "4": "Abstellmaßnahmen definieren",
+    "5": "Abstimmung individuell",
+    "6": "Bauteilstillstand klären",
+    "7": "Erstellung",
     "8": "Fehlergrund aufdecken",
-    "24": "Rücksprache OR-Soft-Verwaltung"
+    "9": "Kein Maßnahmenvorschlag möglich",
+    "10": "Kommunikation OEK",
+    "11": "Korrekte Zuweisung",
+    "12": "Nachqualifizierung",
+    "13": "Nachträglich ECR erstellen",
+    "14": "Polierbereich WKS1+WKS2",
+    "15": "Prüfung Ausweichmöglichkeiten",
+    "16": "Prüfung Bestellbarkeit",
+    "17": "Prüfung Einsatzmöglichkeiten AV",
+    "18": "Prüfung Einsatzmöglichkeiten PT",
+    "19": "Prüfung Erhöhung Kapa",
+    "20": "Prüfung Investitionsvorhaben",
+    "21": "Prüfung Ressourcen",
+    "22": "Prüfung Steuerung (der Teile)",
+    "23": "Prüfung zusätzliche Kapa MA",
+    "24": "Rücksprache OR-Soft-Verwaltung",
+    "25": "Sensibilisierung FertigungsMA",
+    "26": "Shopfloor-Anpassung",
+    "27": "Übersicht Kapa-Angebot",
+    "28": "Versionierung",
+    "29": "Vertretungsregelung",
+    "30": "Vorgelagerte Prozesskette prüfen",
+    "31": "Zusätzliche Maschine",
+    "32": "Zusätzliche SF-Teilnehmer"
+
 }
 
 
