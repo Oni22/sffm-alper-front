@@ -1,3 +1,4 @@
+<!--
 <template>
   <div>
     <v-container>
@@ -8,7 +9,7 @@
               <v-row align="center" justify="center">
                 <v-col cols="12" align="center">
                   <v-data-table
-                    @click:row="openFault"
+                    @click:row="openSolution"
                     :headers="headers"
                     :items="faults"
                   >
@@ -23,11 +24,11 @@
       <v-row>
           <v-col cols="12">
               <v-card>
-                  <v-toolbar color="#F64444" > <h2> Aktueller Fehler </h2> </v-toolbar>
+                  <v-toolbar color="#39A562" > <h2>Aktuelle Problemlösung </h2></v-toolbar>
                   <v-card-text>  
                     <v-row>
-                        <v-col v-if="hasCurrentFault()">
-                            <FaultInfoCard :fault="currentFault"/>
+                        <v-col v-if="hasCurrentPDCA()">
+                            <PDCAInfoCard :solution="CurrentPDCA"/>
                         </v-col>
                         <v-col align="center" v-else>
                             <p>Kein Fehler ausgewählt</p>
@@ -42,42 +43,42 @@
 </template>
 
 <script lang="ts">
-import Fault from "@/api/model/fault";
+import Solution from "@/api/model/solution";
 import { Component, Vue } from "vue-property-decorator";
-import FaultInfoCard from "@/components/FaultInfoCard.vue"
+import PDCAInfoCard from "@/components/PDCAInfoCard.vue"
 
 @Component({
     components: {
-        FaultInfoCard
+        PDCAInfoCard
     }
 })
-export default class CurrentFaults extends Vue {
+export default class CurrentPDCA extends Vue {
 
   headers = [
     {
-      text: "Fehlergrund",
+      text: "Bezeichnung",
       align: "start",
       sortable: false,
-      value: "reason",
+      value: "title",
     },
     {
-      text: "Arbeitsgang",
+      text: "Stillstandzeit",
       align: "start",
       sortable: false,
-      value: "workplace",
+      value: "downtime",
     },
     {
-      text: "Dispostufe",
+      text: "Ursachen",
       align: "start",
       sortable: false,
-      value: "dispolevel",
+      value: "newcauses",
     },
     {
-      text: "Bereich",
+      text: "Maßnahmen",
       align: "start",
       sortable: false,
-      value: "department",
-    },
+      value: "newactions",
+    },    
     {
       text: "Zeitstempel",
       align: "start",
@@ -86,20 +87,20 @@ export default class CurrentFaults extends Vue {
     },
   ];
 
-  faults: Fault[] = [];
-  currentFault?: Fault = new Fault();
+  solutions: Solution[] = [];
+  CurrentPDCA?: Solution = new Solution();
 
   async created() {
-    const faults = await this.$api.getAllFaults();
-    this.faults = faults;
+    const solutions = await this.$api.getAllSolutions();
+    this.solutions = solutions;
   }
 
-  openFault(item: Fault) {
-    this.currentFault = item
+  openSolution(item: Solution) {
+    this.CurrentPDCA = item
   }
 
-  hasCurrentFault() {
-    return this.currentFault != null;
+  hasCurrentPDCA() {
+    return this.CurrentPDCA != null;
   }
 
   formatTimestamp(timestamp:string) {
@@ -111,3 +112,4 @@ export default class CurrentFaults extends Vue {
 
 <style scoped>
 </style>
+-->

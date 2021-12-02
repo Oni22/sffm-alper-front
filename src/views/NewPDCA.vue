@@ -24,6 +24,7 @@
           <v-select v-model="currentDispolevel" :items="dispoLevels" label="Wählen Sie die Dispostufe aus:" />
         </v-col>
       </v-row>
+
       <v-row>
         <v-col cols="12">
           <v-text-field v-model="description" counter maxlength="150" label="Geben Sie eine Beschreibung zur Fehlerentstehung ein:" >
@@ -60,18 +61,6 @@
         </v-col>
         <v-col cols="12">
           <v-card>
-            <v-toolbar height="40" color="#009B8B" elevation="0">Mögliche Ursachenbereiche</v-toolbar>
-            <v-card-text> 
-              <h4>Dieser Fehler besitzt ein primäres und sekundäres Ursachenfeld, in denen die Ursprünge für den Fehler liegen:</h4>
-              Primäres Ursachenfeld:
-              <h2 class="mt-5">{{primaryCause}}</h2>
-              Sekundäres Ursachenfeld:
-              <h2 class="mt-5">{{secundaryCause}}</h2>
-            </v-card-text>
-          </v-card>
-        </v-col>        
-        <v-col cols="12">
-          <v-card>
             <v-toolbar height="40" color="#009B8B" elevation="0">Ausfalltage</v-toolbar>
             <v-card-text> 
               <h4>Ausfalltage:</h4>
@@ -104,8 +93,6 @@ import Fault from '@/api/model/fault';
     currentCategory = "Administration"
     description = ""
     actionToDo = ""
-    primaryCause = ""
-    secundaryCause = ""
     downtimeInDays = 0
 
     faultCategories = [
@@ -154,7 +141,7 @@ import Fault from '@/api/model/fault';
 
     async send() {
 
-    try {
+      try {
         console.log(this.currentWorkspace)
         this.loading = true
         const fault = new Fault()
@@ -176,16 +163,6 @@ import Fault from '@/api/model/fault';
           const downtimeResult = String(prediction?.downtime[0])
           this.downtimeInDays = parseInt(downtimeResult)
         }
-
-//        if((prediction?.pCause?.length ?? 0) > 0 && prediction?.pCause) {
-//          const primaryCauseResult = String(prediction?.pCause[0])
-//          this.primaryCause = parseInt(downtimeResult)
-//        }
-
-//        if((prediction?.sCause?.length ?? 0) > 0 && prediction?.sCause) {
-//          const secundaryCauseResult = String(prediction?.sCause[0])
-//          this.secundaryCause = parseInt(secundaryCauseResult)
-//        }        
 
         console.log("PREDICTION",prediction)
 

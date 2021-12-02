@@ -1,7 +1,7 @@
 import axios from "axios"
 import Fault from "./model/fault";
 import Prediction from "./model/predition";
-
+import Solution from "./model/solution";
 
 export default class API {
 

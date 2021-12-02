@@ -2,7 +2,10 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Dashboard from '../views/Dashboard.vue'
 import CurrentFaults from '../views/CurrentFaults.vue'
+import CurrentPDCA from '../views/CurrentPDCA.vue'
+import NewFailureEntry from '../views/NewFailureEntry.vue'
 import NewFailure from '../views/NewFailure.vue'
+import NewPDCA from '../views/NewPDCA.vue'
 import FailureAnalyze from '../views/FailureAnalyze.vue'
 import FailureList from '../views/FailureList.vue'
 import AppInformation from '../views/AppInformation.vue'
@@ -40,7 +43,22 @@ const routes: Array<RouteConfig> = [
         path: Routes.APP_INFO,
         name: 'AppInformation',
         component: AppInformation
-      }
+      },
+      {
+        path: Routes.NEW_FAILURE_ENTRY,
+        name: 'NewFailureEntry',
+        component: NewFailureEntry
+      },
+      {
+        path: Routes.NEW_PDCA,
+        name: 'NewPDCA',
+        component: NewPDCA
+      },
+      {
+        path: Routes.CURRENT_PDCA,
+        name: 'CurrentPDCA',
+        component: CurrentPDCA
+      },
     ]
   },
   // {

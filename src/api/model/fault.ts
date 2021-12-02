@@ -10,6 +10,8 @@ export default class Fault {
     product?: string
     dispolevel?: string
     timestamp?: string
+   // primaryCause?: string
+    //secundaryCause?: string
 
     fromJson(data: any) : Fault {
         this.reason = data.reason

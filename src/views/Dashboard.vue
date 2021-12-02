@@ -46,8 +46,12 @@
                 path: Routes.CURRENT_FAULT
             },
             {
-                name: "Fehler Eintrag",
-                path: Routes.NEW_FAILURE
+                name: "Aktuelle Problemlösungen",
+                path: Routes.CURRENT_PDCA
+            },
+            {
+                name: "Fehler eintragen",
+                path: Routes.NEW_FAILURE_ENTRY
             },
             {
                 name: "Fehler analysieren",
