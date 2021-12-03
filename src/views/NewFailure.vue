@@ -2,7 +2,20 @@
   <div>
     <v-container>
       <v-form>
-
+      <v-row>
+        <v-col cols="12">
+          In diesem Fenster wird ein neuer Fehler, dessen Spezifikationen bereits bekannt sind, eingetragen. Das Ausfüllen der Felder und anschließendes 
+          Absenden begünstigt die Prognose einer Stillstandzeit, einer passenden Maßnahme und einem primären sowie sekundären Ursachenfeld. Durch die 
+          Bearbeitung mit Maschine-Learning-Algorithmen, wird eine Fehlerliste für die tiefgreifenden Analysen der Fehlersituationen aufgestellt. 
+        </v-col> 
+        <v-col>
+          <v-divider/>
+        </v-col>
+        <v-col cols="12"> <h4>
+          Tragen Sie im Folgenden die fehlerbeschreibenden Daten ein, welche sich mit diesem Fehlerzustand ergeben. Zusätzlich kann eine Fehlerbeschreibung,
+          für das präzise Formulieren der Abweichung bzw. Störung, verfasst werden. </h4>
+        </v-col>
+      </v-row> 
       <v-row>
         <v-col cols="6">
           <v-select  label="Wählen Sie die Fehlergrund aus:" :items="faultItems" v-model="currentFault" />
@@ -13,7 +26,6 @@
          <v-col cols="6">
           <v-select  label="Wählen Sie den Arbeitsgang aus:" :items="workspaceItems" v-model="currentWorkspace" />
         </v-col>
-
         <v-col cols="6">
           <v-select v-model="currentCategory" :items="faultCategories" label="Wählen Sie die Fehlerkategorie aus:"/>
         </v-col> 
@@ -39,7 +51,7 @@
       <v-row> 
         <v-col>
           <v-btn color="info" :disabled="!enabled" :loading="loading"  @click="send()">
-          Weiter
+          Ergebnisse ausgeben
           </v-btn>
         </v-col>       
       </v-row> 
@@ -60,7 +72,7 @@
         </v-col>
         <v-col cols="12">
           <v-card>
-            <v-toolbar height="40" color="#009B8B" elevation="0">Mögliche Ursachenbereiche</v-toolbar>
+            <v-toolbar height="40" color="#009B8B" elevation="0">Ursachenbereiche</v-toolbar>
             <v-card-text> 
               <h4>Dieser Fehler besitzt ein primäres und sekundäres Ursachenfeld, in denen die Ursprünge für den Fehler liegen:</h4>
               Primäres Ursachenfeld:

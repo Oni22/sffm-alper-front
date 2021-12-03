@@ -29,7 +29,7 @@
                   </v-checkbox>
                 </v-col>
               </v-row>
-                <v-btn color="green" :disabled="!enabled" :loading="loading"  @click="send()">
+                <v-btn color="green" :disabled="!enabled" :loading="loading" >
                     Weiter
                 </v-btn>
             </v-card-text>
@@ -63,7 +63,9 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { faults,workspaces,products, actions} from '@/utils'
-import Fault from '@/api/model/fault';
+  import Fault from '@/api/model/fault';
+  import { Routes } from '@/router/utils'
+
 
   @Component
   export default class NewFailure extends Vue {
@@ -71,87 +73,9 @@ import Fault from '@/api/model/fault';
     enabled = false
     enabled2 = false
     loading = false
-    currentFault = this.faultItems[0]
-    currentWorkspace = this.workspaceItems[0]
-    currentProduct = this.productItems[0]
-    currentDispolevel = "ESC GT_1"
-    currentArea = "OSM-Planfertigung"
-    currentCategory = "Administration"
-    description = ""
-    actionToDo = ""
-    downtimeInDays = 0
-
-
-    async send() {
-
-      try {
-        console.log(this.currentWorkspace)
-        this.loading = true
-        const fault = new Fault()
-        fault.reason = this.currentFault
-        fault.category = this.currentCategory
-        fault.workplace = this.currentWorkspace
-        fault.product = this.currentProduct
-        fault.department = this.currentArea
-        fault.dispolevel = this.currentDispolevel
-        const createdFault = await this.$api.sendFault(fault)
-        const prediction = await this.$api.predict(createdFault?.product ?? "",createdFault?.workplace ?? "",createdFault?.reason ?? "")
-
-        if((prediction?.action?.length ?? 0) > 0 && prediction?.action) {
-          const predictionResult = String(prediction?.action[0])
-          this.actionToDo = actions[predictionResult];
-        }
-
-        if((prediction?.downtime?.length ?? 0) > 0 && prediction?.downtime) {
-          const downtimeResult = String(prediction?.downtime[0])
-          this.downtimeInDays = parseInt(downtimeResult)
-        }
-
-        console.log("PREDICTION",prediction)
-
-      } catch(err) {
-        console.log(err)
-      }
-
-      this.loading = false
-
-    }
-
-
-    get faultItems() {
-
-      let values = []
-
-      for(const [key,value] of Object.entries(faults)) {
-        values.push(key)
-      }
-
-      return values
-    }
-
-    get productItems() {
-
-      let values = []
-
-      for(const [key,value] of Object.entries(products)) {
-        values.push(key)
-      }
-
-      return values
-    }
-
-    get workspaceItems() {
-
-      let values = []
-
-      for(const [key,value] of Object.entries(workspaces)) {
-        values.push(key)
-      }
-
-      return values
-    }
-
+  
   }
+
 </script>
 
 <style scoped>
