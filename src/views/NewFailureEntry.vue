@@ -19,38 +19,19 @@
       <v-row>
         <v-col cols="12">
           <v-card>
-            <v-toolbar height="40" color="green" elevation="0"><h3>Ja, der Fehler ist bekannt.</h3></v-toolbar>
-            <v-card-text> 
-              <v-row>
-                <v-col>
-                  <v-checkbox v-model="enabled" hide details class="shrink mr-2 mt-0" 
-                  label="Für den Fehler sind Ursachen, Fehlergründe und weitere Produktionsdaten bekannt. 
-                  Der Fehler soll daher in die Datenbank eingetragen werden, um eine zukünftige Auswertung anzustoßen.">
-                  </v-checkbox>
-                </v-col>
-              </v-row>
-                <v-btn color="green" :disabled="!enabled" :loading="loading" >
-                    Weiter
-                </v-btn>
-            </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col cols="12">
-          <v-card>
-            <v-toolbar height="40" color="orange" elevation="0"><h3>Nein, der Fehler ist unbekannt.</h3></v-toolbar>
             <v-card-text>
-              <v-row>
-                <v-col> 
-                  <v-checkbox v-model="enabled2" hide details class="shrink mr-2 mt-0" 
-                  label="Die Daten für diesen Fehler sind unbekannt. Es sind keine passenden bzw. umgesetzten Maßnahmen für dieses Problem vorhanden.
-                  Die Ursachen und Hintergründe für den Fehlerbeseitigungsprozess sind ebenfalls unbekannt.">
-                  </v-checkbox>
-                </v-col>
-              </v-row>  
-                <v-btn color="orange" :disabled="!enabled2" :loading="loading"  @click="send()">
-                  Weiter
-                </v-btn>  
+            <v-radio-group v-model="currentRadioValue">
+              <v-radio label="Ja, der Fehler ist bekannt" value="known" ></v-radio>
+              <v-radio label="Nein, der Fehler ist unbekannt" value="unknown" ></v-radio>
+            </v-radio-group>
+            <p v-if="currentRadioValue === 'known'">Für den Fehler sind Ursachen, Fehlergründe und weitere Produktionsdaten bekannt. 
+                  Der Fehler soll daher in die Datenbank eingetragen werden, um eine zukünftige Auswertung anzustoßen. </p>
+             <p v-if="currentRadioValue === 'unknown'">Die Daten für diesen Fehler sind unbekannt. Es sind keine passenden bzw. umgesetzten Maßnahmen für dieses Problem vorhanden.
+                  Die Ursachen und Hintergründe für den Fehlerbeseitigungsprozess sind ebenfalls unbekannt.</p>
             </v-card-text>
+            <v-card-actions>
+              <v-btn @click="handleNext()" color="success">Weiter</v-btn>
+            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
@@ -73,6 +54,15 @@
     enabled = false
     enabled2 = false
     loading = false
+    currentRadioValue = "known"
+
+    handleNext() {
+      if(this.currentRadioValue === "known") {
+        this.$router.push(Routes.NEW_FAILURE)
+      } else {
+         this.$router.push(Routes.NEW_PDCA)
+      }
+    }
   
   }
 

@@ -2,216 +2,274 @@
   <div>
     <v-container>
       <v-form>
+        <v-row>
+          <v-col cols="12">
+            <v-card>
+              <v-toolbar color="success" flat>Plan</v-toolbar>
+              <v-card-text>
+                <v-row>
+                  <v-col cols="12">
+                    <v-text-field label="Bezeichnung" v-model="title" />
+                  </v-col>
+                  <v-col cols="12">
+                    <v-combobox
+                      v-model="newCauses"
+                      chips
+                      dense
+                      clearable
+                      label="Ursachen"
+                      hint="Befehls text"
+                      persistent-hint
+                      multiple
+                    >
+                      <template
+                        v-slot:selection="{ attrs, item, select, selected }"
+                      >
+                        <v-chip
+                          v-bind="attrs"
+                          :input-value="selected"
+                          close
+                          @click="select"
+                          @click:close="removeCause(item)"
+                        >
+                          <strong>{{ item }}</strong>
+                        </v-chip>
+                      </template>
+                    </v-combobox>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-combobox
+                      v-model="category"
+                      chips
+                      dense
+                      clearable
+                      label="Ursachenbereich"
+                      hint="Befehls text"
+                      persistent-hint
+                      multiple
+                    >
+                      <template
+                        v-slot:selection="{ attrs, item, select, selected }"
+                      >
+                        <v-chip
+                          v-bind="attrs"
+                          :input-value="selected"
+                          close
+                          @click="select"
+                          @click:close="removeCategory(item)"
+                        >
+                          <strong>{{ item }}</strong>
+                        </v-chip>
+                      </template>
+                    </v-combobox>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      type="number"
+                      label="Stillstandzeit"
+                      v-model="downtime"
+                    />
+                  </v-col>
+                  <v-col cols="12">
+                    <v-combobox
+                      v-model="ressources"
+                      chips
+                      dense
+                      clearable
+                      label="Ressourcen"
+                      hint="Befehls text"
+                      persistent-hint
+                      multiple
+                    >
+                      <template
+                        v-slot:selection="{ attrs, item, select, selected }"
+                      >
+                        <v-chip
+                          v-bind="attrs"
+                          :input-value="selected"
+                          close
+                          @click="select"
+                          @click:close="removeRessources(item)"
+                        >
+                          <strong>{{ item }}</strong>
+                        </v-chip>
+                      </template>
+                    </v-combobox>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-combobox
+                      v-model="goals"
+                      chips
+                      dense
+                      clearable
+                      label="Ziele"
+                      hint="Befehls text"
+                      persistent-hint
+                      multiple
+                    >
+                      <template
+                        v-slot:selection="{ attrs, item, select, selected }"
+                      >
+                        <v-chip
+                          v-bind="attrs"
+                          :input-value="selected"
+                          close
+                          @click="select"
+                          @click:close="removeGoals(item)"
+                        >
+                          <strong>{{ item }}</strong>
+                        </v-chip>
+                      </template>
+                    </v-combobox>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
 
-      <v-row>
-        <v-col cols="6">
-          <v-select  label="Wählen Sie die Fehlergrund aus:" :items="faultItems" v-model="currentFault" />
-        </v-col>
-         <v-col cols="6">
-          <v-select  label="Wählen Sie das Produkt aus:" :items="productItems" v-model="currentProduct" />
-        </v-col>
-         <v-col cols="6">
-          <v-select  label="Wählen Sie den Arbeitsgang aus:" :items="workspaceItems" v-model="currentWorkspace" />
-        </v-col>
+        <v-row>
+          <v-col cols="12">
+            <v-card>
+              <v-toolbar flat color="success">Sofortmaßnahmen</v-toolbar>
+              <v-card-text>
+                <v-row no-gutters>
+                  <v-col cols="10">
+                    <v-text-field label="Sofortmaßnahmen" v-model="currentShortTimeAction.name" />
+                  </v-col>
+                  <v-col cols="2">
+                    <v-btn @click="addShortTimeAction()" block color="success"
+                      >Hinzufügen</v-btn
+                    >
+                  </v-col>
+                </v-row>
+                <v-col>
+                  <v-row v-for="cause in shortTimeAction" :key="cause.name">
+                    <v-btn icon @click="removeShortTimeAction(cause)" ><v-icon>{{trashIcon}}</v-icon></v-btn>
+                    <v-checkbox v-model="cause.checked"  dense :label="cause.name" />
+                  </v-row>
+                </v-col>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
 
-        <v-col cols="6">
-          <v-select v-model="currentCategory" :items="faultCategories" label="Wählen Sie die Fehlerkategorie aus:"/>
-        </v-col> 
-        <v-col cols="6">
-          <v-select v-model="currentArea" :items="areas" label="Wählen Sie den Bereich aus:" />
-        </v-col> 
-        <v-col cols="6">
-          <v-select v-model="currentDispolevel" :items="dispoLevels" label="Wählen Sie die Dispostufe aus:" />
-        </v-col>
-      </v-row>
+         <v-row>
+          <v-col cols="12">
+            <v-card>
+              <v-toolbar flat color="success">Abstellmaßnahmen</v-toolbar>
+              <v-card-text>
+                <v-row no-gutters>
+                  <v-col cols="10">
+                    <v-text-field label="Sofortmaßnahmen" v-model="currentLongTimeAction.name" />
+                  </v-col>
+                  <v-col cols="2">
+                    <v-btn @click="addLongTimeAction()" block color="success"
+                      >Hinzufügen</v-btn
+                    >
+                  </v-col>
+                </v-row>
+                <v-col>
+                  <v-row v-for="cause in longTimeAction" :key="cause.name">
+                    <v-btn icon @click="removeLongTimeAction(cause)" ><v-icon>{{trashIcon}}</v-icon></v-btn>
+                    <v-checkbox v-model="cause.checked"  dense :label="cause.name" />
+                  </v-row>
+                </v-col>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
 
-      <v-row>
-        <v-col cols="12">
-          <v-text-field v-model="description" counter maxlength="150" label="Geben Sie eine Beschreibung zur Fehlerentstehung ein:" >
-          </v-text-field>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-        <v-checkbox v-model="enabled" hide details class="shrink mr-2 mt-0" label="Ich bestätige die Überprüfung der eingegebenen Daten">
-        </v-checkbox>
-        </v-col>
-      </v-row>
-      <v-row> 
-        <v-col>
-          <v-btn color="info" :disabled="!enabled" :loading="loading"  @click="send()">
-          Weiter
-          </v-btn>
-        </v-col>       
-      </v-row> 
-      <v-row>
-        <v-col>
-          <v-divider/>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12">
-          <v-card>
-            <v-toolbar height="40" color="#009B8B" elevation="0">Vorgeschlagene Maßnahme</v-toolbar>
-            <v-card-text> 
-              <h4>Für diesen Fehler wird folgende Maßnahme vorgeschlagen:</h4>
-              <h2 class="mt-5">{{actionToDo}}</h2>
-            </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col cols="12">
-          <v-card>
-            <v-toolbar height="40" color="#009B8B" elevation="0">Ausfalltage</v-toolbar>
-            <v-card-text> 
-              <h4>Ausfalltage:</h4>
-              <h2 class="mt-5">{{downtimeInDays}}</h2>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-form>
+      </v-form>
     </v-container>
   </div>
 </template>
 
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
-  import { faults,workspaces,products, actions} from '@/utils'
-import Fault from '@/api/model/fault';
+import { Component, Vue } from "vue-property-decorator";
+import { mdiCheck,mdiTrashCan } from "@mdi/js";
 
-  @Component
-  export default class NewFailure extends Vue {
+@Component
+export default class NewPDCA extends Vue {
+  newCauses: Array<string> = [];
+  category: Array<string> = [];
+  title = "";
+  downtime = "";
+  shortTimeAction: Array<any> = [];
+  longTimeAction: Array<any> = [];
+  ressources: Array<string> = [];
+  goals: Array<string> = [];
+  currentShortTimeAction : any = {
+    name: "",
+    checked: false
+  };
+   currentLongTimeAction : any = {
+    name: "",
+    checked: false
+  };
+  checkIcon = mdiCheck;
+  trashIcon = mdiTrashCan
 
-    enabled = false
-    loading = false
-    currentFault = this.faultItems[0]
-    currentWorkspace = this.workspaceItems[0]
-    currentProduct = this.productItems[0]
-    currentDispolevel = "ESC GT_1"
-    currentArea = "OSM-Planfertigung"
-    currentCategory = "Administration"
-    description = ""
-    actionToDo = ""
-    downtimeInDays = 0
-
-    faultCategories = [
-      "Administration",
-      "Organisation",
-      "Qualität",
-      "Technik"
-    ]
-
-    areas = [
-      "OSM-Planfertigung",
-      "OSM-Vorfertigung",
-      "OSM-Zylinderfertigung",
-      "OSM-Zwsichenprozesse",
-      "OSM",
-      "SBT",
-      "WTC",
-      "CS",
-      "RR",
-      "ILM",
-      "EUV",
-      "EMU",
-      "ESC",
-    ]
-
-    dispoLevels = [
-      "ESC GT_1",
-      "ESC MMP_2",
-      "ESC MMP_3",
-      "ESC SMMP_2",
-      "ESC SMMP_3",
-      "ESC SMMP_4",
-      "Block GT_1",
-      "Block MMP_2",
-      "Block MMP_3",
-      "GL MMP_4",
-      "GL MMP_5",
-      "Block SMMP_2",
-      "GL SMMP_5",
-      "GL SMMP_6",
-      "Side Mirror B CNC Dis.1 (1041869)",
-      "Side Mirror B FEPO Dis.2 (1054275)",
-      "Side Mirror B FEPO Dis.3 (1042663)",
-      "Block GT_2",
-    ]
-
-    async send() {
-
-      try {
-        console.log(this.currentWorkspace)
-        this.loading = true
-        const fault = new Fault()
-        fault.reason = this.currentFault
-        fault.category = this.currentCategory
-        fault.workplace = this.currentWorkspace
-        fault.product = this.currentProduct
-        fault.department = this.currentArea
-        fault.dispolevel = this.currentDispolevel
-        const createdFault = await this.$api.sendFault(fault)
-        const prediction = await this.$api.predict(createdFault?.product ?? "",createdFault?.workplace ?? "",createdFault?.reason ?? "")
-
-        if((prediction?.action?.length ?? 0) > 0 && prediction?.action) {
-          const predictionResult = String(prediction?.action[0])
-          this.actionToDo = actions[predictionResult];
-        }
-
-        if((prediction?.downtime?.length ?? 0) > 0 && prediction?.downtime) {
-          const downtimeResult = String(prediction?.downtime[0])
-          this.downtimeInDays = parseInt(downtimeResult)
-        }
-
-        console.log("PREDICTION",prediction)
-
-      } catch(err) {
-        console.log(err)
-      }
-
-      this.loading = false
-
-    }
-
-
-    get faultItems() {
-
-      let values = []
-
-      for(const [key,value] of Object.entries(faults)) {
-        values.push(key)
-      }
-
-      return values
-    }
-
-    get productItems() {
-
-      let values = []
-
-      for(const [key,value] of Object.entries(products)) {
-        values.push(key)
-      }
-
-      return values
-    }
-
-    get workspaceItems() {
-
-      let values = []
-
-      for(const [key,value] of Object.entries(workspaces)) {
-        values.push(key)
-      }
-
-      return values
-    }
-
-
+  removeCause(item: string) {
+    const index = this.newCauses.indexOf(item);
+    this.newCauses.splice(index, 1);
+    this.newCauses = [...this.newCauses];
   }
+
+  removeCategory(item: string) {
+    const index = this.category.indexOf(item);
+    this.category.splice(index, 1);
+    this.category = [...this.category];
+  }
+
+  removeShortTimeAction(item: string) {
+    const index = this.shortTimeAction.indexOf(item);
+    this.shortTimeAction.splice(index, 1);
+    this.shortTimeAction = [...this.shortTimeAction];
+  }
+
+  removeLongTimeAction(item: string) {
+    const index = this.longTimeAction.indexOf(item);
+    this.longTimeAction.splice(index, 1);
+    this.longTimeAction = [...this.longTimeAction];
+  }
+
+  removeRessources(item: string) {
+    const index = this.ressources.indexOf(item);
+    this.ressources.splice(index, 1);
+    this.ressources = [...this.ressources];
+  }
+
+  removeGoals(item: string) {
+    const index = this.goals.indexOf(item);
+    this.goals.splice(index, 1);
+    this.goals = [...this.goals];
+  }
+
+  addShortTimeAction() {
+    if(this.shortTimeAction.some(item => item.name === this.currentShortTimeAction.name)) {
+      return
+    }
+    this.shortTimeAction.push({
+      checked: false,
+      name: this.currentShortTimeAction.name
+    });
+    this.currentShortTimeAction.name = ""
+  }
+
+   addLongTimeAction() {
+    if(this.longTimeAction.some(item => item.name === this.currentLongTimeAction.name)) {
+      return
+    }
+    this.longTimeAction.push({
+      checked: false,
+      name: this.currentLongTimeAction.name
+    });
+    this.currentLongTimeAction.name = ""
+  }
+}
 </script>
 
 <style scoped>
-
 </style>
