@@ -23,7 +23,7 @@
       <v-row>
           <v-col cols="12">
               <v-card>
-                  <v-toolbar color="#F64444" > <h2> Aktueller Fehler </h2> </v-toolbar>
+                  <v-toolbar color="#F66464" > <h2> Aktueller Fehler </h2> </v-toolbar>
                   <v-card-text>  
                     <v-row>
                         <v-col v-if="hasCurrentFault()">

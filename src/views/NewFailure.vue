@@ -101,7 +101,7 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { faults,workspaces,products, actions} from '@/utils'
-import Fault from '@/api/model/fault';
+  import Fault from '@/api/model/fault';
 
   @Component
   export default class NewFailure extends Vue {

@@ -13,7 +13,7 @@
           <v-divider/>
         </v-col>
         <v-col cols="12"> <h2>Ist der vorliegende Fehler bereits bekannt?</h2>
-            (bekannt bedeutet hierbei das Vorliegen der Komponenten "Fehlergrund", "Fehlerkategorie" und weiteren produktbezogene Informationen)
+            (bekannt bedeutet hierbei die Kenntnis über "Fehlergrund", "Fehlerkategorie" und weiteren, produktbezogenen Informationen)
         </v-col>
       </v-row>  
       <v-row>

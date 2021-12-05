@@ -1,7 +1,7 @@
 
 
 
-export default class Solution {
+export default class PDCA {
 
     title?: string
     description?: string
@@ -14,7 +14,7 @@ export default class Solution {
     timestamp?: string
 
 
-    fromJson(data: any) : Solution {
+    fromJson(data: any) : PDCA {
         this.title = data.title
         this.description = data.description
         this.downtime = data.downtime
