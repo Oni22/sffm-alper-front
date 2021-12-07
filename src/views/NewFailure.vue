@@ -44,7 +44,8 @@
       </v-row>
       <v-row>
         <v-col>
-        <v-checkbox v-model="enabled" hide details class="shrink mr-2 mt-0" label="Ich bestätige die Überprüfung der eingegebenen Daten">
+        <v-checkbox v-model="enabled" hide details class="shrink mr-2 mt-0" 
+        label="Ich bestätige die Überprüfung der eingegebenen Daten und willige der Datenverarbeitung ein.">
         </v-checkbox>
         </v-col>
       </v-row>
@@ -100,7 +101,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import { faults,workspaces,products, actions} from '@/utils'
+  import { faults,workspaces,products, actions,primaryCauses, secundaryCauses} from '@/utils'
   import Fault from '@/api/model/fault';
 
   @Component
@@ -196,8 +197,7 @@
 
 //        if((prediction?.sCause?.length ?? 0) > 0 && prediction?.sCause) {
 //          const secundaryCauseResult = String(prediction?.sCause[0])
-//          this.secundaryCause = parseInt(secundaryCauseResult)
-//        }        
+//          this.secundaryCause = parseInt(secundaryCauseResult)/        }        
 
         console.log("PREDICTION",prediction)
 

@@ -1,30 +1,29 @@
 <template>
-    <v-container fluid>
-        <v-col cols="3">
-            <v-select v-model="value" :items="items" label="Select Item" multiple>
-                <template v-slot:selection="{ item, index }">
-                    <v-chip v-if="index === 0">
-                        <span>
-                            {{ item }}
-                        </span>
-                    </v-chip>
-                        <span v-if="index === 1" class="grey--text text-caption">
-                            (+{{ value.length - 1 }} others)
-                        </span>
-                </template>
-            </v-select>
-            <v-select v-model="value" :items="items" label="Select Item" multiple>
-                <template v-slot:selection="{ item, index }">
-                    <v-chip v-if="index === 0">
-                        <span>
-                            {{ item }}
-                        </span>
-                    </v-chip>
-                        <span v-if="index === 1" class="grey--text text-caption">
-                            (+{{ value.length - 1 }} others)
-                        </span>
-                </template>
-            </v-select>          
-        </v-col>    
-    </v-container>
+    <v-row justify="center">
+        <v-col cols="6">
+            <v-date-picker v-model="months" type="month" multiple color="grey"></v-date-picker>
+        </v-col>
+    </v-row>
 </template>
+
+
+<script lang="ts">
+  import { Component, Vue } from 'vue-property-decorator';
+  import { Routes } from '@/router/utils'
+
+
+  @Component
+  export default class FailureAnalyze extends Vue {
+
+    months = "2018-09"
+
+
+
+  }
+
+</script>
+
+<style scoped>
+
+</style>
+
