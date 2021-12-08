@@ -1,9 +1,7 @@
 <template>
   <div>
     <v-container>
-      <v-form>
-        <v-row>
-          <v-col cols="12">
+    <v-col cols="12">
               In diesem Fenster wird ein Fehler, dessen Spezifikationen unbekannt sind, eingetragen. Hierbei wird ein neuer Problemlösungszyklus, im 
               Sinne des Plan-Do-Check-Act-Zyklus (PDCA-Zyklus), angestoßen. Durch das Erarbeiten der notwendigen Faktoren für die auftretende Störung, 
               wird eine nachhaltige Fertigungsoptimierung bzw. Fehlerbeseitigung für diesen Arbeitsschritt angestrebt. 
@@ -15,118 +13,140 @@
             </p>
               Weitere Informationen bezüglich es PDCA-Zyklus und der Funktionsweise der Applikation können aus dem Reiter "Informationen zur App"
               entnommen werden.
-          </v-col> 
-          <v-divider/>
-          <v-col cols="12">
-            <v-card>
-              <v-toolbar height="50px" color="#FABB76" flat>Plan</v-toolbar>
-              <v-card-text>
-                <v-row>
-                  <v-col cols="12">
-                    <v-text-field 
-                    label="Beschreibung des Problems" v-model="title"
-                    hint="Bitte geben Sie eine kurze Beschreibung des auftretenden Problems an."
-                    persistent-hint
-                     />
-                  </v-col>
-                  <v-col cols="12">
-                    <v-combobox
-                      v-model="newCauses"
-                      chips
-                      dense
-                      clearable
-                      label="Ursachen"
-                      hint="Welche Ursachen könnten die Auslöser für das Problem sein?"
-                      persistent-hint
-                      multiple
-                    >
-                      <template
-                        v-slot:selection="{ attrs, item, select, selected }"
-                      >
-                        <v-chip
-                          v-bind="attrs"
-                          :input-value="selected"
-                          close
-                          @click="select"
-                          @click:close="removeCause(item)"
-                        >
-                          <strong>{{ item }}</strong>
-                        </v-chip>
-                      </template>
-                    </v-combobox>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-combobox
-                      v-model="category"
-                      chips
-                      dense
-                      clearable
-                      label="Ursachenbereich"
-                      hint="Aus welchen Ursachenbereichen (Mensch, Maschine, Management, Mitwelt, Methode) könnte das Problem auftreten?"
-                      persistent-hint
-                      multiple
-                    >
-                      <template
-                        v-slot:selection="{ attrs, item, select, selected }"
-                      >
-                        <v-chip
-                          v-bind="attrs"
-                          :input-value="selected"
-                          close
-                          @click="select"
-                          @click:close="removeCategory(item)"
-                        >
-                          <strong>{{ item }}</strong>
-                        </v-chip>
-                      </template>
-                    </v-combobox>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-text-field
-                      type="number"
-                      label="Stillstandzeit (in Tagen)"
-                      hint="Bitte geben Sie die geschätzte Stillstandzeit (in Tagen) für die vorliegende Störung an."
-                      persistent-hint
-                      v-model="downtime"
-                    />
-                  </v-col>
-                  <v-col cols="12">
-                    <v-combobox
-                      v-model="ressources"
-                      chips
-                      dense
-                      clearable
-                      label="Ressourcen"
-                      hint="Welche Ressourcen werden zur Lösung des Problems benötigt?"
-                      persistent-hint
-                      multiple
-                    >
-                      <template
-                        v-slot:selection="{ attrs, item, select, selected }"
-                      >
-                        <v-chip
-                          v-bind="attrs"
-                          :input-value="selected"
-                          close
-                          @click="select"
-                          @click:close="removeRessources(item)"
-                        >
-                          <strong>{{ item }}</strong>
-                        </v-chip>
-                      </template>
-                    </v-combobox>
-                  </v-col>
-                </v-row>
-              </v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
+    </v-col> 
+      <v-divider/>
 
-        <v-row>
-          <v-col cols="12">
-            <v-card>
-              <v-toolbar height="50px" color="#F6E45C" flat>Do</v-toolbar>
-              <v-toolbar flat height="40px" color="#F9ED95">Festlegung der Sofortmaßnahmen</v-toolbar>
+      <v-stepper non-linear>
+        <v-stepper-header>
+          <v-stepper-step editable step="1">Plan</v-stepper-step>
+            <v-divider></v-divider>
+          <v-stepper-step editable step="2">Do</v-stepper-step>
+            <v-divider></v-divider>
+          <v-stepper-step step="3" editable>Check</v-stepper-step>
+            <v-divider></v-divider>
+          <v-stepper-step step="4" editable>Act</v-stepper-step>
+        </v-stepper-header>
+    <v-stepper-items>
+      <v-stepper-content step="1">
+                <v-stepper non-linear vertical>
+                  <v-stepper-header vertical>
+                    <v-stepper-step editable step="a"></v-stepper-step>
+                      <v-divider></v-divider>
+                    <v-stepper-step editable step="b"></v-stepper-step>
+                      <v-divider></v-divider>
+                    <v-stepper-step editable step="c"></v-stepper-step>
+                      <v-divider></v-divider>
+                    <v-stepper-step editable step="d"></v-stepper-step>
+                      <v-divider></v-divider>
+                    <v-stepper-step editable step="e"></v-stepper-step>
+                      <v-divider></v-divider>
+                  </v-stepper-header>
+                    <v-stepper-items>
+                      <v-stepper-content step="a">
+                            <v-text-field 
+                              label="Beschreibung des Problems" v-model="title"
+                              hint="Bitte geben Sie eine kurze Beschreibung des auftretenden Problems an."
+                              persistent-hint
+                            />
+                      </v-stepper-content>
+
+                      <v-stepper-content step="b">
+                          <v-combobox
+                            v-model="newCauses"
+                            chips
+                            dense
+                            clearable
+                            label="Ursachen"
+                            hint="Welche Ursachen könnten die Auslöser für das Problem sein?"
+                            persistent-hint
+                            multiple
+                          >
+                            <template
+                              v-slot:selection="{ attrs, item, select, selected }"
+                            >
+                              <v-chip
+                                v-bind="attrs"
+                                :input-value="selected"
+                                close
+                                @click="select"
+                                @click:close="removeCause(item)"
+                              >
+                                <strong>{{ item }}</strong>
+                              </v-chip>
+                            </template>
+                          </v-combobox>
+                      </v-stepper-content>
+                      
+                      <v-stepper-content step="c">
+                              <v-combobox
+                                v-model="category"
+                                chips
+                                dense
+                                clearable
+                                label="Ursachenbereich"
+                                hint="Aus welchen Ursachenbereichen (Mensch, Maschine, Management, Mitwelt, Methode) könnte das Problem auftreten?"
+                                persistent-hint
+                                multiple
+                              >
+                                <template
+                                  v-slot:selection="{ attrs, item, select, selected }"
+                                >
+                                  <v-chip
+                                    v-bind="attrs"
+                                    :input-value="selected"
+                                    close
+                                    @click="select"
+                                    @click:close="removeCategory(item)"
+                                  >
+                                    <strong>{{ item }}</strong>
+                                  </v-chip>
+                                </template>
+                              </v-combobox>
+                      </v-stepper-content>
+
+                      <v-stepper-content step="d">
+                          <v-text-field
+                            type="number"
+                            label="Stillstandzeit (in Tagen)"
+                            hint="Bitte geben Sie die geschätzte Stillstandzeit (in Tagen) für die vorliegende Störung an."
+                            persistent-hint
+                            v-model="downtime"
+                          />
+                      </v-stepper-content>
+
+                      <v-stepper-content step="e">
+                          <v-combobox
+                              v-model="ressources"
+                              chips
+                              dense
+                              clearable
+                              label="Ressourcen"
+                              hint="Welche Ressourcen werden zur Lösung des Problems benötigt?"
+                              persistent-hint
+                              multiple
+                            >
+                              <template
+                                v-slot:selection="{ attrs, item, select, selected }"
+                              >
+                                <v-chip
+                                  v-bind="attrs"
+                                  :input-value="selected"
+                                  close
+                                  @click="select"
+                                  @click:close="removeRessources(item)"
+                                >
+                                  <strong>{{ item }}</strong>
+                                </v-chip>
+                              </template>
+                          </v-combobox>
+                      </v-stepper-content>
+                    </v-stepper-items>
+                </v-stepper>  
+      </v-stepper-content>
+
+      <v-stepper-content step="2">
+        <v-card class="mb-12">
+          <v-toolbar flat height="40px" color="#F9ED95">Festlegung der Sofortmaßnahmen</v-toolbar>
               <v-card-text>
                 <v-row no-gutters>
                   <v-col cols="10">
@@ -145,13 +165,9 @@
                   </v-row>
                 </v-col>
               </v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12">
-            <v-card>
-              <v-toolbar flat height="40px" color="#F9ED95">Festlegung der Abstellmaßnahmen</v-toolbar>
+        </v-card>
+        <v-card>
+          <v-toolbar flat height="40px" color="#F9ED95">Festlegung der Abstellmaßnahmen</v-toolbar>
               <v-card-text>
                 <v-row no-gutters>
                   <v-col cols="10">
@@ -170,13 +186,12 @@
                   </v-row>
                 </v-col>
               </v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
+        </v-card>
+      </v-stepper-content>
 
-        <v-row>
-          <v-col cols="12">
-            <v-card>
+      <v-stepper-content step="3">
+        <v-card class="mb-12">
+          <v-card>
               <v-toolbar height="50px" color="#5FBD5F" flat>Check</v-toolbar>
               <v-toolbar flat height="40px" color="#92D292">Ergebnisdarstellung</v-toolbar>
               <v-card-text>
@@ -198,10 +213,6 @@
                 </v-col>
               </v-card-text>
             </v-card>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12">
             <v-card>
               <v-toolbar flat height="40px" color="#92D292">Spezifikationshinweise</v-toolbar>
               <v-card-text>
@@ -223,12 +234,12 @@
                 </v-col>
               </v-card-text>
             </v-card>
-          </v-col>
-        </v-row>
+        </v-card>
+      </v-stepper-content>
 
-        <v-row>
-          <v-col cols="12">
-            <v-card>
+      <v-stepper-content step="4">
+        <v-card class="mb-12">
+          <v-card>
               <v-toolbar height="50px" color="#4777E1" flat>Act</v-toolbar>
               <v-toolbar flat height="40px" color="#96B1EE">Zielstellungen zur Fehlerbeseitigung</v-toolbar>
               <v-card-text>
@@ -250,10 +261,6 @@
                 </v-col>
               </v-card-text>
             </v-card>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12">
             <v-card>
               <v-toolbar flat height="40px" color="#96B1EE">Vorgehen/ Schritte zur Standardisierung</v-toolbar>
               <v-card-text>
@@ -275,20 +282,11 @@
                 </v-col>
               </v-card-text>
             </v-card>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12">
-            <v-divider/>
-              <v-col>
-              <v-btn color="info" :loading="loading">
-                Ergebnisse sichern
-              </v-btn>
-              </v-col>
-          </v-col>
-        </v-row>
+        </v-card>
 
-      </v-form>
+      </v-stepper-content>
+    </v-stepper-items>
+      </v-stepper>
     </v-container>
   </div>
 </template>
@@ -464,3 +462,5 @@ export default class NewPDCA extends Vue {
 
 <style scoped>
 </style>
+
+
