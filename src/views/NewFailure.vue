@@ -4,9 +4,12 @@
       <v-form>
       <v-row>
         <v-col cols="12">
+        <h2>Fehleraufnahme für neue, bekannte Fehler</h2>
+        <p class="font-weight-light">
           In diesem Fenster wird ein neuer Fehler, dessen Spezifikationen bereits bekannt sind, eingetragen. Das Ausfüllen der Felder und anschließendes 
           Absenden begünstigt die Prognose einer Stillstandzeit, einer passenden Maßnahme und einem primären sowie sekundären Ursachenfeld. Durch die 
-          Bearbeitung mit Maschine-Learning-Algorithmen, wird eine Fehlerliste für die tiefgreifenden Analysen der Fehlersituationen aufgestellt. 
+          Bearbeitung mit Maschine-Learning-Algorithmen, wird eine Fehlerliste für die tiefgreifenden Analysen der Fehlersituationen aufgestellt.
+        </p> 
         </v-col> 
         <v-col>
           <v-divider/>

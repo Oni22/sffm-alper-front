@@ -1,33 +1,50 @@
 <template>
   <div>
     <v-container>
+      <h2>Problemlösungsprozess für neue, unbekannte Fehler</h2>
+        <p class="font-weight-light">
+              In diesem Fenster wird ein Fehler, dessen Spezifikationen unbekannt sind, eingetragen. 
+              Hierbei wird ein neuer Problemlösungszyklus, im Sinne des Plan-Do-Check-Act-Zyklus (PDCA-Zyklus), angestoßen.
+        </p>    
+        <v-alert border="left" colored-border type="info" elevation="2"> 
+          <small>
+              Bitte tragen Sie die notwendigen Informationen für die Problemlösung ein, indem Sie die Schritte des PDCA-Zyklus bearbeiten.
+              <strong>Speichern Sie Ihre Daten mit der Schaltfläche jederzeit ab, um Sie abzusenden.</strong> 
+              Nach der Sicherung der Ergebnisse können Sie die Seite verlassen und unter dem Reiter "Aktuelle Problemlösungen" 
+              den Eintrag aufrufen.
+              Sie können zwischen den Optionen hin- und her wechseln, um nachträgliche Veränderungen vorzunehmen.
+          </small>
+        </v-alert>
     <v-col cols="12">
-              In diesem Fenster wird ein Fehler, dessen Spezifikationen unbekannt sind, eingetragen. Hierbei wird ein neuer Problemlösungszyklus, im 
-              Sinne des Plan-Do-Check-Act-Zyklus (PDCA-Zyklus), angestoßen. Durch das Erarbeiten der notwendigen Faktoren für die auftretende Störung, 
-              wird eine nachhaltige Fertigungsoptimierung bzw. Fehlerbeseitigung für diesen Arbeitsschritt angestrebt. 
-            <p>  
-              Es wird eine Übersicht für das 
-              langfristige Bearbeiten der unbekannten Fehlersituation ermöglicht, indem ein durchgehender Zugriff auf die individuellen Problemlösungszyklen 
-              gewährleistet wird. Dazu müssen die eingegebenen Daten über die Schaltfläche gesichert werden, um sie zu einem späteren Zeitpunkt über den Reiter 
-              "Aktuelle Problemlösungen" aufrufen zu können. 
-            </p>
-              Weitere Informationen bezüglich es PDCA-Zyklus und der Funktionsweise der Applikation können aus dem Reiter "Informationen zur App"
-              entnommen werden.
-    </v-col> 
-      <v-divider/>
-
-      <v-stepper non-linear>
+      <v-row align="center" justify="space-around">
+        <v-btn color="blue" outlined>
+          <v-icon left>mdi-arrow-up-bold-box-outline</v-icon>
+            Ergebnisse sichern
+        </v-btn>
+      </v-row>
+      <p></p>
+    </v-col>
+    
+  <v-stepper non-linear>
         <v-stepper-header>
-          <v-stepper-step editable step="1">Plan</v-stepper-step>
+          <v-stepper-step editable step="1" color="green"><h1>Plan</h1></v-stepper-step>
             <v-divider></v-divider>
-          <v-stepper-step editable step="2">Do</v-stepper-step>
+          <v-stepper-step editable step="2"><h1>Do</h1></v-stepper-step>
             <v-divider></v-divider>
-          <v-stepper-step step="3" editable>Check</v-stepper-step>
+          <v-stepper-step editable step="3"><h1>Check</h1></v-stepper-step>
             <v-divider></v-divider>
-          <v-stepper-step step="4" editable>Act</v-stepper-step>
+          <v-stepper-step editable step="4"><h1>Act</h1></v-stepper-step>
         </v-stepper-header>
     <v-stepper-items>
       <v-stepper-content step="1">
+        <v-col cols="12">
+          In der ersten Phase des Problemlösungsprozesses wird die Planung zur Beseitigung des Problems durchgeführt. Dabei werden zunächst die 
+          problembeschreibenden Daten lokalisiert und schriftlich vermerkt. Hierbei werden die möglichen Ursachen und Ursachenbereiche, 
+          die geschätzte Stillstandzeit und die notwendigen Ressourcen zur Beseitigung festgelegt. Mithilfe dieser Analyse des Ist-Zustandes 
+          sowie der Problemfestlegung lässt sich im Nachgang ein Ziel bestimmen. 
+          <h3>Bitte führen sie im Folgenden die Schritte durch, um das Problem aufzunehmen und den Problemlösungszyklus anzustoßen.</h3>
+          
+        </v-col>
                 <v-stepper non-linear vertical>
                   <v-stepper-header vertical>
                     <v-stepper-step editable step="a"></v-stepper-step>
@@ -43,11 +60,39 @@
                   </v-stepper-header>
                     <v-stepper-items>
                       <v-stepper-content step="a">
+                        <v-col cols="12">
                             <v-text-field 
                               label="Beschreibung des Problems" v-model="title"
                               hint="Bitte geben Sie eine kurze Beschreibung des auftretenden Problems an."
                               persistent-hint
                             />
+                        </v-col> 
+                        <v-col cols="12">
+                            <v-combobox
+                              v-model="titleTags"
+                              chips
+                              dense
+                              clearable
+                              label="Tags"
+                              hint="Geben Sie mögliche Stichwörter (Tags) zur Beschreibung des Problems an (optional)."
+                              persistent-hint
+                              multiple
+                            >
+                              <template
+                                v-slot:selection="{ attrs, item, select, selected }"
+                              >
+                                <v-chip
+                                  v-bind="attrs"
+                                  :input-value="selected"
+                                  close
+                                  @click="select"
+                                  @click:close="removeTag(item)"
+                                >
+                                  <strong>{{ item }}</strong>
+                                </v-chip>
+                              </template>
+                            </v-combobox>                          
+                        </v-col>   
                       </v-stepper-content>
 
                       <v-stepper-content step="b">
@@ -105,6 +150,7 @@
                       </v-stepper-content>
 
                       <v-stepper-content step="d">
+                        <v-col cols="12">
                           <v-text-field
                             type="number"
                             label="Stillstandzeit (in Tagen)"
@@ -112,6 +158,10 @@
                             persistent-hint
                             v-model="downtime"
                           />
+                        </v-col>
+                        <v-col>
+                        abc
+                        </v-col>  
                       </v-stepper-content>
 
                       <v-stepper-content step="e">
@@ -145,148 +195,214 @@
       </v-stepper-content>
 
       <v-stepper-content step="2">
-        <v-card class="mb-12">
-          <v-toolbar flat height="40px" color="#F9ED95">Festlegung der Sofortmaßnahmen</v-toolbar>
-              <v-card-text>
-                <v-row no-gutters>
-                  <v-col cols="10">
-                    <v-text-field label="Sofortmaßnahmen angeben (Maßnahme XY / Datum: TT.MM.JJJJ)" v-model="currentShortTimeAction.name" />
-                  </v-col>
-                  <v-col cols="2">
-                    <v-btn @click="addShortTimeAction()" block color="grey"
-                      >Hinzufügen</v-btn
-                    >
-                  </v-col>
-                </v-row>
-                <v-col>
-                  <v-row v-for="cause in shortTimeAction" :key="cause.name">
-                    <v-btn icon @click="removeShortTimeAction(cause)" ><v-icon>{{trashIcon}}</v-icon></v-btn>
-                    <v-checkbox v-model="cause.checked"  dense :label="cause.name" />
-                  </v-row>
-                </v-col>
-              </v-card-text>
-        </v-card>
-        <v-card>
-          <v-toolbar flat height="40px" color="#F9ED95">Festlegung der Abstellmaßnahmen</v-toolbar>
-              <v-card-text>
-                <v-row no-gutters>
-                  <v-col cols="10">
-                    <v-text-field label="Abstellmaßnahmen angeben (Maßnahme XY / Datum: TT.MM.JJJJ)" v-model="currentLongTimeAction.name" />
-                  </v-col>
-                  <v-col cols="2">
-                    <v-btn @click="addLongTimeAction()" block color="grey"
-                      >Hinzufügen</v-btn
-                    >
-                  </v-col>
-                </v-row>
-                <v-col>
-                  <v-row v-for="cause in longTimeAction" :key="cause.name">
-                    <v-btn icon @click="removeLongTimeAction(cause)" ><v-icon>{{trashIcon}}</v-icon></v-btn>
-                    <v-checkbox v-model="cause.checked"  dense :label="cause.name" />
-                  </v-row>
-                </v-col>
-              </v-card-text>
-        </v-card>
+       <v-col cols="6">
+          In der ersten Phase des Problemlösungsprozesses wird die Planung zur Beseitigung des Problems durchgeführt. Dabei werden zunächst die 
+          problembeschreibenden Daten lokalisiert und schriftlich vermerkt. Hierbei werden die möglichen Ursachen und Ursachenbereiche, 
+          die geschätzte Stillstandzeit und die notwendigen Ressourcen zur Beseitigung festgelegt. Mithilfe dieser Analyse des Ist-Zustandes 
+          sowie der Problemfestlegung lässt sich im Nachgang ein Ziel bestimmen. 
+          <small>
+            <h3>Bitte führen sie im Folgenden die Schritte durch, um das Problem aufzunehmen und den Problemlösungszyklus anzustoßen.
+            Sie können zwischen den Optionen hin- und her wechseln, um nachträgliche Veränderungen vorzunehmen.</h3>
+          </small>
+        </v-col>
+                <v-stepper non-linear vertical>
+                  <v-stepper-header vertical>
+                    <v-stepper-step editable step="a"></v-stepper-step>
+                      <v-divider></v-divider>
+                    <v-stepper-step editable step="b"></v-stepper-step>
+                      <v-divider></v-divider>
+                  </v-stepper-header>
+                    <v-stepper-items>
+                      <v-stepper-content step="a">
+                        <v-card class="mb-12">
+                          <v-toolbar flat height="40px" color="#F9ED95">Festlegung der Sofortmaßnahmen</v-toolbar>
+                              <v-card-text>
+                                <v-row no-gutters>
+                                  <v-col cols="10">
+                                    <v-text-field label="Sofortmaßnahmen angeben (Maßnahme XY / Datum: TT.MM.JJJJ)" v-model="currentShortTimeAction.name" />
+                                  </v-col>
+                                  <v-col cols="2">
+                                    <v-btn @click="addShortTimeAction()" block color="grey"
+                                      >Hinzufügen</v-btn
+                                    >
+                                  </v-col>
+                                </v-row>
+                                <v-col>
+                                  <v-row v-for="cause in shortTimeAction" :key="cause.name">
+                                    <v-btn icon @click="removeShortTimeAction(cause)" ><v-icon>{{trashIcon}}</v-icon></v-btn>
+                                    <v-checkbox v-model="cause.checked"  dense :label="cause.name" />
+                                  </v-row>
+                                </v-col>
+                              </v-card-text>
+                        </v-card>
+                      </v-stepper-content>
+
+                      <v-stepper-content step="b">
+                        <v-card>
+                          <v-toolbar flat height="40px" color="#F9ED95">Festlegung der Abstellmaßnahmen</v-toolbar>
+                              <v-card-text>
+                                <v-row no-gutters>
+                                  <v-col cols="10">
+                                    <v-text-field label="Abstellmaßnahmen angeben (Maßnahme XY / Datum: TT.MM.JJJJ)" v-model="currentLongTimeAction.name" />
+                                  </v-col>
+                                  <v-col cols="2">
+                                    <v-btn @click="addLongTimeAction()" block color="grey"
+                                      >Hinzufügen</v-btn
+                                    >
+                                  </v-col>
+                                </v-row>
+                                <v-col>
+                                  <v-row v-for="cause in longTimeAction" :key="cause.name">
+                                    <v-btn icon @click="removeLongTimeAction(cause)" ><v-icon>{{trashIcon}}</v-icon></v-btn>
+                                    <v-checkbox v-model="cause.checked"  dense :label="cause.name" />
+                                  </v-row>
+                                </v-col>
+                              </v-card-text>
+                        </v-card>
+                      </v-stepper-content>
+                    </v-stepper-items>
+                </v-stepper>   
       </v-stepper-content>
 
       <v-stepper-content step="3">
-        <v-card class="mb-12">
-          <v-card>
-              <v-toolbar height="50px" color="#5FBD5F" flat>Check</v-toolbar>
-              <v-toolbar flat height="40px" color="#92D292">Ergebnisdarstellung</v-toolbar>
-              <v-card-text>
-                <v-row no-gutters>
-                  <v-col cols="10">
-                    <v-text-field label="Ergebnisse angeben (Ergebnis XY / Datum: TT.MM.JJJJ)" v-model="currentResults.name" />
-                  </v-col>
-                  <v-col cols="2">
-                    <v-btn @click="addResult()" block color="grey"
-                      >Hinzufügen</v-btn
-                    >
-                  </v-col>
-                </v-row>
-                <v-col>
-                  <v-row v-for="cause in results" :key="cause.name">
-                    <v-btn icon @click="removeResults(cause)" ><v-icon>{{trashIcon}}</v-icon></v-btn>
-                    <v-checkbox v-model="cause.checked"  dense :label="cause.name" />
-                  </v-row>
-                </v-col>
-              </v-card-text>
-            </v-card>
-            <v-card>
-              <v-toolbar flat height="40px" color="#92D292">Spezifikationshinweise</v-toolbar>
-              <v-card-text>
-                <v-row no-gutters>
-                  <v-col cols="10">
-                    <v-text-field label="Spezifikationen angeben (Spezifikation XY / Datum: TT.MM.JJJJ)" v-model="currentSpecifications.name" />
-                  </v-col>
-                  <v-col cols="2">
-                    <v-btn @click="addSpecification()" block color="grey"
-                      >Hinzufügen</v-btn
-                    >
-                  </v-col>
-                </v-row>
-                <v-col>
-                  <v-row v-for="cause in specifications" :key="cause.name">
-                    <v-btn icon @click="removeSpecifications(cause)" ><v-icon>{{trashIcon}}</v-icon></v-btn>
-                    <v-checkbox v-model="cause.checked"  dense :label="cause.name" />
-                  </v-row>
-                </v-col>
-              </v-card-text>
-            </v-card>
-        </v-card>
+        <v-col cols="12">
+          In der ersten Phase des Problemlösungsprozesses wird die Planung zur Beseitigung des Problems durchgeführt. Dabei werden zunächst die 
+          problembeschreibenden Daten lokalisiert und schriftlich vermerkt. Hierbei werden die möglichen Ursachen und Ursachenbereiche, 
+          die geschätzte Stillstandzeit und die notwendigen Ressourcen zur Beseitigung festgelegt. Mithilfe dieser Analyse des Ist-Zustandes 
+          sowie der Problemfestlegung lässt sich im Nachgang ein Ziel bestimmen. 
+          <small>
+            <h3>Bitte führen sie im Folgenden die Schritte durch, um das Problem aufzunehmen und den Problemlösungszyklus anzustoßen.
+            Sie können zwischen den Optionen hin- und her wechseln, um nachträgliche Veränderungen vorzunehmen.</h3>
+          </small>
+        </v-col>
+          <v-stepper non-linear vertical>
+                  <v-stepper-header vertical>
+                    <v-stepper-step editable step="a"></v-stepper-step>
+                      <v-divider></v-divider>
+                    <v-stepper-step editable step="b"></v-stepper-step>
+                      <v-divider></v-divider>
+                  </v-stepper-header>
+                    <v-stepper-items>
+                      <v-stepper-content step="a">
+                          <v-card>
+                              <v-toolbar flat height="40px" color="#92D292">Ergebnisdarstellung</v-toolbar>
+                              <v-card-text>
+                                <v-row no-gutters>
+                                  <v-col cols="10">
+                                    <v-text-field label="Ergebnisse angeben (Ergebnis XY / Datum: TT.MM.JJJJ)" v-model="currentResults.name" />
+                                  </v-col>
+                                  <v-col cols="2">
+                                    <v-btn @click="addResult()" block color="grey"
+                                      >Hinzufügen</v-btn
+                                    >
+                                  </v-col>
+                                </v-row>
+                                <v-col>
+                                  <v-row v-for="cause in results" :key="cause.name">
+                                    <v-btn icon @click="removeResults(cause)" ><v-icon>{{trashIcon}}</v-icon></v-btn>
+                                    <v-checkbox v-model="cause.checked"  dense :label="cause.name" />
+                                  </v-row>
+                                </v-col>
+                              </v-card-text>
+                          </v-card>
+                       </v-stepper-content>
+
+                       <v-stepper-content step="b">
+                            <v-card>
+                              <v-toolbar flat height="40px" color="#92D292">Spezifikationshinweise</v-toolbar>
+                              <v-card-text>
+                                <v-row no-gutters>
+                                  <v-col cols="10">
+                                    <v-text-field label="Spezifikationen angeben (Spezifikation XY / Datum: TT.MM.JJJJ)" v-model="currentSpecifications.name" />
+                                  </v-col>
+                                  <v-col cols="2">
+                                    <v-btn @click="addSpecification()" block color="grey"
+                                      >Hinzufügen</v-btn
+                                    >
+                                  </v-col>
+                                </v-row>
+                                <v-col>
+                                  <v-row v-for="cause in specifications" :key="cause.name">
+                                    <v-btn icon @click="removeSpecifications(cause)" ><v-icon>{{trashIcon}}</v-icon></v-btn>
+                                    <v-checkbox v-model="cause.checked"  dense :label="cause.name" />
+                                  </v-row>
+                                </v-col>
+                              </v-card-text>
+                        </v-card>
+                      </v-stepper-content>
+                    </v-stepper-items> 
+          </v-stepper>          
       </v-stepper-content>
 
       <v-stepper-content step="4">
-        <v-card class="mb-12">
-          <v-card>
-              <v-toolbar height="50px" color="#4777E1" flat>Act</v-toolbar>
-              <v-toolbar flat height="40px" color="#96B1EE">Zielstellungen zur Fehlerbeseitigung</v-toolbar>
-              <v-card-text>
-                <v-row no-gutters>
-                  <v-col cols="10">
-                    <v-text-field label="Ziele für die Fehlerbeseitigung angeben (Ziel XY / Datum: TT.MM.JJJJ)" v-model="currentGoals.name" />
-                  </v-col>
-                  <v-col cols="2">
-                    <v-btn @click="addGoals()" block color="grey"
-                      >Hinzufügen</v-btn
-                    >
-                  </v-col>
-                </v-row>
-                <v-col>
-                  <v-row v-for="cause in goals" :key="cause.name">
-                    <v-btn icon @click="removeGoals(cause)" ><v-icon>{{trashIcon}}</v-icon></v-btn>
-                    <v-checkbox v-model="cause.checked"  dense :label="cause.name" />
-                  </v-row>
-                </v-col>
-              </v-card-text>
-            </v-card>
-            <v-card>
-              <v-toolbar flat height="40px" color="#96B1EE">Vorgehen/ Schritte zur Standardisierung</v-toolbar>
-              <v-card-text>
-                <v-row no-gutters>
-                  <v-col cols="10">
-                    <v-text-field label="Eingeführte Standards angeben (Standards XY / Datum: TT.MM.JJJJ)" v-model="currentStandards.name" />
-                  </v-col>
-                  <v-col cols="2">
-                    <v-btn @click="addStandards()" block color="grey"
-                      >Hinzufügen</v-btn
-                    >
-                  </v-col>
-                </v-row>
-                <v-col>
-                  <v-row v-for="cause in standards" :key="cause.name">
-                    <v-btn icon @click="removeStandards(cause)" ><v-icon>{{trashIcon}}</v-icon></v-btn>
-                    <v-checkbox v-model="cause.checked"  dense :label="cause.name" />
-                  </v-row>
-                </v-col>
-              </v-card-text>
-            </v-card>
-        </v-card>
-
+        <v-col cols="12">
+          In der ersten Phase des Problemlösungsprozesses wird die Planung zur Beseitigung des Problems durchgeführt. Dabei werden zunächst die 
+          problembeschreibenden Daten lokalisiert und schriftlich vermerkt. Hierbei werden die möglichen Ursachen und Ursachenbereiche, 
+          die geschätzte Stillstandzeit und die notwendigen Ressourcen zur Beseitigung festgelegt. Mithilfe dieser Analyse des Ist-Zustandes 
+          sowie der Problemfestlegung lässt sich im Nachgang ein Ziel bestimmen. 
+          <small>
+            <h3>Bitte führen sie im Folgenden die Schritte durch, um das Problem aufzunehmen und den Problemlösungszyklus anzustoßen.
+            Sie können zwischen den Optionen hin- und her wechseln, um nachträgliche Veränderungen vorzunehmen.</h3>
+          </small>
+        </v-col>
+          <v-stepper non-linear vertical>
+                  <v-stepper-header vertical>
+                    <v-stepper-step editable step="a"></v-stepper-step>
+                      <v-divider></v-divider>
+                    <v-stepper-step editable step="b"></v-stepper-step>
+                      <v-divider></v-divider>
+                  </v-stepper-header>
+                    <v-stepper-items>
+                      <v-stepper-content step="a">
+                          <v-card>
+                              <v-toolbar height="50px" color="#4777E1" flat>Act</v-toolbar>
+                              <v-toolbar flat height="40px" color="#96B1EE">Zielstellungen zur Fehlerbeseitigung</v-toolbar>
+                              <v-card-text>
+                                <v-row no-gutters>
+                                  <v-col cols="10">
+                                    <v-text-field label="Ziele für die Fehlerbeseitigung angeben (Ziel XY / Datum: TT.MM.JJJJ)" v-model="currentGoals.name" />
+                                  </v-col>
+                                  <v-col cols="2">
+                                    <v-btn @click="addGoals()" block color="grey"
+                                      >Hinzufügen</v-btn
+                                    >
+                                  </v-col>
+                                </v-row>
+                                <v-col>
+                                  <v-row v-for="cause in goals" :key="cause.name">
+                                    <v-btn icon @click="removeGoals(cause)" ><v-icon>{{trashIcon}}</v-icon></v-btn>
+                                    <v-checkbox v-model="cause.checked"  dense :label="cause.name" />
+                                  </v-row>
+                                </v-col>
+                              </v-card-text>
+                            </v-card>
+                            <v-card>
+                              <v-toolbar flat height="40px" color="#96B1EE">Vorgehen/ Schritte zur Standardisierung</v-toolbar>
+                              <v-card-text>
+                                <v-row no-gutters>
+                                  <v-col cols="10">
+                                    <v-text-field label="Eingeführte Standards angeben (Standards XY / Datum: TT.MM.JJJJ)" v-model="currentStandards.name" />
+                                  </v-col>
+                                  <v-col cols="2">
+                                    <v-btn @click="addStandards()" block color="grey"
+                                      >Hinzufügen</v-btn
+                                    >
+                                  </v-col>
+                                </v-row>
+                                <v-col>
+                                  <v-row v-for="cause in standards" :key="cause.name">
+                                    <v-btn icon @click="removeStandards(cause)" ><v-icon>{{trashIcon}}</v-icon></v-btn>
+                                    <v-checkbox v-model="cause.checked"  dense :label="cause.name" />
+                                  </v-row>
+                                </v-col>
+                              </v-card-text>
+                            </v-card>
+                          </v-stepper-content>
+                    </v-stepper-items> 
+          </v-stepper>
       </v-stepper-content>
-    </v-stepper-items>
-      </v-stepper>
+      </v-stepper-items>
+    </v-stepper>
     </v-container>
   </div>
 </template>
@@ -301,6 +417,7 @@ export default class NewPDCA extends Vue {
   newCauses: Array<string> = [];
   category: Array<string> = [];
   title = "";
+  titleTags: Array<string> = [];
   downtime = "";
   shortTimeAction: Array<any> = [];
   longTimeAction: Array<any> = [];
@@ -336,6 +453,12 @@ export default class NewPDCA extends Vue {
   };    
   checkIcon = mdiCheck;
   trashIcon = mdiTrashCan
+
+  removeTag(item: string) {
+    const index = this.titleTags.indexOf(item);
+    this.titleTags.splice(index, 1);
+    this.titleTags = [...this.titleTags];
+  }
 
   removeCause(item: string) {
     const index = this.newCauses.indexOf(item);
