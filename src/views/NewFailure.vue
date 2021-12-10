@@ -4,19 +4,33 @@
       <v-form>
       <v-row>
         <v-col cols="12">
-        <h2>Fehleraufnahme für neue, bekannte Fehler</h2>
-        <p class="font-weight-light">
-          In diesem Fenster wird ein neuer Fehler, dessen Spezifikationen bereits bekannt sind, eingetragen. Das Ausfüllen der Felder und anschließendes 
-          Absenden begünstigt die Prognose einer Stillstandzeit, einer passenden Maßnahme und einem primären sowie sekundären Ursachenfeld. Durch die 
-          Bearbeitung mit Maschine-Learning-Algorithmen, wird eine Fehlerliste für die tiefgreifenden Analysen der Fehlersituationen aufgestellt.
-        </p> 
+          <h2>Fehleraufnahme für neue, bekannte Fehler</h2>
+          <p class="font-weight-light">
+            In diesem Fenster wird ein neuer Fehler, dessen Spezifikationen bereits bekannt sind, eingetragen. Das Ausfüllen der Felder und anschließendes 
+            Absenden begünstigt die Prognose einer Stillstandzeit, einer passenden Maßnahme und einem primären sowie sekundären Ursachenfeld. Durch die 
+            Bearbeitung mit Maschine-Learning-Algorithmen, wird eine Fehlerliste für die tiefgreifenden Analysen der Fehlersituationen aufgestellt.
+          </p> 
         </v-col> 
         <v-col>
           <v-divider/>
         </v-col>
-        <v-col cols="12"> <h4>
-          Tragen Sie im Folgenden die fehlerbeschreibenden Daten ein, welche sich mit diesem Fehlerzustand ergeben. Zusätzlich kann eine Fehlerbeschreibung,
-          für das präzise Formulieren der Abweichung bzw. Störung, verfasst werden. </h4>
+        <v-col cols="12">
+          <v-btn color="#78909C" outlined @click="alert = !alert">
+              Bearbeitungshinweise anzeigen/ausblenden
+          </v-btn>    
+        <v-alert :value="alert" color="#78909C" border="left" type="info" elevation="2"> 
+          <p class="font-weight-light">
+            <small>
+              <div class="text-h6">
+                Bearbeitungshinweise
+              </div>
+              <div>
+                Tragen Sie im Folgenden die fehlerbeschreibenden Daten ein, welche sich mit diesem Fehlerzustand ergeben. 
+                Zusätzlich kann eine Fehlerbeschreibung, für das präzise Formulieren der Abweichung bzw. Störung, verfasst werden.
+              </div>
+            </small>
+          </p>
+        </v-alert>
         </v-col>
       </v-row> 
       <v-row>
@@ -54,7 +68,7 @@
       </v-row>
       <v-row> 
         <v-col>
-          <v-btn color="info" :disabled="!enabled" :loading="loading"  @click="send()">
+          <v-btn color="#2E7D32" :disabled="!enabled" :loading="loading"  @click="send()">
           Ergebnisse ausgeben
           </v-btn>
         </v-col>       
@@ -123,6 +137,12 @@
     primaryCause = ""
     secundaryCause = ""
     downtimeInDays = 0
+
+    data(){
+    return {
+        alert: true,
+      }
+  }
 
     faultCategories = [
       "Administration",

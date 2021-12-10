@@ -30,7 +30,7 @@
                   Die Ursachen und Hintergründe für den Fehlerbeseitigungsprozess sind ebenfalls unbekannt.</p>
             </v-card-text>
             <v-card-actions>
-              <v-btn @click="handleNext()" color="success">Weiter</v-btn>
+              <v-btn @click="handleNext()" color="#2E7D32" dark>Weiter</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
