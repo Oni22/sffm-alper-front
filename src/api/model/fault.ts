@@ -10,6 +10,8 @@ export default class Fault {
     product?: string
     dispolevel?: string
     timestamp?: string
+    id?: string
+    estimatedDownTime?: number
    // primaryCause?: string
     //secundaryCause?: string
 
@@ -21,12 +23,15 @@ export default class Fault {
         this.product = data.product,
         this.dispolevel = data.dispolevel,
         this.timestamp = data.timestamp
+        this.estimatedDownTime = data.estimated_down_time
+        this.id = data.id
         return this;
 
     }
 
     toJson() {
         return {
+            "id": this.id,
             "reason": this.reason,
             "category": this.category,
             "workplace": this.workplace,

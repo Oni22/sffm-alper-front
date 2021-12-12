@@ -35,14 +35,10 @@ export default class API {
 
     }
 
-    async predict(product: string,workplace: string,reason: string) : Promise<Prediction | undefined> {
+    async predict(fault: Fault) : Promise<Prediction | undefined> {
         
         try {
-            const res = await this.api.post("/fault/analyze",{
-                reason,
-                workplace,
-                product
-            })
+            const res = await this.api.post("/fault/analyze",fault.toJson())
             return new Prediction().fromJson(res.data)
         } catch(err) {
             console.log(err)
