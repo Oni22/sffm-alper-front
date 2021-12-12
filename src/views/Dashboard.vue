@@ -16,8 +16,8 @@
         </v-list>
 
         </v-navigation-drawer>
-        
-        <v-app-bar app color="#009B8B">
+
+        <v-app-bar app color="#009B8B" src="https://sweep.ac.uk/wp-content/uploads/green-banner-light-900x281.jpg">
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
             <v-toolbar-title>AIOn - Artifical Intelligence Online</v-toolbar-title>
         </v-app-bar>

@@ -68,8 +68,9 @@
       </v-row>
       <v-row> 
         <v-col>
-          <v-btn color="#2E7D32" :disabled="!enabled" :loading="loading"  @click="send()">
-          Ergebnisse ausgeben
+          <v-btn dark color="#2E7D32" :disabled="!enabled" :loading="loading"  @click="send()">
+            Ergebnisse ausgeben
+            <v-icon right>mdi-folder</v-icon>
           </v-btn>
         </v-col>       
       </v-row> 
