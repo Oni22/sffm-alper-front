@@ -17,7 +17,7 @@
       <v-row>
         <v-col cols="6">              
           <v-list>
-            <v-toolbar height="40px" color="grey" flat>Fehlergründe</v-toolbar>
+            <v-toolbar height="40px" color="#E8EAF6" flat>Fehlergründe</v-toolbar>
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title>01. "gelöscht" Priorisierung anderes Produkt</v-list-item-title>
@@ -138,7 +138,7 @@
 
         <v-col cols="6">              
           <v-list>
-            <v-toolbar height="40px" color="grey" flat>Bereiche</v-toolbar>
+            <v-toolbar height="40px" color="#E8EAF6" flat>Bereiche</v-toolbar>
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title>OSM-Planfertigung
@@ -169,7 +169,7 @@
                   </v-list-item-title><v-divider/>
                 </v-list-item-content>
               </v-list-item>
-            <v-toolbar height="40px" color="grey" flat>Dispostufen</v-toolbar>
+            <v-toolbar height="40px" color="#E8EAF6" flat>Dispostufen</v-toolbar>
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title>ESC GT_1
@@ -210,7 +210,7 @@
                   </v-list-item-title><v-divider/>
                 </v-list-item-content>
               </v-list-item>
-            <v-toolbar height="40px" color="grey" flat>Produkte</v-toolbar>
+            <v-toolbar height="40px" color="#E8EAF6" flat>Produkte</v-toolbar>
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title>ESC Grundteil

@@ -4,26 +4,33 @@
 export default class PDCA {
 
     title?: string
-    description?: string
+    titleTags?:
+    newCauses?: string
+    category?: string
     downtime?: string
     shortTimeAction?: string
-    newcauses?: string
     longTimeAction?: string
     ressources?: string
     goals?: string
+    results?: string
+    specifications?: string
+    standards?: string
     timestamp?: string
-
 
     fromJson(data: any) : PDCA {
         this.title = data.title
-        this.description = data.description
-        this.downtime = data.downtime
-        this.shortTimeAction =  data.shortTimeAction
-        this.newcauses = data.newcauses
-        this.longTimeAction =  data.longTimeAction
+        this.titleTags = data.titleTags,
+        this.newCauses = data.newCauses,
+        this.category = data.category,
+        this.downtime = data.downtime,
+        this.shortTimeAction =  data.shortTimeAction,
+        this.longTimeAction =  data.longTimeAction,
         this.ressources = data.ressources,
         this.goals = data.goals,
-        this.timestamp = data.timestamp
+        this.results = data.results,
+        this.specifications = data.specifications,
+        this.standards = data.standards,
+        this.timestamp = data.timestamp,
         return this;
 
     }
@@ -31,13 +38,19 @@ export default class PDCA {
     toJson() {
         return {
             "title": this.title,
-            "description": this.description,
+            "titleTags" : this.titleTags,
+            "newCauses": this.newCauses,
+            "category": this.category,
             "downtime": this.downtime,
             "shortTimeAction": this.shortTimeAction,
-            "newcauses": this.newcauses,
             "longTimeAction": this.longTimeAction,
             "ressources": this.ressources,
-            "goals": this.goals
+            "goals": this.goals,
+            "results": this.results,
+            "specifications": this.specifications,
+            "standards": this.standards,
+
+
         }
     }
 

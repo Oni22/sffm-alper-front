@@ -14,20 +14,13 @@
               Maschine-Learning-Algorithmen, wird eine Fehlerliste für die
               tiefgreifenden Analysen der Fehlersituationen aufgestellt.
             </p>
-          </v-col>
-          <v-col>
-            <v-divider />
-          </v-col>
-          <v-col cols="12">
-            <v-btn color="#78909C" outlined @click="alert = !alert">
-              Bearbeitungshinweise anzeigen/ausblenden
-            </v-btn>
             <v-alert
               :value="alert"
               color="#78909C"
               border="left"
               type="info"
               elevation="2"
+              dismissible
             >
               <p class="font-weight-light">
                 <small>
@@ -43,6 +36,9 @@
             </v-alert>
           </v-col>
         </v-row>
+          <v-col>
+            <v-divider />
+          </v-col>
         <v-row>
           <v-col cols="6">
             <v-select
@@ -105,7 +101,7 @@
               hide
               details
               class="shrink mr-2 mt-0"
-              label="Ich bestätige die Überprüfung der eingegebenen Daten und willige der Datenverarbeitung ein."
+              label="Ich bestätige die Überprüfung der eingegebenen Daten und willige der Datenverarbeitung ein. Ihre Ergebnisse werden unten angezeigt."
             >
             </v-checkbox>
           </v-col>
@@ -114,7 +110,7 @@
           <v-col>
             <v-btn
               dark
-              color="#2E7D32"
+              color="#00695C"
               :disabled="!enabled"
               :loading="loading"
               @click="send()"
@@ -130,51 +126,97 @@
           </v-col>
         </v-row>
         <v-row>
+          <v-carousel cycle height="240" hide-delimiter-background show-arrows-on-hover>
+            <v-carousel-item>
+              <v-sheet color="#4DB6AC" height="100%">
+                <v-row class="fill-height" align="center" justify="center">
+                  <v-col cols="10">
+                    <v-card>
+                      <v-toolbar height="40" color="#00695C" elevation="0" dark
+                        >Vorgeschlagene Maßnahme</v-toolbar
+                      >
+                      <v-card-text>
+                        <h4>Für diesen Fehler wird folgende Maßnahme vorgeschlagen:</h4>
+                        <h2 class="mt-5">{{ actionToDo }}</h2>
+                      </v-card-text>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-sheet>
+            </v-carousel-item>
+            <v-carousel-item>
+              <v-sheet color="#4DB6AC" height="100%">
+                <v-row class="fill-height" align="center" justify="center">
+                  <v-col cols="10">
+                    <v-card>
+                      <v-toolbar height="40" color="#00695C" dark elevation="0"
+                        >Ursachenbereiche</v-toolbar
+                      >
+                      <v-card-text>
+                        <h4>
+                          Dieser Fehler besitzt ein primäres und sekundäres
+                          Ursachenfeld, in denen die Ursprünge für den Fehler liegen:
+                        </h4>
+                        Primäres Ursachenfeld:
+                        <h2 class="mt-5">{{ primaryCause }}</h2>
+                        Sekundäres Ursachenfeld:
+                        <h2 class="mt-5">{{ secundaryCause }}</h2>
+                      </v-card-text>
+                    </v-card>
+                  </v-col>  
+                </v-row>
+              </v-sheet>
+            </v-carousel-item>
+            <v-carousel-item>
+              <v-sheet color="#4DB6AC" height="100%">
+                <v-row class="fill-height" align="center" justify="center">
+                  <v-col cols="10">
+                    <v-card>
+                      <v-toolbar height="40" color="#00695C" elevation="0" dark
+                        >Ausfalltage</v-toolbar
+                      >
+                      <v-card-text>
+                        <h4>Ausfalltage:</h4>
+                        <h2 class="mt-5">{{ downtimeInDays }}</h2>
+                      </v-card-text>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-sheet>
+            </v-carousel-item>
+          </v-carousel>
+        </v-row>
+        <v-col>
+            <v-divider />
+        </v-col>
+        <v-col>
+        </v-col>
+        <v-row>
           <v-col cols="12">
-            <v-card>
-              <v-toolbar height="40" color="#009B8B" elevation="0"
-                >Vorgeschlagene Maßnahme</v-toolbar
-              >
-              <v-card-text>
-                <h4>Für diesen Fehler wird folgende Maßnahme vorgeschlagen:</h4>
-                <h2 class="mt-5">{{ actionToDo }}</h2>
-              </v-card-text>
-            </v-card>
-          </v-col>
-          <v-col cols="12">
-            <v-card>
-              <v-toolbar height="40" color="#009B8B" elevation="0"
-                >Ursachenbereiche</v-toolbar
-              >
-              <v-card-text>
-                <h4>
-                  Dieser Fehler besitzt ein primäres und sekundäres
-                  Ursachenfeld, in denen die Ursprünge für den Fehler liegen:
-                </h4>
-                Primäres Ursachenfeld:
-                <h2 class="mt-5">{{ primaryCause }}</h2>
-                Sekundäres Ursachenfeld:
-                <h2 class="mt-5">{{ secundaryCause }}</h2>
-              </v-card-text>
-            </v-card>
-          </v-col>
-          <v-col cols="12">
-            <v-card>
-              <v-toolbar height="40" color="#009B8B" elevation="0"
-                >Ausfalltage</v-toolbar
-              >
-              <v-card-text>
-                <h4>Ausfalltage:</h4>
-                <h2 class="mt-5">{{ downtimeInDays }}</h2>
-              </v-card-text>
-            </v-card>
+          <p class="font-weight-light">
+              Neben dem Erhalten der Ergebnisse, die auf der Künstlichen Intelligenz basieren, wird der Fehler gleichzeitig in der Datenbank
+              gesichert. 
+          <p>
+            <v-alert dense outlined type="error" align="center" border="top" prominent>
+              <strong>ACHTUNG: Wenn Sie den Link aufrufen, geht der aktuelle Eintrag verloren.</strong>
+            </v-alert>
+          </p> 
+          <v-row>
+            <v-col col="12">
+              <v-alert outlined color="black">
+                <p>Neben dem Erhalten der Ergebnisse, die auf der Künstlichen Intelligenz basieren, wird der Fehler gleichzeitig in der Datenbank gesichert.
+                <p>Um den aktuellen Fehler zu betrachten, können Sie die Ansicht <a href="#" @click="openCurrentFaults()">Aktuelle Fehler</a> aufrufen.
+                <p>Um die Fehlerzustände zu analysieren zu betrachten, können Sie die Ansicht <a href="#" @click="openFailureAnalyze()">Fehler analysieren</a> aufrufen.
+                </p>
+              </v-alert>
+            </v-col>
+          </v-row>
           </v-col>
         </v-row>
       </v-form>
     </v-container>
   </div>
 </template>
-
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
@@ -187,6 +229,8 @@ import {
   secundaryCauses,
 } from "@/utils";
 import Fault from "@/api/model/fault";
+import { Routes } from "@/router/utils";
+
 
 @Component
 export default class NewFailure extends Vue {
@@ -321,6 +365,14 @@ export default class NewFailure extends Vue {
     }
 
     return values;
+  }
+
+  openCurrentFaults() {
+    this.$router.push(Routes.CURRENT_FAULT)
+  }
+
+  openFailureAnalyze() {
+    this.$router.push(Routes.FAILURE_ANALYZE)
   }
 }
 </script>
