@@ -10,9 +10,6 @@
           </p> 
       <v-row>
         <v-col cols="12">
-          <BarChart :height="100" :pieData="pieData" style="height:150px" />
-        </v-col>
-        <v-col cols="12">
           <h3>Kumulierte Stillstandzeit</h3>
           <p class="font-weight-light">
             In dieser Ansicht wird eine Analyse zu der kumulierten Stillstandzeit der Fehlergründe vorgenommen. 
