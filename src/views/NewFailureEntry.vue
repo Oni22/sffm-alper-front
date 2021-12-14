@@ -4,16 +4,20 @@
       <v-form>
       <v-row>
         <v-col cols="12">
+        <h2>Fehler eintragen</h2>
+        <v-divider/>
+        <p class="font-weight-light">  
           Um die Entwicklung eines nachhaltig reibungsfreien Fertigungsablaufes voranzutreiben, ist das Eintragen, Analysieren und Auswerten von Fehlerzuständen
           von hoher Bedeutung. Die Analyse und die Auswertung von Fehlerzuständen können, je nach Störungssituation, -grund oder -dauer, mit diversen Methoden 
           und Mitteln erfüllt werden. Die Lösung eines vorliegenden Problems soll mit dem Durchlaufen des Problemlösungszyklus gewährleistet werden. 
           Dazu wird in der folgenden Ansicht eine unterstützende Problemlösungssystematik durchgeführt.
+        </p>
         </v-col> 
         <v-col>
           <v-divider/>
         </v-col>
         <v-col cols="12"> <h2>Ist der vorliegende Fehler bereits bekannt?</h2>
-            (bekannt bedeutet hierbei die Kenntnis über "Fehlergrund", "Fehlerkategorie" und weiteren, produktbezogenen Informationen)
+            <small>(bekannt bedeutet hierbei die Kenntnis über "Fehlergrund", "Fehlerkategorie" und weiteren, produktbezogenen Informationen)</small>
         </v-col>
       </v-row>  
       <v-row>
@@ -30,7 +34,7 @@
                   Die Ursachen und Hintergründe für den Fehlerbeseitigungsprozess sind ebenfalls unbekannt.</p>
             </v-card-text>
             <v-card-actions>
-              <v-btn @click="handleNext()" color="#2E7D32" dark>Weiter</v-btn>
+              <v-btn @click="handleNext()" color="#00695C" dark>Weiter</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>

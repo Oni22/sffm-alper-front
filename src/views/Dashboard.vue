@@ -42,7 +42,7 @@
 
         routes = [
             {
-                name: "Aktueller Fehler",
+                name: "Aktuelle Fehler",
                 path: Routes.CURRENT_FAULT
             },
             {

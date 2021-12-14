@@ -1,10 +1,29 @@
 <template>
   <div>
-    <v-row>
-      <v-col>
-        <BarChart :height="100" :chartData="chartData" style="height:200px" />
-      </v-col>
-    </v-row>
+    <v-container>
+        <h2>Fehler analysieren</h2>
+        <v-divider/>
+          <p class="font-weight-light">
+                In diesem Fenster werden die eingetragenen Fehler analysiert. 
+                Dabei werden diverse grafische Darstellungen aufgezeigt. um das Verständnis und den Überblick zur aktuellen Produktionssituation
+                zu bieten. Die Visualisierung dient als ergänzendes Mittel zum Fehlereintrag und umfasst alle eingetragenen Fehlerzustände.    
+          </p> 
+      <v-row>
+        <v-col cols="12">
+          <BarChart :height="100" :pieData="pieData" style="height:150px" />
+        </v-col>
+        <v-col cols="12">
+          <h3>Kumulierte Stillstandzeit</h3>
+          <p class="font-weight-light">
+            In dieser Ansicht wird eine Analyse zu der kumulierten Stillstandzeit der Fehlergründe vorgenommen. 
+            Es wird ersichtlich, welche Fehlergründe die höchste gesamte Stillstandzeit generieren. 
+          </p>
+        </v-col>
+      </v-row>
+      <v-row>
+          <DoughnutChart :height="100" :chartData="chartData" style="height:150px" />
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -40,7 +59,6 @@ export default class FailureAnalyze extends Vue {
       ],
     };
 
-
     try {
       const faults = await this.$api.getAllFaults();
 
@@ -63,7 +81,7 @@ export default class FailureAnalyze extends Vue {
         items.push({
           days: days,
           reason: fault.reason,
-          color: "#ff9021"
+          color: "#FFA726"
         })
       }
 

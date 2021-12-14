@@ -2,6 +2,7 @@
   <div>
     <v-container>
       <h2>Problemlösungsprozess für neue, unbekannte Fehler</h2>
+      <v-divider/>
         <p class="font-weight-light">
               In diesem Fenster wird ein Fehler, dessen Spezifikationen unbekannt sind, eingetragen. 
               Hierbei wird ein neuer Problemlösungszyklus, im Sinne des Plan-Do-Check-Act-Zyklus (PDCA-Zyklus), angestoßen.
@@ -41,10 +42,12 @@
         </v-stepper-header>
     <v-stepper-items>
       <v-stepper-content step="1">
-        <v-toolbar height="60px" color="#E8EAF6">
-          In der Plan-Phase des Problemlösungsprozesses wird die Planung zur Beseitigung des Problems durchgeführt. 
-          Dabei werden zunächst die problembeschreibenden Daten lokalisiert und schriftlich vermerkt. 
-        </v-toolbar>
+        <v-col col="12" >
+            <p>
+              In der Plan-Phase des Problemlösungsprozesses wird die Planung zur Beseitigung des Problems durchgeführt. 
+              Dabei werden zunächst die problembeschreibenden Daten lokalisiert und schriftlich vermerkt. 
+            </p>
+        </v-col>
         <v-stepper v-model="e6" vertical>
           <v-stepper-step :complete="e6 > 1" step="1"  color="#90CAF9">
             Beschreibung des Problems
@@ -100,15 +103,7 @@
               <v-card class="mb-12" >
               <v-card-text>
                       <v-row>
-                        <v-col cols="5">
-                          <v-img
-                            max-height="500"
-                            max-width="600"
-                            src="https://www.consulting-life.de/wp-content/uploads/2017/01/Ishikawa-Diagramm-Struktur-856x400.jpg"
-                          ></v-img>
-                        </v-col>
-                        <v-divider vertical></v-divider>  
-                        <v-col col="6">
+                        <v-col cols="12">
                           <p class="font-weight-light">
                             In diesem Abschnitt werden die Fehlerursachen identifiziert und nachgewiesen.
                             Um nachhaltig sicherzustellen, dass ähnlich gelagerte Fehler nicht wiederholt auftreten, müssen die diversen
@@ -122,21 +117,19 @@
                               Für weiterführende Informationen zum Ishikawa-Diagramm hier klicken
                             </p>
                           </a>  
-                          <p>   
-                            
-                          </p>
-                        </v-col>
-                      </v-row>
-                      <v-row>
-                        <v-col cols="5">
+                          <p></p>
                           <v-img
                             max-height="500"
                             max-width="600"
-                            src="https://www.quality.de/wp-content/uploads/2019/06/5xwarum-1024x412.png.webp"
+                            src="https://www.consulting-life.de/wp-content/uploads/2017/01/Ishikawa-Diagramm-Struktur-856x400.jpg"
                           ></v-img>
                         </v-col>
-                        <v-divider vertical></v-divider>  
-                        <v-col col="7">
+                      </v-row>
+                      <v-col>
+                         <v-divider></v-divider>
+                      </v-col>
+                      <v-row>
+                        <v-col col="12">
                           <p class="font-weight-light">
                             Eine weitere Möglichkeit zur tiefgründigen Analyse von Fehlerursachen ist die 5-Why-Methode (5W-Methode).
                             Hier werden, durch mehrere Nachfrageebenen, die Pfade für die hauptsächliche Ursache des Problems ermittelt. 
@@ -146,8 +139,13 @@
                             <p class="font-weight-light">
                               Für weiterführende Informationen zur 5W-Methode hier klicken
                             </p>
-                          </a>  
-                        </v-col>
+                          </a>
+                          <v-img
+                            max-height="500"
+                            max-width="600"
+                            src="https://www.quality.de/wp-content/uploads/2019/06/5xwarum-1024x412.png.webp"
+                          ></v-img>  
+                        </v-col>                       
                       </v-row>
                       <v-col>
                       </v-col>
@@ -213,7 +211,6 @@
               </v-btn>
             </v-stepper-content>  
           
-
           <v-stepper-step :complete="e6 > 3" step="3"  color="#90CAF9">
             Stillstandzeit
               <small>Bitte geben Sie die geschätzte Stillstandzeit (in Tagen) für die vorliegende Störung an.</small>
@@ -222,13 +219,11 @@
               <v-card class="mb-12" >
                 <v-card-text>
                         <v-col cols="12">
-                            <p class="font-weight-light">
-                                
+                            <p class="font-weight-light"> 
                                 In diesem Bereich ist eine geschätzte bzw. erwartete Stillstandzeit des Arbeitsganges, durch das Problem, 
                                 zu erfassen. Stillstandszeiten entstehen, wenn die Nutzungszeit eines Betriebsmittels unterbrochen wird. 
                                 Entsteht bei einem Arbeitsgang eine Stillstandszeit, wirkt sich dies negativ auf die Produktivität aus. 
-                                Der Zusammenhang zwischen der Stillstandzeit und der Produktivät kann aus der Formel entnommen werden.
-                                
+                                Der Zusammenhang zwischen der Stillstandzeit und der Produktivät kann aus der Formel entnommen werden.  
                             </p>
                                 Formel zur Produktionslaufzeit:
                                 <p class="font-weight-black">
@@ -268,15 +263,7 @@
               <v-card class="mb-12" >
                 <v-card-text>
                     <v-row>
-                        <v-col cols="5">
-                          <v-img
-                            max-height="350"
-                            max-width="450"
-                            src="https://www.projektmagazin.de/sites/default/files/ressourcenarten.jpg"
-                          ></v-img>
-                        </v-col>  
-                        <v-divider vertical></v-divider>
-                        <v-col cols="7">
+                        <v-col cols="12">
                           <p class="font-weight-light">
                              In diesem Bereich sind die Ressourcen anzugeben, die für das Finden der Lösung und Beseitigen des Problems
                                 benötigt werden. Als Ressourcen werden dabei Bestände und Mittel bezeichnet, die eine gezielten Zweck, zur
@@ -287,8 +274,13 @@
                             <p class="font-weight-light">
                               Für weiterführende Informationen zur Ressourcenerfassung hier klicken
                             </p>
-                          </a>  
-                        </v-col>
+                          </a>
+                          <v-img
+                            max-height="350"
+                            max-width="450"
+                            src="https://www.projektmagazin.de/sites/default/files/ressourcenarten.jpg"
+                          ></v-img>
+                        </v-col>  
                     </v-row>
                       
                     <v-combobox
@@ -328,11 +320,13 @@
       </v-stepper-content>
 
       <v-stepper-content step="2">
-        <v-toolbar height="60px" color="#E8EAF6">
-          In der Do-Phase des Problemlösungsprozesses werden geplante Maßnahmen, ausgehend von der Planung, umgesetzt. 
-          Die Maßnahmen werden in dieser Phase eingetragen. Bei erfolgreicher Umsetzung wird das Kontrollkästchen ausgefüllt, 
-          sodass eine dauerhafte Verfolgung der Maßnahmen stattfindet. 
-        </v-toolbar>
+        <v-col col="12">
+          <p>
+            In der Do-Phase des Problemlösungsprozesses werden geplante Maßnahmen, ausgehend von der Planung, umgesetzt. 
+            Die Maßnahmen werden in dieser Phase eingetragen. Bei erfolgreicher Umsetzung wird das Kontrollkästchen ausgefüllt, 
+            sodass eine dauerhafte Verfolgung der Maßnahmen stattfindet. 
+          </p>
+        </v-col>
           <v-stepper v-model="e7" vertical>
           <v-stepper-step :complete="e7 > 1" step="1"  color="#42A5F5">
             Sofortmaßnahmen
@@ -351,15 +345,7 @@
                             </p>
                           </v-col>
                           <v-col cols="7">
-                            <v-hover v-slot="{ hover }" open-delay="0">
-                              <v-card
-                                :elevation="hover ? 16 : 2"
-                                :class="{ 'on-hover': hover }"
-                                color="#90CAF9"
-                                outlined
-                                height="170"
-                                max-width="1000"
-                              >
+                              <v-card color="#90CAF9" outlined>
                                 <v-card-text class="font-weight-medium  text-left">
                                   <p>- Wie hoch ist das Risiko des Fehlers?
                                   <p>- Welche fehlerhaften Teile müssen in welcher Art und Weise aus dem gesamten Umlauf entfernt werden?
@@ -367,20 +353,21 @@
                                   <p>- Welche Maßnahmen sind sofort wirksam (reaktive Problembeseitigung)?</p>
                                 </v-card-text>
                               </v-card>
-                            </v-hover>
                           </v-col>
                         </v-row>
                         <v-col>
                         </v-col>
                       <v-row no-gutters>
-                        <v-col cols="10">
-                          <v-text-field 
-                          label="Sofortmaßnahmen angeben (Maßnahme XY / Datum: TT.MM.JJJJ)" v-model="currentShortTimeAction.name" />
-                        </v-col>
                         <v-col cols="2">
-                          <v-btn @click="addShortTimeAction()" block color="grey">
+                          <v-btn @click="addShortTimeAction()" block color="#4DB6AC">
                             Hinzufügen
                           </v-btn>
+                        </v-col>
+                      </v-row>
+                      <v-row no-gutters>
+                        <v-col cols="12">
+                          <v-text-field 
+                          label="Sofortmaßnahme (Maßnahme XY / Datum: TT.MM.JJJJ) eingeben und HINZUFÜGEN klicken, um einzufügen." v-model="currentShortTimeAction.name" />
                         </v-col>
                         <v-col>
                           <v-row v-for="cause in shortTimeAction" :key="cause.name">
@@ -417,15 +404,7 @@
                             </p>
                           </v-col>
                           <v-col cols="7">
-                            <v-hover v-slot="{ hover }" open-delay="0">
-                              <v-card
-                                :elevation="hover ? 16 : 2"
-                                :class="{ 'on-hover': hover }"
-                                color="#90CAF9"
-                                outlined
-                                height="230"
-                                max-width="1000"
-                              >
+                              <v-card color="#90CAF9" outlined>
                                 <v-card-text class="font-weight-medium  text-left">
                                   <p>- Wie wirkt die Maßnahme den identifizierten Fehlerursachen entgegen?</p>
                                   <p>- Welche Fehler durch die Maßnahme mittel- und langfristig vermindert / beseitigt?</p>
@@ -434,19 +413,20 @@
                                   <p>- Wie und wann kann die Maßnahme implementiert werden, um den maximalen Nutzen zu generieren bzw. den minimalen Verlust zu gewährleisten?</p>
                                 </v-card-text>
                               </v-card>
-                            </v-hover>
                           </v-col>
                       </v-row>
                       <v-col>
                       </v-col>
                       <v-row no-gutters>
-                        <v-col cols="10">
-                          <v-text-field label="Abstellmaßnahmen angeben (Maßnahme XY / Datum: TT.MM.JJJJ)" v-model="currentLongTimeAction.name" />
-                        </v-col>
                         <v-col cols="2">
-                          <v-btn @click="addLongTimeAction()" block color="grey">
+                          <v-btn @click="addLongTimeAction()" block color="#4DB6AC">
                             Hinzufügen
                           </v-btn>
+                        </v-col>
+                      </v-row>
+                      <v-row no-gutters>
+                        <v-col cols="10">
+                          <v-text-field label="Abstellmaßnahme (Maßnahme XY / Datum: TT.MM.JJJJ) eingeben und HINZUFÜGEN klicken, um einzufügen." v-model="currentLongTimeAction.name" />
                         </v-col>
                       </v-row>
                         <v-col>
@@ -468,11 +448,13 @@
       </v-stepper-content> 
 
       <v-stepper-content step="3">
-        <v-toolbar height="60px" color="#E8EAF6">
-          In der Check-Phase des PDCA-Zyklus werden die Ergebnisse der erarbeiteten Umsetzungen objektiv betrachtet.
-          Die zuvor gesammelten Daten werden hierfür ausgewertet und beurteilt. Dadurch wird festgestellt, ob weitere Anpassungen notwendig 
-          sind und ob die Qualität der Ergebnisse zur Erfüllung der Anforderungen ausreichend ist. 
-        </v-toolbar>
+        <v-col col="12">
+          <p>
+            In der Check-Phase des PDCA-Zyklus werden die Ergebnisse der erarbeiteten Umsetzungen objektiv betrachtet.
+            Die zuvor gesammelten Daten werden hierfür ausgewertet und beurteilt. Dadurch wird festgestellt, ob weitere Anpassungen notwendig 
+            sind und ob die Qualität der Ergebnisse zur Erfüllung der Anforderungen ausreichend ist. 
+          </p>
+        </v-col>
           <v-stepper v-model="e8" vertical>
           <v-stepper-step :complete="e8 > 1" step="1"  color="#1976D2">
             Ergebnisse
@@ -562,18 +544,20 @@
                       <v-col>
                       </v-col>
                       <v-row no-gutters>
+                        <v-col cols="2">
+                          <v-btn @click="addResult()" block color="#4DB6AC">
+                            Hinzufügen
+                            </v-btn>
+                        </v-col>
+                      </v-row>
+                      <v-row no-gutters>
                         <v-col cols="10">
                           <v-text-field 
-                            label="Geben Sie die Ergebnisse an (Ergebnis XY / Datum: TT.MM.JJJJ)"  
+                            label="Ergebnisse (Ergebnis XY / Datum: TT.MM.JJJJ) eingeben und auf HINZUFÜGEN klicken, um einzufügen."  
                             v-model="currentResults.name"
                             hint="Tragen Sie mögliche Stärken, Schwächen, Chancen oder Herausforderungen ein. Sie können mehrere Ergebnisse eintragen."
                             persistent-hint
                             />
-                        </v-col>
-                        <v-col cols="2">
-                          <v-btn @click="addResult()" block color="grey">
-                            Hinzufügen
-                            </v-btn>
                         </v-col>
                       </v-row>
                       <v-col>
@@ -597,16 +581,8 @@
             <v-stepper-content step="2">
               <v-card class="mb-12" >
                       <v-row>
-                        <v-col cols="5">
-                          <v-img
-                            max-height="400"
-                            max-width="500"
-                            src="http://files.webbuilder.hosteurope.de/hosteurope54807/image/ap-spezifikationen.png"
-                          ></v-img>
-                        </v-col>
-                        <v-divider vertical></v-divider>
-                        <v-col cols="7">
-                            <p class="font-weight-light">
+                        <v-col cols="12">
+                          <p class="font-weight-light">
                               Um die erarbeiteten Ergebnisse zu überprüfen und gegebenenfalls zu verfeinern, können weitere Spezifikationen
                               zu dem Produkt, Prozess oder zu einer möglichen Maßnahme angegeben werden. Das Herleiten der passenden Eigenschaften
                               kann über mehrere Methoden erfolgen. Eine Option zur Umsetzung geht mit dem Aufstellen von 
@@ -616,20 +592,27 @@
                               ersten testweisen Implementierung der Maßnahmen folgen. Dadurch kann das Vorhaben der Nutzenmaximierung aus einer 
                               zeitlichen Perspektive betrachtet und bearbeitet werden. 
                             </p>
-                        </v-col>                      
+                          <v-img
+                            max-height="400"
+                            max-width="500"
+                            src="http://files.webbuilder.hosteurope.de/hosteurope54807/image/ap-spezifikationen.png"
+                          ></v-img>
+                        </v-col>                    
                       </v-row>
                       <v-col>  
                       </v-col>
                       <v-row no-gutters>
+                        <v-col cols="2">
+                          <v-btn @click="addSpecification()" block color="#4DB6AC">
+                            Hinzufügen
+                          </v-btn>
+                        </v-col>
+                      </v-row>
+                      <v-row no-gutters>
                         <v-col cols="10">
                           <v-text-field 
                           label="Spezifikationen angeben (Spezifikation XY / Datum: TT.MM.JJJJ)" v-model="currentSpecifications.name" />
-                            </v-col>
-                              <v-col cols="2">
-                                <v-btn @click="addSpecification()" block color="grey">
-                                  Hinzufügen
-                                </v-btn>
-                              </v-col>
+                        </v-col>      
                       </v-row>
                         <v-col>
                           <v-row v-for="cause in specifications" :key="cause.name">
@@ -649,12 +632,13 @@
       </v-stepper-content>
 
       <v-stepper-content step="4">
-        <v-toolbar height="60px" color="#E8EAF6">
-          In der Act-Phase des Problemlösungsprozesses erfolgt die Integration der Neuerungen in die betroffenen Unternehmensbereiche,
-          mit der Aussicht auf die Erweiterung auf weitere Bereiche. Dabei wird ein erreichtes Qualitätsniveau, durch die gesetzten Ziele und
-          erzielten Ergebnisse, als ein standardisierter Prozess hinterlegt.
-          
-        </v-toolbar>
+        <v-col col="12">
+          <p>
+            In der Act-Phase des Problemlösungsprozesses erfolgt die Integration der Neuerungen in die betroffenen Unternehmensbereiche,
+            mit der Aussicht auf die Erweiterung auf weitere Bereiche. Dabei wird ein erreichtes Qualitätsniveau, durch die gesetzten Ziele und
+            erzielten Ergebnisse, als ein standardisierter Prozess hinterlegt. 
+          </p>
+        </v-col>
           <v-stepper v-model="e9" vertical>
           <v-stepper-step :complete="e9 > 1" step="1"  color="#0D47A1">
             Ziele
@@ -673,47 +657,37 @@
                             </p>
                         </v-col>
                         <v-col cols="7">
-                              <v-list dark color="#0D47A1" rounded>
-                                <v-list-item>
-                                  <v-list-item-content>
-                                    <v-list-item-title>Sicherheit gewährleisten</v-list-item-title>
-                                  </v-list-item-content>
-                                </v-list-item>
-                                <v-list-item>
-                                  <v-list-item-content>
-                                    <v-list-item-title>Qualität sicherstellen / steigern</v-list-item-title>
-                                  </v-list-item-content>
-                                </v-list-item>
-                                <v-list-item two-line>
-                                  <v-list-item-content>
-                                    <v-list-item-title>Gewinn steigern / Kosten sparen</v-list-item-title>
-                                    <v-list-item-subtitle>
+                              <v-card dark color="#0D47A1" rounded>
+                                <v-col cols="12">
+                                    <p>Sicherheit gewährleisten</p>
+                                    <p>Qualität sicherstellen / steigern</p>
+                                    <p>Gewinn steigern / Kosten sparen</p>
+                                    <p><small>
                                       kürzere Entwicklungszeiten / störungsarme Serienanläufe / Termintreue / 
                                       wirtschaftlichere Fertigung und Montage
-                                    </v-list-item-subtitle>
-                                  </v-list-item-content>
-                                </v-list-item>
-                                <v-list-item two-line>
-                                  <v-list-item-content>
-                                    <v-list-item-title>Fehlerkosten minimieren / reduzieren</v-list-item-title>
-                                    <v-list-item-subtitle>
-                                      kürzere Entwicklungszeiten / Reduzierung von Garantie- und Kulanzkosten 
-                                    </v-list-item-subtitle>
-                                  </v-list-item-content>
-                                </v-list-item>
-                                </v-list>         
+                                      </small>
+                                    </p>
+                                    <p>Fehlerkosten minimieren / reduzieren</p>
+                                    <p>
+                                      <small>kürzere Entwicklungszeiten / Reduzierung von Garantie- und Kulanzkosten
+                                      </small>
+                                    </p>
+                                </v-col>
+                              </v-card>         
                         </v-col>
                         <v-col>
                         </v-col>    
                       </v-row>
                       <v-row no-gutters>
-                        <v-col cols="10">
-                          <v-text-field label="Geben Sie die Ziele für die Fehlerbeseitigung an (Ziel XY / Datum: TT.MM.JJJJ)" v-model="currentGoals.name" />
-                        </v-col>
                         <v-col cols="2">
-                          <v-btn @click="addGoals()" block color="grey">
+                          <v-btn @click="addGoals()" block color="#4DB6AC">
                             Hinzufügen
                           </v-btn>
+                        </v-col>
+                      </v-row>
+                      <v-row no-gutters>
+                        <v-col cols="10">
+                          <v-text-field label="Geben Sie die Ziele für die Fehlerbeseitigung an (Ziel XY / Datum: TT.MM.JJJJ)" v-model="currentGoals.name" />
                         </v-col>
                       </v-row>
                       <v-col>
@@ -748,14 +722,16 @@
                         </v-col>   
                       </v-row>
                       <v-row no-gutters>
+                        <v-col cols="2">
+                          <v-btn @click="addStandards()" block color="#4DB6AC">
+                            Hinzufügen
+                          </v-btn>
+                        </v-col>
+                      </v-row>
+                      <v-row no-gutters>
                         <v-col cols="10">
                           <v-text-field label="Geben Sie die eingeführten Standards an (Standards XY / Datum: TT.MM.JJJJ)" v-model="currentStandards.name" />
-                            </v-col>
-                            <v-col cols="2">
-                              <v-btn @click="addStandards()" block color="grey">
-                                Hinzufügen
-                              </v-btn>
-                            </v-col>
+                        </v-col>
                       </v-row>
                       <v-col>
                         <v-row v-for="cause in standards" :key="cause.name">
@@ -814,13 +790,6 @@ export default class NewPDCA extends Vue {
         e9: 1,
         alert: true,
         model: 0,
-        colors: [
-        'primary',
-        'secondary',
-        'yellow darken-2',
-        'red',
-        'orange',
-        ],
       }
   }
 

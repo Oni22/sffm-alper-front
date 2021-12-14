@@ -5,6 +5,7 @@
         <v-row>
           <v-col cols="12">
             <h2>Fehleraufnahme für neue, bekannte Fehler</h2>
+            <v-divider/>
             <p class="font-weight-light">
               In diesem Fenster wird ein neuer Fehler, dessen Spezifikationen
               bereits bekannt sind, eingetragen. Das Ausfüllen der Felder und
@@ -198,7 +199,7 @@
               gesichert. 
           <p>
             <v-alert dense outlined type="error" align="center" border="top" prominent>
-              <strong>ACHTUNG: Wenn Sie den Link aufrufen, geht der aktuelle Eintrag verloren.</strong>
+              <strong>ACHTUNG: Wenn Sie einen der unteren Links aufrufen, geht der aktuelle Eintrag verloren.</strong>
             </v-alert>
           </p> 
           <v-row>

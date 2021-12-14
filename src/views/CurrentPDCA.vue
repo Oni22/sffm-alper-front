@@ -3,6 +3,8 @@
     <v-container>
       <v-row>
         <v-col cols="12">
+          <h2>Aktuelle Problemlösungen</h2>
+          <v-divider/>
           <v-card>
             <v-card-text>
               <v-row align="center" justify="center">
@@ -19,7 +21,7 @@
       <v-row>
           <v-col cols="12">
               <v-card>
-                  <v-toolbar color="#9FA8DA"> <h2>Aktuelle Problemlösung </h2></v-toolbar>
+                  <v-toolbar color="#90CAF9"> <h2>Aktuelle Problemlösung </h2></v-toolbar>
                   <v-card-text>  
                     <v-row>
                         <v-col>

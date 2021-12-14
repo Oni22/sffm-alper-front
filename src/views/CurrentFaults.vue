@@ -3,6 +3,8 @@
     <v-container>
       <v-row>
         <v-col cols="12">
+          <h2>Aktuelle Fehler</h2>
+          <v-divider/>
           <v-card>
             <v-card-text>
               <v-row align="center" justify="center">

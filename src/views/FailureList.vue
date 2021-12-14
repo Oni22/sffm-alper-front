@@ -4,11 +4,15 @@
     <v-container>
       <v-row>
         <v-col cols="12">
+        <h2>Fehlerliste</h2>
+        <v-divider/>
+        <p class="font-weight-light">
           In diesem Fenster werden alle aktuellen und bekannten Auswahloptionen aufgelistet, die für die BU OSM relevant sind. Die Fehlergrundliste wird dabei, 
           zusätzlich zu der Nutzung in der Applikation, für das Shopfloor-Management verwendet. Die Entnahme der aktuellen Fehlergründe, Bereiche, Dispostufen 
           und Bauteile ist von hoher Bedeutung für die einheitliche Wahrnehmung der Fertigungssituation. 
           Die Arbeitsgänge werden, aufgrund der hohen Anzahl, in dieser Ansicht nicht aufgeführt. Sie können aus dem SAP-System oder vom Shopfloor-Board 
           entnommen werden. 
+        </p>
         </v-col> 
         <v-col>
           <v-divider/>

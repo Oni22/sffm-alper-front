@@ -4,8 +4,6 @@
         <row>
             <h2>Informationen zur App</h2> 
             <v-divider/>
-            <v-col>
-            </v-col>
             <v-col cols="12">
                 <h3>I. Aktuelle Anpassungen</h3>
                     <p>
