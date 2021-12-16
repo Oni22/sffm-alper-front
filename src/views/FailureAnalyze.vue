@@ -18,7 +18,7 @@
         </v-col>
       </v-row>
       <v-row>
-          <DoughnutChart :height="100" :chartData="chartData" style="height:150px" />
+          <BarChart :height="100" :chartData="chartData" style="height:150px" />
       </v-row>
     </v-container>
   </div>

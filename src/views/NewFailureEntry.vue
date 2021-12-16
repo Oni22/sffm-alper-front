@@ -7,15 +7,14 @@
         <h2>Fehler eintragen</h2>
         <v-divider/>
         <p class="font-weight-light">  
-          Um die Entwicklung eines nachhaltig reibungsfreien Fertigungsablaufes voranzutreiben, ist das Eintragen, Analysieren und Auswerten von Fehlerzuständen
-          von hoher Bedeutung. Die Analyse und die Auswertung von Fehlerzuständen können, je nach Störungssituation, -grund oder -dauer, mit diversen Methoden 
-          und Mitteln erfüllt werden. Die Lösung eines vorliegenden Problems soll mit dem Durchlaufen des Problemlösungszyklus gewährleistet werden. 
-          Dazu wird in der folgenden Ansicht eine unterstützende Problemlösungssystematik durchgeführt.
+          Um die Entwicklung eines nachhaltig reibungsfreien Fertigungsablaufes voranzutreiben, ist das Eintragen, 
+          Analysieren und Auswerten von Fehlerzuständen von hoher Bedeutung. Das Einpflegen von Fehlerzuständen kann, 
+          je nach Störungssituation, -grund oder -dauer, mit diversen Methoden und Mitteln erfüllt werden. 
+          In diesem Fenster ist zunächst zu unterscheiden, ob ein auftretender Fehler bekannt oder unbekannt ist.
+          Das bedeutet, dass eine Kenntnis über die fehlerbeschreibenden Daten vorliegen muss, um den Fehler als "bekannt" einzustufen. 
         </p>
+        <v-divider/>
         </v-col> 
-        <v-col>
-          <v-divider/>
-        </v-col>
         <v-col cols="12"> <h2>Ist der vorliegende Fehler bereits bekannt?</h2>
             <small>(bekannt bedeutet hierbei die Kenntnis über "Fehlergrund", "Fehlerkategorie" und weiteren, produktbezogenen Informationen)</small>
         </v-col>
