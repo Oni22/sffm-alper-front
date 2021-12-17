@@ -40,6 +40,15 @@
                 <PDCAInfoRow :description="pdca.results" :title="'Ergebnisse'"/>
             </v-col>
             <v-col cols="12" class="mt-1">
+                <PDCAInfoRow :description="pdca.userName" :title="'Teilnehmer_innen'"/>
+            </v-col>
+            <v-col cols="12" class="mt-1">
+                <PDCAInfoRow :description="pdca.currentPhase" :title="'Aktuelle Phase'"/>
+            </v-col>
+            <v-col cols="12" class="mt-1">
+                <PDCAInfoRow :description="pdca.processDuration" :title="'Laufzeit'"/>
+            </v-col>
+            <v-col cols="12" class="mt-1">
                 <PDCAInfoRow :description="pdca.timestamp" :title="'Zeitstempel'"/>
             </v-col>
         </v-row>

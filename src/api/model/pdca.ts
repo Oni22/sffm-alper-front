@@ -15,6 +15,9 @@ export default class PDCA {
     //results?: string
     //specifications?: string
     //standards?: string
+    //userName: string
+    //processDuration: string
+    //currentPhase: string
     //timestamp?: string
 
     //fromJson(data: any) : PDCA {
@@ -30,6 +33,9 @@ export default class PDCA {
         //this.results = data.results,
         //this.specifications = data.specifications,
         //this.standards = data.standards,
+        //this.userName = data.userName,
+        //this.processDuration = data.processDuration,
+        //this.currentPhase = data.currentPhase,
         //this.timestamp = data.timestamp,
         //return this;
 
@@ -48,7 +54,11 @@ export default class PDCA {
             //"goals": this.goals,
             //"results": this.results,
             //"specifications": this.specifications,
+            //"specifications": this.specifications,
             //"standards": this.standards,
+            //"userName": this.userName,
+            //"currentPhase": this.currentPhase,
+            //"processDuration": this.processDuration,
 
 
     //    }

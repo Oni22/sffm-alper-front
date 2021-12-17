@@ -62,7 +62,7 @@
                 path: Routes.FAILURE_LIST
             },
             {
-                name: "Information zur App",
+                name: "Informationen zur App",
                 path: Routes.APP_INFO
             }
             

@@ -396,7 +396,7 @@
                         <v-col cols="5">
                             <p class="font-weight-light">
                               Zur dauerhaften und nachhaltigen Abstellung bzw. Minderung der Fehlerzustände, sind die erkannten Ursachen 
-                              zu beseitigen. Dafür werden Maßnahmen erfasst, welche den Hauptursachen des Fehlerzustand entgegenwirken.
+                              zu beseitigen. Dafür werden Maßnahmen erfasst, welche den Hauptursachen des Fehlerzustands entgegenwirken.
                               Die optimale(n) Maßnahme(n) werden ausgewählt, um eine effiziente und effektive Problemlösung zu gewährleisten.
                               Gleichzeitig soll durch das Festlegen der Maßnahmen eine unerwünschte Nebenwirkung vermieden werden.
                               Zur Orientierung sollten die folgenden Fragen beantwortet werden, um zu den unmittelbar festzulegenden 
@@ -452,7 +452,7 @@
           <p>
             In der Check-Phase des PDCA-Zyklus werden die Ergebnisse der erarbeiteten Umsetzungen objektiv betrachtet.
             Die zuvor gesammelten Daten werden hierfür ausgewertet und beurteilt. Dadurch wird festgestellt, ob weitere Anpassungen notwendig 
-            sind und ob die Qualität der Ergebnisse zur Erfüllung der Anforderungen ausreichend ist. 
+            sind und die Qualität der Ergebnisse zur Erfüllung der Anforderungen ausreichend ist. 
           </p>
         </v-col>
           <v-stepper v-model="e8" vertical>
@@ -467,19 +467,21 @@
                             <p class="font-weight-light">
                               Die Verifizierung der Ergebnisse erfolgt über die Prüfung der Produkt- und Produktionseigenschaften, die 
                               sich mit der Implementierung der Maßnahme anpassen bzw. verändern.
-                              Durch das ermitteln der qualitätsbezogenen Kennzahlen werden hier umfangreiche Analysen durchgeführt. 
+                              Durch das Ermitteln der qualitätsbezogenen Kennzahlen werden hier umfangreiche Analysen durchgeführt. 
                               Das objektive Betrachten der Veränderungen ist dabei wichtig, um die Steigerung der Ergebnisse zu erkennen.
                               Zur Überprüfung der Ergebnisse können verschiedene Kriterien angegeben werden, die eine qualitative Entwicklung
                               des Prozesses und der Fehlersituation kennzeichnen.
                             <p> 
                               Im Folgenden werden einige Möglichkeiten zur Bewertung der Ergebnisse angeben, welche die Anforderungen und 
-                              die getätigten Schritte zur Problembeseitigung gegenüberstellen. Dabei werden die Bereiche der SWOT-Analyse
-                              (Strenghts-Weeknesses-Opportunities-Threats-Analyse) verwendet, um die Stärken, Schwächen, Herausforderungen und Chancen
-                              zu erkennen.
+                              die getätigten Schritte zur Problembeseitigung gegenüberstellen. Dabei werden die 
+                              Stärken, Schwächen, Herausforderungen und Chancen für die Problembearbeitung erarbeitet.
                             </p>
-                            <a href="https://wirtschaftslexikon.gabler.de/definition/ressourcen-122425" target="_blank">
+                              Weitere Methoden, für das Auswerten von Ergebnissen mit Kennzahlen und langfristigen Daten, 
+                              können ebenfalls angewendet werden. Dazu eignet sich beispielsweise die Prozessfähigkeitsuntersuchung mit 
+                              Qualitätsregelkarten
+                            <a href="http://quality.kenline.de/seiten_d/spc_QRK.htm" target="_blank">
                               <p class="font-weight-light">
-                                Für weiterführende Informationen zur SWOT-Analyse hier klicken   
+                                Für weiterführende Informationen hier klicken   
                               </p>
                             </a>
                         </v-col>
@@ -651,7 +653,7 @@
                             <p class="font-weight-light">
                               Die gesetzten Ziele des Unternehmens erfolgen aus einem Mindestanspruch an die Fertigung.
                               Eine Zielsetzung gehört zu den betrieblichen Grundentscheidungen eines Unternehmens und wird in der 
-                              Regel von der Unternehmensleitung, unter Berücksichtigung der zu erfüllenden Normen, festgelegt .
+                              Regel von der Unternehmensleitung, unter Berücksichtigung der zu erfüllenden Normen, festgelegt.
                             <p> 
                               Einige beispielhafte Ziele des Unternehmens/ Bereiches: 
                             </p>
@@ -716,7 +718,7 @@
                               Im Sinne des kontinuierlichen Problemlösungsansatzes wird, ausgehend von dieser Fehlersituation, 
                               eine ständige Verbesserung der Ausgabe erwartet.  Es gilt nun eine kontinuierliche Kontrolle 
                               der ausgegebenen Ziele und eine Standardisierung der Prozesse. 
-                              Nach einiger Zeit und guter Performance, kannst der nächste PDCA-Zyklus angestoßen werden, 
+                              Nach einiger Zeit und guter Performance, kann der nächste PDCA-Zyklus angestoßen werden, 
                               wenn ein weiteres Potenzial besteht.
                             </p>
                         </v-col>   
@@ -739,6 +741,48 @@
                             <v-checkbox v-model="cause.checked"  dense :label="cause.name" />
                         </v-row>
                       </v-col>
+                      <v-row no-gutters>
+                        <v-col col="12">
+                            <v-combobox
+                                v-model="userName"
+                                chips
+                                dense
+                                clearable
+                                label="Tragen Sie die Teilnehmer_innen ein und bestätigen Sie mit ENTER."
+                                hint="Teilnehmer_in XY: Frau/Herr Muster (Aufgabe/ Abteilung)"
+                                persistent-hint
+                                multiple
+                              >
+                                <template
+                                  v-slot:selection="{ attrs, item, select, selected }"
+                                >
+                                  <v-chip
+                                    v-bind="attrs"
+                                    :input-value="selected"
+                                    close
+                                    @click="select"
+                                    @click:close="removeUserName(item)"
+                                  >
+                                    <strong>{{ item }}</strong>
+                                  </v-chip>
+                                </template>
+                              </v-combobox>
+                            <v-text-field 
+                              label="Tragen Sie die aktuelle Phase der Problemlösung ein." 
+                              v-model="currentPhase"
+                              hint="Beispiel: Plan - Stillstandszeit bestimmen"
+                              persistent-hint
+                            />
+                            <v-text-field 
+                              label="Tragen Sie die Dauer des Problemlösungsprozesses, bis zur aktuellen Phase, ein." 
+                              v-model="processDuration"
+                              hint="Beispiel: KW 34 - KW 49 (laufender Prozess bei Do)"
+                              persistent-hint
+                            />
+                          </v-col> 
+                        </v-row>
+                        <v-col>
+                        </v-col>                  
               </v-card>
               <v-btn color="error" outlined @click="e9 = 1">
                 zurück
@@ -751,6 +795,10 @@
       <p></p>
       <v-col cols="12">
       <v-row align="center" justify="space-around">
+        <v-alert dense outlined type="error" align="center" border="top" prominent>
+            <strong>ACHTUNG: Wenn Sie den Eintrag speichern, geht der aktuelle Eintrag verloren. 
+            Sie können den Eintrag in der Tabelle "Aktuelle Problemlösungen" erneut aufrufen und bearbeiten.</strong>
+        </v-alert>
         <v-btn color="#00695C" dark>
           <v-icon left>mdi-arrow-up-bold-box-outline</v-icon>
             Hier klicken, um Ihre Einträge zu sichern
@@ -780,6 +828,9 @@ export default class NewPDCA extends Vue {
   results: Array<any> = [];
   specifications: Array<any> = [];
   standards: Array<any> = [];
+  userName: Array<any> = [];
+  processDuration: Array<any> = [];
+  currentPhase: Array<any> = [];
   currentStepperIndex = 1
 
   data(){
@@ -886,6 +937,12 @@ export default class NewPDCA extends Vue {
     const index = this.standards.indexOf(item);
     this.standards.splice(index, 1);
     this.standards = [...this.standards];
+  }
+
+  removeUserName(item: string) {
+    const index = this.userName.indexOf(item);
+    this.userName.splice(index, 1);
+    this.userName = [...this.userName];
   }
 
   addShortTimeAction() {

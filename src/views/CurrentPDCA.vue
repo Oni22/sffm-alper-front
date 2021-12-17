@@ -55,6 +55,3 @@
     </v-container>
   </div>
 </template>
-
-
-

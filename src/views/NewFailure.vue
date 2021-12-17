@@ -27,10 +27,11 @@
                 <small>
                   <div class="text-h6">Bearbeitungshinweise</div>
                   <div>
-                    Tragen Sie im Folgenden die fehlerbeschreibenden Daten ein,
-                    welche sich mit diesem Fehlerzustand ergeben. Zusätzlich
-                    kann eine Fehlerbeschreibung, für das präzise Formulieren
-                    der Abweichung bzw. Störung, verfasst werden.
+                    Tragen Sie im Folgenden die fehlerbeschreibenden Daten ein, welche sich mit diesem Fehlerzustand ergeben. 
+                    Zusätzlich kann eine Fehlerbeschreibung, für das präzise Formulieren der Abweichung bzw. Störung, verfasst werden.
+                    Auf der Basis Ihrer Eingaben erhalten Sie eine vorgeschlagene Maßnahme, eine primäres und sekundäres Ursachenfeld 
+                    und die geschätzte Stillstandzeit für dieses Problem. 
+                    Der Eintrag wird in der Datenbank hinterlegt, sodass eine spätere Einsicht möglich ist.
                   </div>
                 </small>
               </p>
@@ -119,6 +120,19 @@
               Ergebnisse ausgeben
               <v-icon right>mdi-folder</v-icon>
             </v-btn>
+            <v-snackbar v-model="snackbar">
+              {{ text }}
+              <template v-slot:action="{ attrs }">
+                <v-btn
+                  color="pink"
+                  text
+                  v-bind="attrs"
+                  @click="snackbar = false"
+                >
+                  Close
+                </v-btn>
+              </template>
+            </v-snackbar>
           </v-col>
         </v-row>
         <v-row>
@@ -193,13 +207,11 @@
         <v-col>
         </v-col>
         <v-row>
-          <v-col cols="12">
-          <p class="font-weight-light">
-              Neben dem Erhalten der Ergebnisse, die auf der Künstlichen Intelligenz basieren, wird der Fehler gleichzeitig in der Datenbank
-              gesichert. 
+          <v-col cols="12"> 
           <p>
             <v-alert dense outlined type="error" align="center" border="top" prominent>
-              <strong>ACHTUNG: Wenn Sie einen der unteren Links aufrufen, geht der aktuelle Eintrag verloren.</strong>
+              <strong>ACHTUNG: Wenn Sie einen der unteren Links aufrufen, geht der aktuelle Eintrag verloren. 
+              Sie können den Eintrag in der Tabelle unter "Aktuelle Fehler" einsehen.</strong>
             </v-alert>
           </p> 
           <v-row>
@@ -250,8 +262,11 @@ export default class NewFailure extends Vue {
   downtimeInDays = 0;
 
   data() {
+    
     return {
       alert: true,
+      snackbar: false,
+      text: 'Ihr Eintrag wurde gesichert.',
     };
   }
 
