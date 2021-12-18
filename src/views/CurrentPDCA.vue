@@ -23,8 +23,13 @@
               <v-row align="center" justify="center">
                 <v-col cols="12" align="center">
                   <v-data-table
+                    @click:row="openSolution"
+                    :headers="headers"
+                    :items="solutions"
                   >
+                    <template v-slot:[`item.timestamp`]="{ item }">{{ formatTimestamp(item.timestamp) }}</template>
                   </v-data-table>
+                  
                 </v-col>
               </v-row>
             </v-card-text>
@@ -41,8 +46,8 @@
                   </v-toolbar>
                   <v-card-text>  
                     <v-row>
-                        <v-col>
-                            
+                       <v-col v-if="hasCurrentFault()">
+                          <PDCAInfoCard :pdca="currentSolution"/>
                         </v-col>
                         <v-col align="center">
                             <p>Kein Fehler ausgewählt</p>
@@ -55,3 +60,76 @@
     </v-container>
   </div>
 </template>
+
+
+<script lang="ts">
+import PDCA from "@/api/model/pdca";
+import { Component, Vue } from "vue-property-decorator";
+import PDCAInfoCard from "@/components/PDCAInfoCard.vue"
+
+@Component({
+    components: {
+        PDCAInfoCard
+    }
+})
+export default class CurrentPDCA extends Vue {
+
+  headers = [
+    {
+      text: "Beschreibung",
+      align: "start",
+      sortable: false,
+      value: "title",
+    },
+    {
+      text: "Störungs-Tags",
+      align: "start",
+      sortable: false,
+      value: "tilteTags",
+    },
+    {
+      text: "Teilnehmer_innen",
+      align: "start",
+      sortable: false,
+      value: "userName",
+    },
+    {
+      text: "aktuelle Phase",
+      align: "start",
+      sortable: false,
+      value: "currentPhase",
+    },
+    {
+      text: "Zeitstempel",
+      align: "start",
+      sortable: true,
+      value: "timestamp",
+    },
+  ];
+
+  pdcas: Solution[] = [];
+  currentSolution?: Solution = new Solution();
+
+  async created() {
+    const solutions = await this.$api.getAllPDCA();
+    this.solutions = solutions;
+  }
+
+  openSolution(item: Solution) {
+    this.currentSolution = item
+  }
+
+  hasCurrentSolution() {
+    return this.currentSolution != null;
+  }
+
+  formatTimestamp(timestamp:string) {
+      return new Date(timestamp)
+
+  }
+}
+
+</script>
+
+<style scoped>
+</style>

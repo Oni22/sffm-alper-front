@@ -57,7 +57,7 @@
 
 
 <script lang="ts">
-    import Prediction from '@/api/model/pdca';
+    import PDCA from '@/api/model/pdca';
     import { Component, Prop, Vue } from 'vue-property-decorator';
     import PDCAInfoRow from "@/components/PDCAInfoRow.vue"
 
