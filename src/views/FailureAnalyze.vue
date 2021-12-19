@@ -52,7 +52,7 @@
                     </v-col>
                 </v-row>
                 <v-row>
-                    <BarChart :height="100" :chartData="chartData" style="height:150px" />
+                    <BarChart :height="100" :options="myOptions" :chartData="chartData" style="height:150px" />
                 </v-row>
               </v-card-text>
             </v-card>
@@ -71,7 +71,7 @@
                     </v-col>
                 </v-row>
                 <v-row>
-                    <BarChart :height="100" :chartData="chartData" style="height:150px" />
+                    <BarChart :height="100" :chartData="dispoChartData" style="height:150px" />
                 </v-row>
               </v-card-text>
             </v-card>
@@ -147,7 +147,7 @@
                     </v-col>
                 </v-row>
                 <v-row>
-                    <BarChart :height="100" :chartData="chartData" style="height:150px" />
+                  <!-- <BarChart :height="200" :options="myOptions" :chartData="chartData" style="height:200px" /> -->
                 </v-row>
                 <v-row>
                     <v-col cols="12">
@@ -224,13 +224,54 @@ export default class FailureAnalyze extends Vue {
     }
   }
   chartData = {};
+  dispoChartData = {}
   
+  myOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          clamp: true,
+          color: '#000000',
+            font: {
+              weight: "bold"
+            }
+          },
+      },
+      scales: {
+        xAxes: [{
+            barPercentage: 1
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero: false,
+            min: 3,
+            stepSize: 1
+          }
+        }]
+      },
+      layout: {
+        padding: {
+            top: 50,
+        }
+      },
+      legend: {
+        display: false,
+        position: "bottom",
+        labels: {
+          boxWidth: 20
+        }
+      }
+    }
 
   mounted() {
     this.loadFaults()
+    this.loadDispoLevels()
   }
 
-/*    async loadDispoLevels() {
+    async loadDispoLevels() {
 
     const chartData = {
       labels:  new Array<string>(),
@@ -276,13 +317,18 @@ export default class FailureAnalyze extends Vue {
         chartData.datasets[0].backgroundColor.push(i.color)
       }
 
-      this.chartData = chartData
+      this.dispoChartData = chartData
 
-      console.log(this.chartData)
+      console.log(this.dispoChartData)
+
+    
+    } catch(err) {
 
     }
+
+  
   }
-*/  
+  
                       
   async loadFaults() {
 

@@ -107,15 +107,15 @@ export default class CurrentPDCA extends Vue {
     },
   ];
 
-  pdcas: Solution[] = [];
-  currentSolution?: Solution = new Solution();
+  pdcas: PDCA[] = [];
+  currentSolution?: PDCA = new PDCA();
 
   async created() {
     const solutions = await this.$api.getAllPDCA();
-    this.solutions = solutions;
+    // this.solutions = solutions;
   }
 
-  openSolution(item: Solution) {
+  openSolution(item: PDCA) {
     this.currentSolution = item
   }
 

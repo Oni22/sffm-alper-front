@@ -150,7 +150,7 @@
                       <v-col>
                       </v-col>
                         <v-col col="12">
-                          <v-combobox
+                          <v-text-field
                             v-model="category"
                             chips
                             dense
@@ -159,21 +159,7 @@
                             hint="Aus welchen Ursachenbereichen (Mensch, Maschine, Management, Mitwelt, Methode) könnte das Problem auftreten?"
                             persistent-hint
                             multiple
-                          >
-                            <template
-                              v-slot:selection="{ attrs, item, select, selected }"
-                            >
-                              <v-chip
-                                v-bind="attrs"
-                                :input-value="selected"
-                                close
-                                @click="select"
-                                @click:close="removeCategory(item)"
-                              >
-                                <strong>{{ item }}</strong>
-                              </v-chip>
-                            </template>
-                          </v-combobox>
+                          />
                         </v-col>
                         <v-col col="12">
                           <v-combobox
@@ -486,7 +472,7 @@
                             </a>
                         </v-col>
                         <v-col cols="12">
-                          <v-expansion-panels v-model="panel" focusable>
+                          <v-expansion-panels focusable>
                             <v-expansion-panel>
                               <v-expansion-panel-header color="#A5D6A7">
                                 Stärken: Prozessverbessernder Faktor der Maßnahmen <small>- (Anklicken für Erweiterungen)</small>
@@ -799,7 +785,7 @@
             <strong>ACHTUNG: Wenn Sie den Eintrag speichern, geht der aktuelle Eintrag verloren. 
             Sie können den Eintrag in der Tabelle "Aktuelle Problemlösungen" erneut aufrufen und bearbeiten.</strong>
         </v-alert>
-        <v-btn color="#00695C" dark>
+        <v-btn color="#00695C" dark @click="save()">
           <v-icon left>mdi-arrow-up-bold-box-outline</v-icon>
             Hier klicken, um Ihre Einträge zu sichern
         </v-btn>
@@ -813,11 +799,12 @@
 import { Component, Vue } from "vue-property-decorator";
 import { mdiCheck,mdiTrashCan } from "@mdi/js";
 import { Routes } from "@/router/utils";
+import PDCA from "@/api/model/pdca";
 
 @Component
 export default class NewPDCA extends Vue {
   newCauses: Array<string> = [];
-  category: Array<string> = [];
+  category = "";
   title = "";
   titleTags: Array<string> = [];
   downtime = "";
@@ -828,10 +815,11 @@ export default class NewPDCA extends Vue {
   results: Array<any> = [];
   specifications: Array<any> = [];
   standards: Array<any> = [];
-  userName: Array<any> = [];
-  processDuration: Array<any> = [];
-  currentPhase: Array<any> = [];
+  userName = "";
+  processDuration = ""
+  currentPhase = "";
   currentStepperIndex = 1
+  currentPDCAId = ""
 
   data(){
     return {
@@ -842,6 +830,39 @@ export default class NewPDCA extends Vue {
         alert: true,
         model: 0,
       }
+  }
+
+  async save() {
+
+    console.log("HALLO")
+    const pdca = new PDCA()
+    pdca.title = this.title
+    pdca.titleTags = this.titleTags
+    pdca.specifications = this.specifications.map(s => s.name)
+    pdca.goals = this.goals.map(g => g.name)
+    pdca.results = this.results.map(g => g.name)
+    pdca.standards = this.standards.map(s => s.name)
+    pdca.shortTimeActions = this.shortTimeAction.map(s => s.name)
+    pdca.longTimeActions = this.longTimeAction.map(g => g.name)
+    pdca.newCauses = this.newCauses
+    pdca.processDuration = this.processDuration
+    pdca.currentPhase = this.currentPhase
+    pdca.userName = this.userName
+    pdca.category = this.category
+    pdca.ressources = this.ressources
+    console.log(pdca)
+    if(this.currentPDCAId && this.currentPDCAId !== "") {  
+
+      const res = await this.$api.updatePDCA(pdca,this.currentPDCAId)
+      console.log(res)
+    } else {
+
+      const res = await this.$api.sendPDCA(pdca)
+      this.currentPDCAId = res?.id ?? ""
+
+
+    }
+
   }
 
   setStepperIndex(index: number) {
@@ -891,11 +912,11 @@ export default class NewPDCA extends Vue {
     this.newCauses = [...this.newCauses];
   }
 
-  removeCategory(item: string) {
-    const index = this.category.indexOf(item);
-    this.category.splice(index, 1);
-    this.category = [...this.category];
-  }
+  // removeCategory(item: string) {
+  //   const index = this.category.indexOf(item);
+  //   this.category.splice(index, 1);
+  //   this.category = [...this.category];
+  // }
 
   removeShortTimeAction(item: string) {
     const index = this.shortTimeAction.indexOf(item);
@@ -939,11 +960,11 @@ export default class NewPDCA extends Vue {
     this.standards = [...this.standards];
   }
 
-  removeUserName(item: string) {
-    const index = this.userName.indexOf(item);
-    this.userName.splice(index, 1);
-    this.userName = [...this.userName];
-  }
+  // removeUserName(item: string) {
+  //   const index = this.userName.indexOf(item);
+  //   this.userName.splice(index, 1);
+  //   this.userName = [...this.userName];
+  // }
 
   addShortTimeAction() {
     if(this.shortTimeAction.some(item => item.name === this.currentShortTimeAction.name)) {

@@ -20,6 +20,7 @@ module.exports = {
     "no-empty": 0,
     "no-irregular-whitespace": 0,
     "prefer-const": 0,
+    "@typescript-eslint/no-explicit-any": ["off"],
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/no-irregular-whitespace": 0,
     "@typescript-eslint/no-empty-function": ["off"],

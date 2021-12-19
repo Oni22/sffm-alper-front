@@ -8,12 +8,12 @@ const { reactiveProp } = mixins;
 export default {
   extends: Bar,
   mixins: [reactiveProp],
-  props: ["chartData"],
+  props: ["chartData","options"],
   mounted () {
     // // Overwriting base render method with actual data.
     // this.addPlugin([ChartDataLabels]) 
-    console.log(this.chartData)
-    this.renderChart(this.chartData,{
+    console.log(this.options,"JALLÖLLO")
+    this.renderChart(this.chartData,this.options ?? {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {

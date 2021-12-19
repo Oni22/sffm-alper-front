@@ -7,7 +7,7 @@
                 <PDCAInfoRow :description="pdca.description" :title="'Problembeschreibung'"/>
             </v-col>
             <v-col cols="12">
-                <PDCAInfoRow :description=".titleTags" :tags="'Fehlertags'"/>
+                <PDCAInfoRow :description="pdca.titleTags" :tags="'Fehlertags'"/>
             </v-col>
             <v-col cols="12" class="mt-1">
                 <PDCAInfoRow :description="pdca.newCauses" :title="'Ursachen'"/>
@@ -57,9 +57,9 @@
 
 
 <script lang="ts">
-    import PDCA from '@/api/model/pdca';
     import { Component, Prop, Vue } from 'vue-property-decorator';
     import PDCAInfoRow from "@/components/PDCAInfoRow.vue"
+    import Prediction from '@/api/model/predition';
 
     @Component({
         components: {
