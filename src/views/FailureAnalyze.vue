@@ -50,9 +50,9 @@
                         Es wird ersichtlich, welche Fehlergründe die höchste gesamte Stillstandzeit generieren. 
                       </p>
                     </v-col>
-                </v-row>
-                <v-row>
-                    <BarChart :height="100" :options="myOptions" :chartData="chartData" style="height:150px" />
+                    <v-col cols="12">
+                       <BarChart :height="100" :options="myOptions" :chartData="chartData" style="height:300px" />
+                    </v-col>
                 </v-row>
               </v-card-text>
             </v-card>
@@ -69,9 +69,9 @@
                         Es wird ersichtlich, welche Dispostufen die höchste gesamte Stillstandzeit generieren. 
                       </p>
                     </v-col>
-                </v-row>
-                <v-row>
-                    <BarChart :height="100" :chartData="dispoChartData" style="height:150px" />
+                    <v-col cols="12">
+                       <BarChart :height="100" :options="myOptions" :chartData="dispoChartData" style="height:300px" />
+                    </v-col>   
                 </v-row>
               </v-card-text>
             </v-card>
@@ -88,9 +88,9 @@
                         Es wird ersichtlich, welche Produkte die höchste gesamte Stillstandzeit generieren. 
                       </p>
                     </v-col>
-                </v-row>
-                <v-row>
-                    BARCHART
+                    <v-col cols="12">
+                      <BarChart :height="100" :options="myOptions" :chartData="productChartData" style="height:300px" />
+                    </v-col>
                 </v-row>
               </v-card-text>
             </v-card>
@@ -101,15 +101,14 @@
               <v-card-text>
                 <v-row>
                   <v-col cols="12">
-                    <h3>Zeitverlust je KW in Tagen</h3>
+                    <h3>Anteiliger Zeitverlust je Fehlerkategorie</h3>
                     <p class="font-weight-light">
-                      In dieser Ansicht wird eine Analyse zum Zeitverlust für die KWs in Tagen vorgenommen. 
-                      LINECHART (LINIENDIAGRAMM)
+                      In dieser Ansicht wird eine Analyse zu der kumulierten Stillstandzeit der Fehlerkategorien vorgenommen. 
                     </p>
                   </v-col>
-                </v-row>
-                <v-row>
-                    CHARTTYPE
+                  <v-col cols="12">
+                    <DoughnutChart :height="100" :options="myOptions" :chartData="categoryChartData" style="height:300px" />
+                  </v-col>
                 </v-row>
               </v-card-text>
             </v-card>
@@ -120,15 +119,14 @@
               <v-card-text>
                 <v-row>
                   <v-col cols="12">
-                    <h3>Anteiliger Zeitverlust je Fehlerkategorie</h3>
+                    <h3>Zeitverlust je KW in Tagen</h3>
                     <p class="font-weight-light">
-                      In dieser Ansicht wird eine Analyse zu der kumulierten Stillstandzeit der Fehlerkategorien vorgenommen. 
-                      PIECHART/ DOUGHNUTCHART
+                      In dieser Ansicht wird eine Analyse zum Zeitverlust für die KWs in Tagen vorgenommen. 
                     </p>
                   </v-col>
-                </v-row>
-                <v-row>
-                    CHARTTYPE
+                  <v-col cols="12">
+                    <LineChart :height="100" :options="myOptions" :chartData="timestampChartData" style="height:300px" />
+                  </v-col>
                 </v-row>
               </v-card-text>
             </v-card>
@@ -138,64 +136,63 @@
             <v-card flat>
               <v-card-text>
                 <v-row>
-                    <v-col cols="12">
+                    <v-col cols="4">
                       <h3>Kumulierter Zeitverlust je Fehlergrund in Tagen</h3>
                       <p class="font-weight-light">
                         In dieser Ansicht wird eine Analyse zu der kumulierten Stillstandzeit der Fehlergründe vorgenommen. 
                         Es wird ersichtlich, welche Fehlergründe die höchste gesamte Stillstandzeit generieren. 
                       </p>
                     </v-col>
+                    <v-col cols="8">
+                      <BarChart :height="100" :options="myOptions" :chartData="chartData" style="height:300px" />
+                    </v-col>
                 </v-row>
                 <v-row>
-                  <!-- <BarChart :height="200" :options="myOptions" :chartData="chartData" style="height:200px" /> -->
-                </v-row>
-                <v-row>
-                    <v-col cols="12">
+                    <v-col cols="4">
                       <h3>Kumulierter Zeitverlust je Dispostufe in Tagen</h3>
                       <p class="font-weight-light">
                         In dieser Ansicht wird eine Analyse zu der kumulierten Stillstandzeit der Dispostufen vorgenommen. 
                         Es wird ersichtlich, welche Dispostufen die höchste gesamte Stillstandzeit generieren. 
                       </p>
                     </v-col>
-                </v-row>
-                <v-row>
-                    BARCHART
+                    <v-col cols="8">
+                      <BarChart :height="100" :options="myOptions" :chartData="dispoChartData" style="height:300px" />
+                    </v-col>
                 </v-row>
                  <v-row>
-                    <v-col cols="12">
+                    <v-col cols="4">
                       <h3>Kumulierter Zeitverlust je Produkt in Tagen</h3>
                       <p class="font-weight-light">
                         In dieser Ansicht wird eine Analyse zu der kumulierten Stillstandzeit der Produkte vorgenommen. 
                         Es wird ersichtlich, welche Produkte die höchste gesamte Stillstandzeit generieren. 
                       </p>
                     </v-col>
+                    <v-col cols="8">
+                      <BarChart :height="100" :options="myOptions" :chartData="productChartData" style="height:300px" />
+                    </v-col>
                 </v-row>
                 <v-row>
-                    BARCHART
-                </v-row>
-                <v-row>
-                  <v-col cols="12">
-                    <h3>Zeitverlust je KW in Tagen</h3>
-                    <p class="font-weight-light">
-                      In dieser Ansicht wird eine Analyse zum Zeitverlust für die KWs in Tagen vorgenommen. 
-                      LINECHART (LINIENDIAGRAMM)
-                    </p>
-                  </v-col>
-                </v-row>
-                <v-row>
-                    CHARTTYPE
-                </v-row>
-                <v-row>
-                  <v-col cols="12">
+                  <v-col cols="4">
                     <h3>Anteiliger Zeitverlust je Fehlerkategorie</h3>
                     <p class="font-weight-light">
                       In dieser Ansicht wird eine Analyse zu der kumulierten Stillstandzeit der Fehlerkategorien vorgenommen. 
-                      PIECHART/ DOUGHNUTCHART
                     </p>
+                  </v-col>
+                  <v-col cols="8">
+                    <DoughnutChart :height="100" :options="myOptions" :chartData="categoryChartData" style="height:300px" />
                   </v-col>
                 </v-row>
                 <v-row>
+                  <v-col cols="4">
+                    <h3>Zeitverlust je KW in Tagen</h3>
+                    <p class="font-weight-light">
+                      In dieser Ansicht wird eine Analyse zum Zeitverlust für die KWs in Tagen vorgenommen. 
+                       (LINIENDIAGRAMM)
+                    </p>
+                  </v-col>
+                  <v-col cols="8">
                     CHARTTYPE
+                  </v-col>
                 </v-row>
               </v-card-text>
             </v-card>
@@ -209,12 +206,14 @@
 import { Component, Vue } from "vue-property-decorator";
 import DoughnutChart from "@/components/DoughnutChart.vue";
 import BarChart from "@/components/BarChart.vue";
+import LineChart from "@/components/LineChart.vue";
 
 @Component({
   name: "FailureAnalyze",
   components: {
     DoughnutChart,
     BarChart,
+    LineChart,
   },
 })
 export default class FailureAnalyze extends Vue {
@@ -224,7 +223,10 @@ export default class FailureAnalyze extends Vue {
     }
   }
   chartData = {};
-  dispoChartData = {}
+  dispoChartData = {};
+  productChartData = {};
+  categoryChartData = {};
+  timestampChartData = {};
   
   myOptions = {
       responsive: true,
@@ -242,12 +244,12 @@ export default class FailureAnalyze extends Vue {
       },
       scales: {
         xAxes: [{
-            barPercentage: 1
+            barPercentage: 0.7
         }],
         yAxes: [{
           ticks: {
-            beginAtZero: false,
-            min: 3,
+            beginAtZero: true,
+            min: 0,
             stepSize: 1
           }
         }]
@@ -258,10 +260,10 @@ export default class FailureAnalyze extends Vue {
         }
       },
       legend: {
-        display: false,
+        display: true,
         position: "bottom",
         labels: {
-          boxWidth: 20
+          boxWidth: 40
         }
       }
     }
@@ -269,66 +271,11 @@ export default class FailureAnalyze extends Vue {
   mounted() {
     this.loadFaults()
     this.loadDispoLevels()
+    this.loadProducts()
+    this.loadCategory()
+    this.loadTimestamp()
   }
 
-    async loadDispoLevels() {
-
-    const chartData = {
-      labels:  new Array<string>(),
-      datasets: [
-        {
-          backgroundColor: new Array<string>(),
-          data: new Array<number>(),
-          label: "Dispostufen-Analyse"
-        },
-      ],
-    };
-
-    try {
-      const faults = await this.$api.getAllFaults();
-
-      const items : any[] = []
-      
-      for(const fault of faults) {
-
-        if(items.some(f => f.dispolevel === fault.dispolevel)) {
-          continue
-        }
-
-        const allFaultTypes = faults.filter(f => f.dispolevel === fault.dispolevel)
-
-        let days = 0
-
-        for(const sameTypes of allFaultTypes) {
-          days = days + (sameTypes?.estimatedDownTime ?? 0)
-        }
-
-        items.push({
-          days: days,
-          reason: fault.dispolevel,
-          color: "green"
-        })
-      }
-
-      for(const item of items) {
-        const i = item as any
-        chartData.labels.push(i.dispolevel ?? "")
-        chartData.datasets[0].data.push(i.days)
-        chartData.datasets[0].backgroundColor.push(i.color)
-      }
-
-      this.dispoChartData = chartData
-
-      console.log(this.dispoChartData)
-
-    
-    } catch(err) {
-
-    }
-
-  
-  }
-  
                       
   async loadFaults() {
 
@@ -365,7 +312,7 @@ export default class FailureAnalyze extends Vue {
         items.push({
           days: days,
           reason: fault.reason,
-          color: "#FFA726"
+          color: "#CD5C5C"
         })
       }
 
@@ -382,6 +329,234 @@ export default class FailureAnalyze extends Vue {
 
     } catch (err) {}
   }
+
+  async loadDispoLevels() {
+
+    const chartData = {
+      labels:  new Array<string>(),
+      datasets: [
+        {
+          backgroundColor: new Array<string>(),
+          data: new Array<number>(),
+          label: "Dispostufen-Analyse"
+        },
+      ],
+    };
+
+    try {
+      const faults = await this.$api.getAllFaults();
+
+      const items : any[] = []
+      
+      for(const fault of faults) {
+
+        if(items.some(f => f.dispolevel === fault.dispolevel)) {
+          continue
+        }
+
+        const allFaultTypes = faults.filter(f => f.dispolevel === fault.dispolevel)
+
+        let days = 0
+
+        for(const sameTypes of allFaultTypes) {
+          days = days + (sameTypes?.estimatedDownTime ?? 0)
+        }
+
+        items.push({
+          days: days,
+          dispolevel: fault.dispolevel,
+          color: "#DAA520"
+        })
+      }
+
+      for(const item of items) {
+        const i = item as any
+        chartData.labels.push(i.dispolevel ?? "")
+        chartData.datasets[0].data.push(i.days)
+        chartData.datasets[0].backgroundColor.push(i.color)
+      }
+
+      this.dispoChartData = chartData
+
+      console.log(this.dispoChartData)
+
+    } catch(err) {
+    }
+  }
+
+  async loadProducts() {
+
+    const chartData = {
+      labels:  new Array<string>(),
+      datasets: [
+        {
+          backgroundColor: new Array<string>(),
+          data: new Array<number>(),
+          label: "Produkt-Analyse"
+        },
+      ],
+    };
+
+    try {
+      const faults = await this.$api.getAllFaults();
+
+      const items : any[] = []
+      
+      for(const fault of faults) {
+
+        if(items.some(f => f.product === fault.product)) {
+          continue
+        }
+
+        const allFaultTypes = faults.filter(f => f.product === fault.product)
+
+        let days = 0
+
+        for(const sameTypes of allFaultTypes) {
+          days = days + (sameTypes?.estimatedDownTime ?? 0)
+        }
+
+        items.push({
+          days: days,
+          product: fault.product,
+          color: "#6495ED"
+        })
+      }
+
+      for(const item of items) {
+        const i = item as any
+        chartData.labels.push(i.product ?? "")
+        chartData.datasets[0].data.push(i.days)
+        chartData.datasets[0].backgroundColor.push(i.color)
+      }
+
+      this.productChartData = chartData
+
+      console.log(this.productChartData)
+
+    
+    } catch(err) {
+
+    }
+  }
+
+  async loadCategory() {
+
+    const chartData = {
+      labels:  new Array<string>(),
+      datasets: [
+        {
+          backgroundColor: [
+            'rgb(186,85,211)',
+            'rgb(100,149,237)',
+            'rgb(60,179,113)',
+            'rgb(255,160,122)',
+          ],
+          data: new Array<number>(),
+          label: "Kategorie-Analyse"
+        },
+      ],
+    };
+
+    try {
+      const faults = await this.$api.getAllFaults();
+
+      const items : any[] = []
+      
+      for(const fault of faults) {
+
+        if(items.some(f => f.category === fault.category)) {
+          continue
+        }
+
+        const allFaultTypes = faults.filter(f => f.category === fault.category)
+
+        let days = 0
+
+        for(const sameTypes of allFaultTypes) {
+          days = days + (sameTypes?.estimatedDownTime ?? 0)
+        }
+
+        items.push({
+          days: days,
+          category: fault.category,
+          color: "blue"
+        })
+      }
+
+      for(const item of items) {
+        const i = item as any
+        chartData.labels.push(i.category ?? "")
+        chartData.datasets[0].data.push(i.days)
+        chartData.datasets[0].backgroundColor.push(i.color)
+      }
+
+      this.categoryChartData = chartData
+
+      console.log(this.categoryChartData)
+
+    
+    } catch(err) {
+
+    }
+  }
+
+  async loadTimestamp() {
+
+    const chartData = {
+      labels:  new Array<string>(),
+      datasets: [
+        {
+          backgroundColor: new Array<string>(),
+          data: new Array<number>(),
+          label: "Kategorie-Analyse"
+        },
+      ],
+    };
+
+    try {
+      const faults = await this.$api.getAllFaults();
+
+      const items : any[] = []
+      
+      for(const fault of faults) {
+
+        if(items.some(f => f.timestamp === fault.timestamp)) {
+          continue
+        }
+
+        const allFaultTypes = faults.filter(f => f.timestamp === fault.timestamp)
+
+        let days = 0
+
+        for(const sameTypes of allFaultTypes) {
+          days = days + (sameTypes?.estimatedDownTime ?? 0)
+        }
+
+        items.push({
+          days: days,
+          timestamp: fault.timestamp,
+          color: "blue"
+        })
+      }
+
+      for(const item of items) {
+        const i = item as any
+        chartData.labels.push(i.timestamp ?? "")
+        chartData.datasets[0].data.push(i.days)
+        chartData.datasets[0].backgroundColor.push(i.color)
+      }
+
+      this.timestampChartData = chartData
+
+      console.log(this.timestampChartData)
+
+    
+    } catch(err) {
+
+    }
+  }
+
 }
 </script>
 

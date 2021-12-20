@@ -23,9 +23,9 @@
               <v-row align="center" justify="center">
                 <v-col cols="12" align="center">
                   <v-data-table
-                    @click:row="openSolution"
+                    @click:row="openPDCA"
                     :headers="headers"
-                    :items="solutions"
+                    :items="pdca"
                   >
                     <template v-slot:[`item.timestamp`]="{ item }">{{ formatTimestamp(item.timestamp) }}</template>
                   </v-data-table>
@@ -46,10 +46,10 @@
                   </v-toolbar>
                   <v-card-text>  
                     <v-row>
-                       <v-col v-if="hasCurrentFault()">
-                          <PDCAInfoCard :pdca="currentSolution"/>
+                       <v-col v-if="hasCurrentPDCA()">
+                          <PDCAInfoCard :pdca="currentPDCA"/>
                         </v-col>
-                        <v-col align="center">
+                        <v-col align="center" v-else>
                             <p>Kein Fehler ausgewählt</p>
                         </v-col>
                     </v-row>
@@ -107,20 +107,20 @@ export default class CurrentPDCA extends Vue {
     },
   ];
 
-  pdcas: PDCA[] = [];
-  currentSolution?: PDCA = new PDCA();
+  pdca: PDCA[] = [];
+  currentPDCA?: PDCA = new PDCA();
 
   async created() {
-    const solutions = await this.$api.getAllPDCA();
-    // this.solutions = solutions;
+    const pdca = await this.$api.getAllPDCA();
+    this.pdca = pdca;
   }
 
-  openSolution(item: PDCA) {
-    this.currentSolution = item
+  openPDCA(item: PDCA) {
+    this.currentPDCA = item
   }
 
-  hasCurrentSolution() {
-    return this.currentSolution != null;
+  hasCurrentPDCA() {
+    return this.currentPDCA != null;
   }
 
   formatTimestamp(timestamp:string) {

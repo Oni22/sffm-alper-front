@@ -155,7 +155,7 @@
                             chips
                             dense
                             clearable
-                            label="Tragen Sie eine Ursache ein und bestätigen Sie mit ENTER"
+                            label="Tragen Sie den(die) Ursachenbereich(e) ein und bestätigen Sie mit ENTER"
                             hint="Aus welchen Ursachenbereichen (Mensch, Maschine, Management, Mitwelt, Methode) könnte das Problem auftreten?"
                             persistent-hint
                             multiple
@@ -782,8 +782,8 @@
       <v-col cols="12">
       <v-row align="center" justify="space-around">
         <v-alert dense outlined type="error" align="center" border="top" prominent>
-            <strong>ACHTUNG: Wenn Sie den Eintrag speichern, geht der aktuelle Eintrag verloren. 
-            Sie können den Eintrag in der Tabelle "Aktuelle Problemlösungen" erneut aufrufen und bearbeiten.</strong>
+            <strong>ACHTUNG: Bevor Sie das Fenster verlassen, müssen Sie die Daten abspeichern. 
+            Sie können den Eintrag in der Tabelle "Aktuelle Problemlösungen" jederzeit aufrufen und weiter bearbeiten.</strong>
         </v-alert>
         <v-btn color="#00695C" dark @click="save()">
           <v-icon left>mdi-arrow-up-bold-box-outline</v-icon>
@@ -803,17 +803,17 @@ import PDCA from "@/api/model/pdca";
 
 @Component
 export default class NewPDCA extends Vue {
-  newCauses: Array<string> = [];
-  category = "";
   title = "";
   titleTags: Array<string> = [];
+  newCauses: Array<string> = [];
+  category = "";
   downtime = "";
+  ressources: Array<string> = [];
   shortTimeAction: Array<any> = [];
   longTimeAction: Array<any> = [];
-  ressources: Array<string> = [];
-  goals: Array<any> = [];
   results: Array<any> = [];
   specifications: Array<any> = [];
+  goals: Array<any> = [];
   standards: Array<any> = [];
   userName = "";
   processDuration = ""
@@ -834,22 +834,23 @@ export default class NewPDCA extends Vue {
 
   async save() {
 
-    console.log("HALLO")
     const pdca = new PDCA()
     pdca.title = this.title
     pdca.titleTags = this.titleTags
-    pdca.specifications = this.specifications.map(s => s.name)
-    pdca.goals = this.goals.map(g => g.name)
-    pdca.results = this.results.map(g => g.name)
-    pdca.standards = this.standards.map(s => s.name)
+    pdca.newCauses = this.newCauses
+    pdca.category = this.category
+    pdca.downtime = this.downtime
+    pdca.ressources = this.ressources
     pdca.shortTimeActions = this.shortTimeAction.map(s => s.name)
     pdca.longTimeActions = this.longTimeAction.map(g => g.name)
-    pdca.newCauses = this.newCauses
+    pdca.results = this.results.map(g => g.name)
+    pdca.specifications = this.specifications.map(s => s.name)
+    pdca.goals = this.goals.map(g => g.name)
+    pdca.standards = this.standards.map(s => s.name)
     pdca.processDuration = this.processDuration
     pdca.currentPhase = this.currentPhase
     pdca.userName = this.userName
-    pdca.category = this.category
-    pdca.ressources = this.ressources
+    
     console.log(pdca)
     if(this.currentPDCAId && this.currentPDCAId !== "") {  
 
@@ -859,7 +860,6 @@ export default class NewPDCA extends Vue {
 
       const res = await this.$api.sendPDCA(pdca)
       this.currentPDCAId = res?.id ?? ""
-
 
     }
 

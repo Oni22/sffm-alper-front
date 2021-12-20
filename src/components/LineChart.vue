@@ -1,14 +1,14 @@
 <script>
 // CommitChart.ts
-import { Bar, mixins } from 'vue-chartjs'
+import { Line , mixins } from 'vue-chartjs'
 // import ChartDataLabels from 'chartjs-plugin-datalabels'; 
 // import { Chart } from 'chart.js'; 
 const { reactiveProp } = mixins;
 // Chart.plugins.register(ChartDataLabels);
 export default {
-  extends: Bar,
+  extends: Line,
   mixins: [reactiveProp],
-  props: ["chartData","options"],
+  props: ["chartData"],
   mounted () {
     // // Overwriting base render method with actual data.
     // this.addPlugin([ChartDataLabels]) 
@@ -47,7 +47,7 @@ export default {
         display: true,
         position: "bottom",
         labels: {
-          boxWidth: 30
+          boxWidth: 20
         }
       }
     })

@@ -9,12 +9,12 @@ export default class PDCA {
     newCauses?:  string[] 
     category?: string
     downtime?: string
+    ressources?: string[] 
     shortTimeActions?: string[] 
     longTimeActions?: string[] 
-    ressources?: string[] 
-    goals?: string[] 
     results?: string[] 
-    specifications?: string[] 
+    specifications?: string[]
+    goals?: string[]  
     standards?: string[] 
     userName?: string
     processDuration?: string
@@ -29,12 +29,12 @@ export default class PDCA {
         this.newCauses = data.new_causes
         this.category = data.category
         this.downtime = data.downtime
+        this.ressources = data.ressources
         this.shortTimeActions =  data.short_time_action
         this.longTimeActions =  data.long_time_action
-        this.ressources = data.ressources
-        this.goals = data.goals
         this.results = data.results
         this.specifications = data.specifications
+        this.goals = data.goals
         this.standards = data.standards
         this.userName = data.username
         this.processDuration = data.duration
@@ -51,12 +51,12 @@ export default class PDCA {
             "new_causes": this.newCauses,
             "category": this.category,
             "downtime": this.downtime,
+            "resources": this.ressources,
             "short_time_actions": this.shortTimeActions,
             "long_time_actions": this.longTimeActions,
-            "resources": this.ressources,
-            "goals": this.goals,
             "results": this.results,
             "specifications": this.specifications,
+            "goals": this.goals,
             "standards": this.standards,
             "username": this.userName,
             "current_phase": this.currentPhase,
