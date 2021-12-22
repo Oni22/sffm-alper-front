@@ -17,7 +17,8 @@
               <div>
                 Speichern Sie Ihre Daten mit der untenstehenden Schaltfläche jederzeit ab, um Sie abzusenden.
                 Nach der Sicherung der Ergebnisse können Sie die Seite verlassen und unter dem Reiter "Aktuelle Problemlösungen" 
-                den Eintrag aufrufen. Sie können zwischen den Optionen hin- und her wechseln, um nachträgliche Veränderungen vorzunehmen.
+                den Eintrag aufrufen. Sie können zwischen den Optionen des PDCA-Zyklus hin- und her wechseln, 
+                um nachträgliche Veränderungen vorzunehmen.
               </div>
               <div>
                 <strong>Um die Bearbeitung oder die Informationen einer Phase aufzurufen, klicken Sie auf die jeweilige (horizontal liegende) Phase. 
@@ -29,7 +30,6 @@
         <v-col>
             <v-divider />
         </v-col>
-
   <v-stepper non-linear v-model="currentStepperIndex">
         <v-stepper-header>
           <v-stepper-step editable step="1" color="#90CAF9"><h1>Plan</h1></v-stepper-step>
@@ -50,14 +50,13 @@
         </v-col>
         <v-stepper v-model="e6" vertical>
           <v-stepper-step :complete="e6 > 1" step="1"  color="#90CAF9">
-            Beschreibung des Problems
-              <small>Bitte geben Sie eine detaillierte Beschreibung des auftretenden Problems an.</small>
+            Beschreibung des Problems <small>Bitte geben Sie eine detaillierte Beschreibung des auftretenden Problems an.</small>
           </v-stepper-step>
             <v-stepper-content step="1">
               <v-card class="mb-12">
                     <v-col cols="12">
                       <v-text-field 
-                        label="Wo ist Was und Wie, bei Welchem Produkt, passiert?" 
+                        label="Wo ist Was und Wie bei Welchem Produkt passiert?" 
                         v-model="title"
                         hint="Beispiel: In Arbeitsgang 270 (Auftrags-Nummer: 2009032) ist beim Abstellen der Poliermaschine (Maschinen-Nummer: 03) 
                         die Kante des Produktes ESC GT_2 (Produktnummer: 234) abgebrochen."
@@ -96,8 +95,7 @@
               </v-btn>
             </v-stepper-content>
           <v-stepper-step :complete="e6 > 2" step="2"  color="#90CAF9">
-              Ursachen
-                <small>Bitten geben Sie die Ursachen für dieses Problem an.</small>
+              Ursachen <small>Bitten geben Sie die Ursachen für dieses Problem an.</small>
           </v-stepper-step>
             <v-stepper-content step="2">
               <v-card class="mb-12" >
@@ -109,53 +107,62 @@
                             Um nachhaltig sicherzustellen, dass ähnlich gelagerte Fehler nicht wiederholt auftreten, müssen die diversen
                             Ebenen des Unternehmens betrachtet werden, aus denen der Fehler entstehen kann.
                             Zur Orientierung muss das Auftreten, die Entdeckung und das Vermeiden betrachtet werden. Es können verschiedene 
-                            Werkzeuge angewendet werden, mit denen die Ursache ermittelt werden kann. 
-                            Ein Beispiel hierzu ist das Ishikawa-Diagramm, welcher zur tiefgreifenden Analyse von Fehlerursprüngen dient. 
-                          </p>
-                          <a href="https://www.quality.de/lexikon/ishikawa-diagramm/" target="_blank">
-                            <p class="font-weight-light">
-                              Für weiterführende Informationen zum Ishikawa-Diagramm hier klicken
-                            </p>
-                          </a>  
-                          <p></p>
-                          <v-img
-                            max-height="500"
-                            max-width="600"
-                            src="https://www.consulting-life.de/wp-content/uploads/2017/01/Ishikawa-Diagramm-Struktur-856x400.jpg"
-                          ></v-img>
-                        </v-col>
-                      </v-row>
-                      <v-col>
-                         <v-divider></v-divider>
-                      </v-col>
-                      <v-row>
-                        <v-col col="12">
+                            Werkzeuge angewendet werden, mit denen die Ursache ermittelt werden kann.
+                            Ein Beispiel hierzu ist das Ishikawa-Diagramm, welcher zur tiefgreifenden Analyse von Fehlerursprüngen dient.
                           <p class="font-weight-light">
                             Eine weitere Möglichkeit zur tiefgründigen Analyse von Fehlerursachen ist die 5-Why-Methode (5W-Methode).
                             Hier werden, durch mehrere Nachfrageebenen, die Pfade für die hauptsächliche Ursache des Problems ermittelt. 
                             Dabei wird "so lange nachgehakt", bis eine eindeutige Erklärung für die Fehlersituation vorliegt.
                           </p>
-                          <a href="https://www.quality.de/lexikon/5xwarum/#5x_Warum_Definition" target="_blank">
-                            <p class="font-weight-light">
-                              Für weiterführende Informationen zur 5W-Methode hier klicken
-                            </p>
-                          </a>
-                          <v-img
-                            max-height="500"
-                            max-width="600"
-                            src="https://www.quality.de/wp-content/uploads/2019/06/5xwarum-1024x412.png.webp"
-                          ></v-img>  
-                        </v-col>                       
+                        </v-col>
+                          <v-btn color="primary" outlined class="mt-12" @click="overlay = !overlay">
+                            Hier klicken, um ein Ishikawa-Diagramm aufzurufen
+                          </v-btn>
+                          <v-overlay :absolute="absolute" :value="overlay" :opacity="opacity">
+                            <a href="https://www.quality.de/lexikon/ishikawa-diagramm/" target="_blank">
+                              <p class="font-weight-light">
+                                Für weiterführende Informationen zum Ishikawa-Diagramm hier klicken
+                              </p>
+                            </a>  
+                            <p></p>
+                              <v-img
+                                max-height="600"
+                                max-width="700"
+                                src="https://www.consulting-life.de/wp-content/uploads/2017/01/Ishikawa-Diagramm-Struktur-856x400.jpg"
+                              />
+                              <p></p>
+                            <v-btn color="error" outlined @click="overlay = false">
+                              Ansicht schließen
+                            </v-btn>
+                          </v-overlay>
+                          <v-btn color="primary" outlined class="mt-12" @click="overlay2 = !overlay">
+                            Hier klicken, um Informationen zur 5W-Methode aufzurufen
+                          </v-btn>
+                          <v-overlay :absolute="absolute" :value="overlay2" :opacity="opacity">
+                              <a href="https://www.quality.de/lexikon/5xwarum/#5x_Warum_Definition" target="_blank">
+                              <p class="font-weight-light">
+                                Für weiterführende Informationen zur 5W-Methode hier klicken
+                              </p>
+                              </a>
+                              <v-img
+                                max-height="600"
+                                max-width="700"
+                                src="https://www.quality.de/wp-content/uploads/2019/06/5xwarum-1024x412.png.webp"
+                              /> 
+                              <p></p> 
+                                <v-btn color="error" outlined @click="overlay2 = false">
+                                  Ansicht schließen
+                                </v-btn>
+                            </v-overlay>
                       </v-row>
-                      <v-col>
-                      </v-col>
+                        <v-col/>
                         <v-col col="12">
                           <v-text-field
                             v-model="category"
                             chips
                             dense
                             clearable
-                            label="Tragen Sie den(die) Ursachenbereich(e) ein und bestätigen Sie mit ENTER"
+                            label="Tragen Sie einen Ursachenbereich ein und bestätigen Sie mit ENTER"
                             hint="Aus welchen Ursachenbereichen (Mensch, Maschine, Management, Mitwelt, Methode) könnte das Problem auftreten?"
                             persistent-hint
                             multiple
@@ -209,7 +216,7 @@
                                 In diesem Bereich ist eine geschätzte bzw. erwartete Stillstandzeit des Arbeitsganges, durch das Problem, 
                                 zu erfassen. Stillstandszeiten entstehen, wenn die Nutzungszeit eines Betriebsmittels unterbrochen wird. 
                                 Entsteht bei einem Arbeitsgang eine Stillstandszeit, wirkt sich dies negativ auf die Produktivität aus. 
-                                Der Zusammenhang zwischen der Stillstandzeit und der Produktivät kann aus der Formel entnommen werden.  
+                                Der Zusammenhang zwischen der Stillstandzeit und der Produktivät kann aus der folgenden Gleichung entnommen werden.  
                             </p>
                                 Formel zur Produktionslaufzeit:
                                 <p class="font-weight-black">
@@ -242,8 +249,7 @@
             </v-stepper-content>
 
           <v-stepper-step :complete="e6 > 4" step="4"  color="#90CAF9">
-            Ressourcen
-              <small>Bitte geben Sie die notwendigen Ressourcen, zur Lösung des Problem, an.</small>
+            Ressourcen<small>Bitte geben Sie die notwendigen Ressourcen, zur Lösung des Problem, an.</small>
           </v-stepper-step>
             <v-stepper-content step="4">
               <v-card class="mb-12" >
@@ -252,29 +258,45 @@
                         <v-col cols="12">
                           <p class="font-weight-light">
                              In diesem Bereich sind die Ressourcen anzugeben, die für das Finden der Lösung und Beseitigen des Problems
-                                benötigt werden. Als Ressourcen werden dabei Bestände und Mittel bezeichnet, die eine gezielten Zweck, zur
-                                Erstellung und Bereitstellung von Produkten und Dienstleistungen, erfüllen. 
+                                benötigt werden. Als Ressourcen werden dabei Bestände und Mittel bezeichnet, die einen gezielten Zweck zur
+                                Erstellung und Bereitstellung von Produkten und Dienstleistungen erfüllen. 
                                 Zu den Ressourcen zählen immaterielle und materielle Güter wie Betriebsmittel, Energie, Rohstoffe und Personal. 
                           </p>
-                          <a href="https://wirtschaftslexikon.gabler.de/definition/ressourcen-122425" target="_blank">
-                            <p class="font-weight-light">
-                              Für weiterführende Informationen zur Ressourcenerfassung hier klicken
-                            </p>
-                          </a>
-                          <v-img
-                            max-height="350"
-                            max-width="450"
-                            src="https://www.projektmagazin.de/sites/default/files/ressourcenarten.jpg"
-                          ></v-img>
+                          <v-btn color="primary" outlined class="mt-12" @click="overlay3 = !overlay">
+                            Hier klicken, um Beispiele aufzurufen
+                          </v-btn>
+                          <v-overlay :absolute="absolute" :value="overlay3" :opacity="opacity">
+                              <v-row>
+                              <v-col cols="3">
+                              <a href="https://wirtschaftslexikon.gabler.de/definition/ressourcen-122425" target="_blank">
+                                <p class="font-weight-light">
+                                  Für weiterführende Informationen zur Ressourcenerfassung hier klicken
+                                </p>
+                              </a>
+                              </v-col>
+                              <v-col cols="6">
+                              <v-img
+                                max-height="230"
+                                max-width="350"
+                                src="https://www.projektmagazin.de/sites/default/files/ressourcenarten.jpg"
+                              ></v-img>
+                              </v-col>
+                              <v-col cols="3">
+                                <v-btn color="error" outlined @click="overlay3 = false">
+                                  Ansicht schließen
+                                </v-btn>
+                              </v-col>
+                              </v-row>
+                            </v-overlay> 
                         </v-col>  
                     </v-row>
-                      
+                    <v-col/>  
                     <v-combobox
                         v-model="ressources"
                         chips
                         dense
                         clearable
-                        label="Tragen Sie eine Ursache ein und bestätigen Sie mit ENTER."
+                        label="Tragen Sie eine Ressource ein und bestätigen Sie mit ENTER."
                         hint="Welche Ressourcen werden zur Lösung des Problems benötigt?"
                         persistent-hint
                         multiple
@@ -315,8 +337,7 @@
         </v-col>
           <v-stepper v-model="e7" vertical>
           <v-stepper-step :complete="e7 > 1" step="1"  color="#42A5F5">
-            Sofortmaßnahmen
-              <small>Bitten tragen Sie die Sofortmaßnahmen für dieses Problem ein.</small>
+            Sofortmaßnahmen<small>Bitten tragen Sie die Sofortmaßnahmen für dieses Problem ein.</small>
           </v-stepper-step>
             <v-stepper-content step="1">
               <v-card class="mb-12">
@@ -353,7 +374,11 @@
                       <v-row no-gutters>
                         <v-col cols="12">
                           <v-text-field 
-                          label="Sofortmaßnahme (Maßnahme XY / Datum: TT.MM.JJJJ) eingeben und HINZUFÜGEN klicken, um einzufügen." v-model="currentShortTimeAction.name" />
+                          label="Sofortmaßnahme (Maßnahme XY / Datum: TT.MM.JJJJ) eingeben und HINZUFÜGEN klicken, um einzufügen." 
+                          v-model="currentShortTimeAction.name" 
+                          hint="Sie können Maßnahmen eintragen, abhaken und entfernen."
+                          persistent-hint
+                        />
                         </v-col>
                         <v-col>
                           <v-row v-for="cause in shortTimeAction" :key="cause.name">
@@ -383,8 +408,8 @@
                             <p class="font-weight-light">
                               Zur dauerhaften und nachhaltigen Abstellung bzw. Minderung der Fehlerzustände, sind die erkannten Ursachen 
                               zu beseitigen. Dafür werden Maßnahmen erfasst, welche den Hauptursachen des Fehlerzustands entgegenwirken.
-                              Die optimale(n) Maßnahme(n) werden ausgewählt, um eine effiziente und effektive Problemlösung zu gewährleisten.
-                              Gleichzeitig soll durch das Festlegen der Maßnahmen eine unerwünschte Nebenwirkung vermieden werden.
+                              Die optimale(n) Maßnahme(n) wird(werden) ausgewählt, um eine effiziente und effektive Problemlösung zu gewährleisten.
+                              Gleichzeitig soll, mit dem Festlegen der Maßnahmen, eine unerwünschte Nebenwirkung vermieden werden.
                               Zur Orientierung sollten die folgenden Fragen beantwortet werden, um zu den unmittelbar festzulegenden 
                               Maßnahmen zu gelangen:   
                             </p>
@@ -401,8 +426,7 @@
                               </v-card>
                           </v-col>
                       </v-row>
-                      <v-col>
-                      </v-col>
+                        <v-col/>
                       <v-row no-gutters>
                         <v-col cols="2">
                           <v-btn @click="addLongTimeAction()" block color="#4DB6AC">
@@ -412,7 +436,11 @@
                       </v-row>
                       <v-row no-gutters>
                         <v-col cols="10">
-                          <v-text-field label="Abstellmaßnahme (Maßnahme XY / Datum: TT.MM.JJJJ) eingeben und HINZUFÜGEN klicken, um einzufügen." v-model="currentLongTimeAction.name" />
+                          <v-text-field label="Abstellmaßnahme (Maßnahme XY / Datum: TT.MM.JJJJ) eingeben und HINZUFÜGEN klicken, um einzufügen." 
+                          v-model="currentLongTimeAction.name" 
+                          hint="Sie können Maßnahmen eintragen, abhaken und entfernen."
+                          persistent-hint
+                          />
                         </v-col>
                       </v-row>
                         <v-col>
@@ -443,8 +471,7 @@
         </v-col>
           <v-stepper v-model="e8" vertical>
           <v-stepper-step :complete="e8 > 1" step="1"  color="#1976D2">
-            Ergebnisse
-              <small>Bitten geben Sie die Ergebnisse für dieses Problem an.</small>
+            Ergebnisse<small>Bitten geben Sie die Ergebnisse für dieses Problem an.</small>
           </v-stepper-step>
             <v-stepper-content step="1">
               <v-card class="mb-12">
@@ -464,12 +491,8 @@
                             </p>
                               Weitere Methoden, für das Auswerten von Ergebnissen mit Kennzahlen und langfristigen Daten, 
                               können ebenfalls angewendet werden. Dazu eignet sich beispielsweise die Prozessfähigkeitsuntersuchung mit 
-                              Qualitätsregelkarten
-                            <a href="http://quality.kenline.de/seiten_d/spc_QRK.htm" target="_blank">
-                              <p class="font-weight-light">
-                                Für weiterführende Informationen hier klicken   
-                              </p>
-                            </a>
+                              Qualitätsregelkarten: 
+                              <a href="http://quality.kenline.de/seiten_d/spc_QRK.htm" target="_blank">Für weiterführende Informationen hier klicken</a>
                         </v-col>
                         <v-col cols="12">
                           <v-expansion-panels focusable>
@@ -487,7 +510,7 @@
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
                             <v-expansion-panel>
-                              <v-expansion-panel-header color="#FFAB91">
+                              <v-expansion-panel-header color="#FFF9C4">
                                 Schwächen: Bestehende Gefahren <small>- (Anklicken für Erweiterungen)</small>
                               </v-expansion-panel-header>
                                 <v-expansion-panel-content>
@@ -501,7 +524,7 @@
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
                             <v-expansion-panel >
-                              <v-expansion-panel-header color="#B2DFDB">
+                              <v-expansion-panel-header color="#A5D6A7">
                                 Chancen: Wirksamkeit der Maßnahme <small>- (Anklicken für Erweiterungen)</small>
                               </v-expansion-panel-header>
                                 <v-expansion-panel-content>
@@ -514,7 +537,7 @@
                                 </v-expansion-panel-content>
                             </v-expansion-panel>
                             <v-expansion-panel>
-                              <v-expansion-panel-header color="#FFECB3">
+                              <v-expansion-panel-header color="#FFF9C4">
                                 Herausforderungen: Optimierungshinweise <small>- (Anklicken für Erweiterungen)</small>
                               </v-expansion-panel-header>
                                 <v-expansion-panel-content>
@@ -543,7 +566,7 @@
                           <v-text-field 
                             label="Ergebnisse (Ergebnis XY / Datum: TT.MM.JJJJ) eingeben und auf HINZUFÜGEN klicken, um einzufügen."  
                             v-model="currentResults.name"
-                            hint="Tragen Sie mögliche Stärken, Schwächen, Chancen oder Herausforderungen ein. Sie können mehrere Ergebnisse eintragen."
+                            hint="Tragen Sie mögliche Stärken, Schwächen, Chancen oder Herausforderungen ein. Sie können mehrere Ergebnisse eintragen, abhaken und entfernen."
                             persistent-hint
                             />
                         </v-col>
@@ -575,7 +598,7 @@
                               zu dem Produkt, Prozess oder zu einer möglichen Maßnahme angegeben werden. Das Herleiten der passenden Eigenschaften
                               kann über mehrere Methoden erfolgen. Eine Option zur Umsetzung geht mit dem Aufstellen von 
                               Arbeitspaket-Spezifikationen einher. 
-                            <p> 
+                          <p> 
                               Die Arbeitspaket-Spezifikationen sind beispielhaft mögliche Ergänzungen zu den geplanten Maßnahmen, die aus einer
                               ersten testweisen Implementierung der Maßnahmen folgen. Dadurch kann das Vorhaben der Nutzenmaximierung aus einer 
                               zeitlichen Perspektive betrachtet und bearbeitet werden. 
@@ -599,7 +622,11 @@
                       <v-row no-gutters>
                         <v-col cols="10">
                           <v-text-field 
-                          label="Spezifikationen angeben (Spezifikation XY / Datum: TT.MM.JJJJ)" v-model="currentSpecifications.name" />
+                          label="Spezifikationen angeben (Spezifikation XY / Datum: TT.MM.JJJJ) und HINZUFÜGEN klicken, um einzufügen." 
+                          v-model="currentSpecifications.name" 
+                          hint="Sie können mehrere Spezifikationen eintragen, abhaken und entfernen."
+                          persistent-hint
+                          />       
                         </v-col>      
                       </v-row>
                         <v-col>
@@ -649,16 +676,11 @@
                                 <v-col cols="12">
                                     <p>Sicherheit gewährleisten</p>
                                     <p>Qualität sicherstellen / steigern</p>
-                                    <p>Gewinn steigern / Kosten sparen</p>
-                                    <p><small>
-                                      kürzere Entwicklungszeiten / störungsarme Serienanläufe / Termintreue / 
-                                      wirtschaftlichere Fertigung und Montage
-                                      </small>
+                                    <p>Gewinn steigern / Kosten sparen (<small>kürzere Entwicklungszeiten / störungsarme und 
+                                        wirtschaftlichere Fertigung / Termintreue</small>)
                                     </p>
-                                    <p>Fehlerkosten minimieren / reduzieren</p>
-                                    <p>
-                                      <small>kürzere Entwicklungszeiten / Reduzierung von Garantie- und Kulanzkosten
-                                      </small>
+                                    <p>Fehlerkosten minimieren / reduzieren (<small>kürzere Entwicklungszeiten / Reduzierung 
+                                        von Garantie- und Kulanzkosten</small>)
                                     </p>
                                 </v-col>
                               </v-card>         
@@ -675,7 +697,11 @@
                       </v-row>
                       <v-row no-gutters>
                         <v-col cols="10">
-                          <v-text-field label="Geben Sie die Ziele für die Fehlerbeseitigung an (Ziel XY / Datum: TT.MM.JJJJ)" v-model="currentGoals.name" />
+                          <v-text-field label="Ziele für die Fehlerbeseitigung angeben (Ziel XY / Datum: TT.MM.JJJJ) und HINZUFÜGEN klicken, um einzufügen." 
+                          v-model="currentGoals.name"
+                          hint="Sie können mehrere Ziele eintragen, abhaken und entfernen."
+                          persistent-hint
+                          />
                         </v-col>
                       </v-row>
                       <v-col>
@@ -703,12 +729,12 @@
                             <p class="font-weight-light">
                               Im Sinne des kontinuierlichen Problemlösungsansatzes wird, ausgehend von dieser Fehlersituation, 
                               eine ständige Verbesserung der Ausgabe erwartet.  Es gilt nun eine kontinuierliche Kontrolle 
-                              der ausgegebenen Ziele und eine Standardisierung der Prozesse. 
+                              der ausgegebenen Ziele und eine Standardisierung der Prozesse zu fördern. 
                               Nach einiger Zeit und guter Performance, kann der nächste PDCA-Zyklus angestoßen werden, 
                               wenn ein weiteres Potenzial besteht.
                             </p>
                         </v-col>   
-                      </v-row>
+                </v-row>
                       <v-row no-gutters>
                         <v-col cols="2">
                           <v-btn @click="addStandards()" block color="#4DB6AC">
@@ -718,10 +744,21 @@
                       </v-row>
                       <v-row no-gutters>
                         <v-col cols="10">
-                          <v-text-field label="Geben Sie die eingeführten Standards an (Standards XY / Datum: TT.MM.JJJJ)" v-model="currentStandards.name" />
-                        </v-col>
+                          <v-text-field label="Standards angeben (Standards XY / Datum: TT.MM.JJJJ) und HINZUFÜGEN klicken, um einzufügen." 
+                          v-model="currentStandards.name" 
+                          hint="Sie können mehrere Standards eintragen, abhaken und entfernen."
+                          persistent-hint
+                          />
+                        </v-col>  
                       </v-row>
-                      <v-col>
+                      <v-col/>
+                <v-row no-gutters>
+                      <v-col cols="12">
+                            <p class="font-weight-light">
+                              Um den Prozess nachzuverfolgen und die Zuständigkeiten festzulegen, sind einige ergänzende Daten anzugeben.
+                            </p>
+                      </v-col> 
+                      <v-col cols="12">
                         <v-row v-for="cause in standards" :key="cause.name">
                           <v-btn icon @click="removeStandards(cause)" ><v-icon>{{trashIcon}}</v-icon></v-btn>
                             <v-checkbox v-model="cause.checked"  dense :label="cause.name" />
@@ -762,13 +799,14 @@
                             <v-text-field 
                               label="Tragen Sie die Dauer des Problemlösungsprozesses, bis zur aktuellen Phase, ein." 
                               v-model="processDuration"
-                              hint="Beispiel: KW 34 - KW 49 (laufender Prozess bei Do)"
+                              hint="Beispiel: KW 34 - KW 49 (laufender Prozess in der Plan-Phase)"
                               persistent-hint
                             />
                           </v-col> 
                         </v-row>
-                        <v-col>
-                        </v-col>                  
+                        <v-col/>
+                    </v-row>
+                   <v-col/>  
               </v-card>
               <v-btn color="error" outlined @click="e9 = 1">
                 zurück
@@ -785,16 +823,32 @@
             <strong>ACHTUNG: Bevor Sie das Fenster verlassen, müssen Sie die Daten abspeichern. 
             Sie können den Eintrag in der Tabelle "Aktuelle Problemlösungen" jederzeit aufrufen und weiter bearbeiten.</strong>
         </v-alert>
-        <v-btn color="#00695C" dark @click="save()">
+        <v-checkbox
+              v-model="enabled"
+              hide
+              details
+              class="shrink mr-2 mt-0"
+              label="Ich bestätige die Überprüfung der eingegebenen Daten und willige der Datenverarbeitung ein."
+            />
+        <v-btn color="#00695C" dark @click="save() ; snackbar = true" :disabled="!enabled">
           <v-icon left>mdi-arrow-up-bold-box-outline</v-icon>
             Hier klicken, um Ihre Einträge zu sichern
         </v-btn>
+        <v-snackbar v-model="snackbar" absolute>
+          {{ text }}
+            <template v-slot:action="{ attrs }">
+              <v-btn color="primary" text v-bind="attrs" @click="snackbar = false">
+                Schließen
+              </v-btn>
+            </template>
+        </v-snackbar>
       </v-row>   
     </v-col>
     </v-container>
   </div>
 </template>
 
+ 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mdiCheck,mdiTrashCan } from "@mdi/js";
@@ -803,6 +857,7 @@ import PDCA from "@/api/model/pdca";
 
 @Component
 export default class NewPDCA extends Vue {
+  enabled = false;
   title = "";
   titleTags: Array<string> = [];
   newCauses: Array<string> = [];
@@ -829,11 +884,18 @@ export default class NewPDCA extends Vue {
         e9: 1,
         alert: true,
         model: 0,
+        snackbar: false,
+        text: 'Ihr Eintrag wurde gesichert.',
+        absolute: true,
+        overlay: false,
+        overlay2: false,
+        overlay3: false,
+        opacity: 1,
       }
   }
 
   async save() {
-
+    
     const pdca = new PDCA()
     pdca.title = this.title
     pdca.titleTags = this.titleTags

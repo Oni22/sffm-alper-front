@@ -36,9 +36,9 @@
                         Dabei ist das eigenständige Eintragen von problemlösungsrelevanten Daten, wie den Ursachen, Maßnahmen, Ressourcen und Zielen für eine 
                         nachhaltige Auswertung, eine unternehmensweit einheitliche Methodik zur Aufnahme und Analyse von unbekannten Fehlerzuständen.   
                     <p>  
-                        Aktuelle Problemlösungen und auftretenden Fehler können innerhalb der Applikation aufgerufen werden, um den Fertigungsstatus zu erhalten.
+                        Aktuelle Problemlösungen und auftretende Fehler können innerhalb der Applikation aufgerufen werden, um den Fertigungsstatus zu erhalten.
                         Die Anwender dieser Applikation müssen dementsprechend die Befugnis und das Wissen zur Bearbeitung und zum Management der Fehlerzustände
-                        besitzen. Das Eintragen und Verfolgen der Fehlerzustandsentwicklungen, über die jeweiligen Analyse- oder Listen-Ansichten, zielt auf das 
+                        besitzen. Das Eintragen und Verfolgen der Fehlerzustandsentwicklungen, über die jeweiligen Analyse- oder Listen-Ansichten, zielen auf das 
                         Erreichen eines allgemein qualitativen und weitestgehend fehlerfreien Fertigungs- und Organisationsprozesses ab. 
                     </p>
             </v-col>

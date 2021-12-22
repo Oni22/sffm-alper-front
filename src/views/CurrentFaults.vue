@@ -12,14 +12,14 @@
             durch den Import in die Applikation. Bei vorhandenem Zeitbedarf können die 
             Fehlergründe aus Nachbarabteilungen, Vorgängerprozessen oder anderen Produkten wahrgenommen werden.  
             Die Fehlertabelle, mit der Möglichkeit zur Sortierung nach dem Importzeitpunkt, ermöglicht 
-            eine genaue Betrachtung der Fehlersituationen durch das Aufrufen der detaillierten Ansicht eines Fehlers. 
+            eine genaue Betrachtung der Fehlersituationen, durch das Aufrufen der detaillierten Ansicht eines Fehlers. 
           </p>
         <v-divider/>
         </v-col>  
         <v-col cols="12">
-              <p class="font-weight-light">  
-                Klicken Sie eine Zeile (einen Fehlereintrag) an, um eine detaillierte Ansicht zu erhalten.
-              </p>
+          <p class="font-weight-light">  
+            Klicken Sie eine Zeile (einen Fehlereintrag) an, um eine detaillierte Ansicht zu erhalten.
+          </p>
           <v-divider/>
           <v-card>
             <v-card-text>
@@ -39,25 +39,25 @@
         </v-col>
       </v-row>
       <v-row>
-          <v-col cols="12">
-              <v-card>
-                  <v-toolbar color="#4DB6AC">
-                    <h2> 
-                      Aktueller Fehler <small>(detaillierte Eigenschaften für den oben ausgewählten Fehler)</small>
-                    </h2>   
-                  </v-toolbar>
-                  <v-card-text>  
-                    <v-row>
-                        <v-col v-if="hasCurrentFault()">
-                            <FaultInfoCard :fault="currentFault"/>
-                        </v-col>
-                        <v-col align="center" v-else>
-                            <p>Kein Fehler ausgewählt</p>
-                        </v-col>
-                    </v-row>
-                  </v-card-text>
-              </v-card>
-          </v-col>
+        <v-col cols="12">
+          <v-card>
+            <v-toolbar color="#4DB6AC">
+              <h2> 
+                Aktueller Fehler <small>(detaillierte Eigenschaften für den oben ausgewählten Fehler)</small>
+              </h2>   
+            </v-toolbar>
+            <v-card-text>  
+              <v-row>
+                  <v-col v-if="hasCurrentFault()">
+                      <FaultInfoCard :fault="currentFault"/>
+                  </v-col>
+                  <v-col align="center" v-else>
+                      <p>Kein Fehler ausgewählt</p>
+                  </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
+        </v-col>
       </v-row>
     </v-container>
   </div>

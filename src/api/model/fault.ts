@@ -12,7 +12,7 @@ export default class Fault {
     timestamp?: string
     id?: string
     estimatedDownTime?: number
-   // primaryCause?: string
+    //primaryCause?: string
     //secundaryCause?: string
 
     fromJson(data: any) : Fault {

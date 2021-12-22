@@ -15,15 +15,7 @@
               Maschine-Learning-Algorithmen, wird eine Fehlerliste für die
               tiefgreifenden Analysen der Fehlersituationen aufgestellt.
             </p>
-            <v-alert
-              :value="alert"
-              color="#78909C"
-              border="left"
-              type="info"
-              elevation="2"
-              dismissible
-            >
-              <p class="font-weight-light">
+            <v-alert :value="alert" color="#78909C" border="left" type="info" elevation="2" dismissible>
                 <small>
                   <div class="text-h6">Bearbeitungshinweise</div>
                   <div>
@@ -34,7 +26,6 @@
                     Der Eintrag wird in der Datenbank hinterlegt, sodass eine spätere Einsicht möglich ist.
                   </div>
                 </small>
-              </p>
             </v-alert>
           </v-col>
         </v-row>
@@ -84,54 +75,38 @@
               label="Wählen Sie die Dispostufe aus:"
             />
           </v-col>
-        </v-row>
-        <v-row>
           <v-col cols="12">
-            <v-text-field
-              v-model="description"
-              counter
-              maxlength="150"
-              label="Geben Sie eine Beschreibung zur Fehlerentstehung ein:"
-            >
-            </v-text-field>
+            <v-text-field v-model="description" counter maxlength="150" label="Geben Sie eine Beschreibung zur Fehlerentstehung ein:"/>
           </v-col>
         </v-row>
         <v-row>
-          <v-col>
+          <v-col cols="6">
             <v-checkbox
               v-model="enabled"
               hide
               details
               class="shrink mr-2 mt-0"
               label="Ich bestätige die Überprüfung der eingegebenen Daten und willige der Datenverarbeitung ein. Ihre Ergebnisse werden unten angezeigt."
-            >
-            </v-checkbox>
+            />
           </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
+          <v-col cols="6">
             <v-btn
               dark
               color="#00695C"
               :disabled="!enabled"
               :loading="loading"
-              @click="send()"
+              @click="send() ; snackbar = true"
             >
               Ergebnisse ausgeben
               <v-icon right>mdi-folder</v-icon>
             </v-btn>
-            <v-snackbar v-model="snackbar">
+            <v-snackbar v-model="snackbar" absolute centered right>
               {{ text }}
-              <template v-slot:action="{ attrs }">
-                <v-btn
-                  color="pink"
-                  text
-                  v-bind="attrs"
-                  @click="snackbar = false"
-                >
-                  Close
-                </v-btn>
-              </template>
+                <template v-slot:action="{ attrs }">
+                  <v-btn color="primary" text v-bind="attrs" @click="snackbar = false">
+                    Schließen
+                  </v-btn>
+                </template>
             </v-snackbar>
           </v-col>
         </v-row>
@@ -147,9 +122,7 @@
                 <v-row class="fill-height" align="center" justify="center">
                   <v-col cols="10">
                     <v-card>
-                      <v-toolbar height="40" color="#00695C" elevation="0" dark
-                        >Vorgeschlagene Maßnahme</v-toolbar
-                      >
+                      <v-toolbar height="40" color="#00695C" elevation="0" dark>Vorgeschlagene Maßnahme</v-toolbar>
                       <v-card-text>
                         <h4>Für diesen Fehler wird folgende Maßnahme vorgeschlagen:</h4>
                         <h2 class="mt-5">{{ actionToDo }}</h2>
@@ -164,9 +137,7 @@
                 <v-row class="fill-height" align="center" justify="center">
                   <v-col cols="10">
                     <v-card>
-                      <v-toolbar height="40" color="#00695C" dark elevation="0"
-                        >Ursachenbereiche</v-toolbar
-                      >
+                      <v-toolbar height="40" color="#00695C" dark elevation="0">Ursachenbereiche</v-toolbar>
                       <v-card-text>
                         <h4>
                           Dieser Fehler besitzt ein primäres und sekundäres
@@ -187,9 +158,7 @@
                 <v-row class="fill-height" align="center" justify="center">
                   <v-col cols="10">
                     <v-card>
-                      <v-toolbar height="40" color="#00695C" elevation="0" dark
-                        >Ausfalltage</v-toolbar
-                      >
+                      <v-toolbar height="40" color="#00695C" elevation="0" dark>Ausfalltage</v-toolbar>
                       <v-card-text>
                         <h4>Ausfalltage:</h4>
                         <h2 class="mt-5">{{ downtimeInDays }}</h2>
@@ -204,8 +173,6 @@
         <v-col>
             <v-divider />
         </v-col>
-        <v-col>
-        </v-col>
         <v-row>
           <v-col cols="12"> 
           <p>
@@ -216,7 +183,7 @@
           </p> 
           <v-row>
             <v-col col="12">
-              <v-alert outlined color="black">
+              <v-alert outlined color="#37474F">
                 <p>Neben dem Erhalten der Ergebnisse, die auf der Künstlichen Intelligenz basieren, wird der Fehler gleichzeitig in der Datenbank gesichert.
                 <p>Um den aktuellen Fehler zu betrachten, können Sie die Ansicht <a href="#" @click="openCurrentFaults()">Aktuelle Fehler</a> aufrufen.
                 <p>Um die Fehlerzustände zu analysieren zu betrachten, können Sie die Ansicht <a href="#" @click="openFailureAnalyze()">Fehler analysieren</a> aufrufen.
@@ -266,7 +233,7 @@ export default class NewFailure extends Vue {
     return {
       alert: true,
       snackbar: false,
-      text: 'Ihr Eintrag wurde gesichert.',
+      text: 'Ihr Eintrag wurde gesichert. Ihre Ergebnisse werden berechnet.',
     };
   }
 
@@ -333,18 +300,19 @@ export default class NewFailure extends Vue {
           const downtimeResult = String(prediction?.downtime[0]);
           this.downtimeInDays = parseInt(downtimeResult);
         }
+
+        //if((prediction?.pCause?.length ?? 0) > 0 && prediction?.pCause) {
+        //  const primaryCauseResult = String(prediction?.pCause[0])
+        //  this.primaryCause = primaryCauses[primaryCauseResult];
+        //}
+
+        //if((prediction?.sCause?.length ?? 0) > 0 && prediction?.sCause) {
+        //  const secundaryCauseResult = String(prediction?.sCause[0])
+        //  this.secundaryCause = secundaryCauses[secundaryCauseResult];        
+        //  }
+
         console.log("PREDICTION", prediction);
       }
-
-      //        if((prediction?.pCause?.length ?? 0) > 0 && prediction?.pCause) {
-      //          const primaryCauseResult = String(prediction?.pCause[0])
-      //          this.primaryCause = parseInt(downtimeResult)
-      //        }
-
-      //        if((prediction?.sCause?.length ?? 0) > 0 && prediction?.sCause) {
-      //          const secundaryCauseResult = String(prediction?.sCause[0])
-      //          this.secundaryCause = parseInt(secundaryCauseResult)/        }
-
       
     } catch (err) {
       console.log(err);

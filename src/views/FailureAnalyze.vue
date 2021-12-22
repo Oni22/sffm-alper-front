@@ -8,6 +8,7 @@
                 Dabei werden diverse grafische Darstellungen aufgezeigt. um das Verständnis und den Überblick zur aktuellen Produktionssituation
                 zu bieten. Die Visualisierung dient als ergänzendes Mittel zum Fehlereintrag und umfasst alle eingetragenen Fehlerzustände.    
           </p>
+        <v-divider/>
           <v-card>
             <v-card-text>         
               <v-col cols="12">  
@@ -53,6 +54,9 @@
                     <v-col cols="12">
                        <BarChart :height="100" :options="myOptions" :chartData="chartData" style="height:300px" />
                     </v-col>
+                    <v-col cols="12">
+                       StackedBarChart mit Arbeitgängen pro Fehlergrund
+                    </v-col>
                 </v-row>
               </v-card-text>
             </v-card>
@@ -90,6 +94,8 @@
                     </v-col>
                     <v-col cols="12">
                       <BarChart :height="100" :options="myOptions" :chartData="productChartData" style="height:300px" />
+                    </v-col><v-col cols="12">
+                      Wochenverlauf für Fehler der Produkte (wann wurde ein Fehler für das Produkt eingetragen)
                     </v-col>
                 </v-row>
               </v-card-text>
@@ -106,8 +112,10 @@
                       In dieser Ansicht wird eine Analyse zu der kumulierten Stillstandzeit der Fehlerkategorien vorgenommen. 
                     </p>
                   </v-col>
-                  <v-col cols="12">
+                  <v-col cols="6">
                     <DoughnutChart :height="100" :options="myOptions" :chartData="categoryChartData" style="height:300px" />
+                  </v-col><v-col cols="6">
+                    <DoughnutChart :height="100" :options="myOptions" :chartData="departmentChartData" style="height:300px" />
                   </v-col>
                 </v-row>
               </v-card-text>
@@ -207,6 +215,7 @@ import { Component, Vue } from "vue-property-decorator";
 import DoughnutChart from "@/components/DoughnutChart.vue";
 import BarChart from "@/components/BarChart.vue";
 import LineChart from "@/components/LineChart.vue";
+import StackedBarChart from "@/components/StackedBarChart.vue";
 
 @Component({
   name: "FailureAnalyze",
@@ -214,6 +223,7 @@ import LineChart from "@/components/LineChart.vue";
     DoughnutChart,
     BarChart,
     LineChart,
+    StackedBarChart
   },
 })
 export default class FailureAnalyze extends Vue {
@@ -223,10 +233,12 @@ export default class FailureAnalyze extends Vue {
     }
   }
   chartData = {};
+  workplaceData ={};
   dispoChartData = {};
   productChartData = {};
   categoryChartData = {};
   timestampChartData = {};
+  departmentChartData = {};
   
   myOptions = {
       responsive: true,
@@ -274,6 +286,8 @@ export default class FailureAnalyze extends Vue {
     this.loadProducts()
     this.loadCategory()
     this.loadTimestamp()
+    this.loadStackedWorkplaces()
+    this.loadDepartment()
   }
 
                       
@@ -329,6 +343,21 @@ export default class FailureAnalyze extends Vue {
 
     } catch (err) {}
   }
+
+  async loadStackedWorkplaces() {
+
+    const chartData = {
+      labels:  new Array<string>(),
+      datasets: [
+        {
+          backgroundColor: new Array<string>(),
+          data: new Array<number>(),
+          label: "Arbeitgänge"
+        },
+      ],
+    };
+  } 
+
 
   async loadDispoLevels() {
 
@@ -494,6 +523,79 @@ export default class FailureAnalyze extends Vue {
       this.categoryChartData = chartData
 
       console.log(this.categoryChartData)
+
+    
+    } catch(err) {
+
+    }
+  }
+
+  async loadDepartment() {
+
+    const chartData = {
+      labels:  new Array<string>(),
+      datasets: [
+        {
+          backgroundColor: [
+            'rgb(250,128,114)',
+            'rgb(255,165,0)',
+            'rgb(238,232,170)',
+            'rgb(128,128,0)',
+            'rgb(144,238,144)',
+            'rgb(32,178,170)',
+            'rgb(64,224,208)',
+            'rgb(175,238,238)',
+            'rgb(250,128,114)',
+            'rgb(255,165,0)',
+            'rgb(238,232,170)',
+            'rgb(128,128,0)',
+            'rgb(144,238,144)',
+            'rgb(32,178,170)',
+            'rgb(64,224,208)',
+            'rgb(175,238,238)',
+          ],
+          data: new Array<number>(),
+          label: "Beriechs-Analyse"
+        },
+      ],
+    };
+
+    try {
+      const faults = await this.$api.getAllFaults();
+
+      const items : any[] = []
+      
+      for(const fault of faults) {
+
+        if(items.some(f => f.department === fault.department)) {
+          continue
+        }
+
+        const allFaultTypes = faults.filter(f => f.department === fault.department)
+
+        let days = 0
+
+        for(const sameTypes of allFaultTypes) {
+          days = days + (sameTypes?.estimatedDownTime ?? 0)
+        }
+
+        items.push({
+          days: days,
+          department: fault.department,
+          color: "blue"
+        })
+      }
+
+      for(const item of items) {
+        const i = item as any
+        chartData.labels.push(i.department ?? "")
+        chartData.datasets[0].data.push(i.days)
+        chartData.datasets[0].backgroundColor.push(i.color)
+      }
+
+      this.departmentChartData = chartData
+
+      console.log(this.departmentChartData)
 
     
     } catch(err) {

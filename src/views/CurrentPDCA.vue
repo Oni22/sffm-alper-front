@@ -54,6 +54,9 @@
                         </v-col>
                     </v-row>
                   </v-card-text>
+                  <v-card-actions>
+                    <v-btn @click="handleNext()" color="#00695C" dark>Problemlösung fortsetzen/ anpassen</v-btn>
+                  </v-card-actions>
               </v-card>
           </v-col>
       </v-row>
@@ -66,6 +69,8 @@
 import PDCA from "@/api/model/pdca";
 import { Component, Vue } from "vue-property-decorator";
 import PDCAInfoCard from "@/components/PDCAInfoCard.vue"
+import { Routes } from '@/router/utils'
+
 
 @Component({
     components: {
@@ -127,8 +132,15 @@ export default class CurrentPDCA extends Vue {
       return new Date(timestamp)
 
   }
-}
 
+  handleNext() {
+      if(this.currentPDCA) {
+        this.$router.push(Routes.NEW_PDCA)
+      } else {
+         this.$router.push(Routes.NEW_FAILURE_ENTRY)
+      }
+  }
+}
 </script>
 
 <style scoped>
