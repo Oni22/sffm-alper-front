@@ -6,7 +6,9 @@
           <p class="font-weight-light">
                 In diesem Fenster werden die eingetragenen Fehler analysiert. 
                 Dabei werden diverse grafische Darstellungen aufgezeigt. um das Verständnis und den Überblick zur aktuellen Produktionssituation
-                zu bieten. Die Visualisierung dient als ergänzendes Mittel zum Fehlereintrag und umfasst alle eingetragenen Fehlerzustände.    
+                zu bieten. Die Visualisierung dient als ergänzendes Mittel zum Fehlereintrag und umfasst alle eingetragenen Fehlerzustände. 
+          <p>
+                <strong>Klicken Sie auf einen Reiter, um die gewünschte Ansicht zu erhalten. Über den Filter können Sie den Zeitraum der Betrachtung festlegen.</strong>     
           </p>
         <v-divider/>
           <v-card>
@@ -29,7 +31,7 @@
             <h3>Produkt</h3>
           </v-tab>
           <v-tab href="#tab-4">
-            <h3>Fehlerkategorie</h3>
+            <h3>Fehlerkategorie / Bereich</h3>
           </v-tab>
           <v-tab href="#tab-5">
             <h3>Wochenverlauf</h3>
@@ -53,6 +55,9 @@
                     </v-col>
                     <v-col cols="12">
                        <BarChart :height="100" :options="myOptions" :chartData="chartData" style="height:300px" />
+                    </v-col>
+                    <v-col cols="12">
+                      <DoughnutChart :height="100" :options="myOptions" :chartData="chartDataPIE" style="height:300px" />
                     </v-col>
                     <v-col cols="12">
                        StackedBarChart mit Arbeitgängen pro Fehlergrund
@@ -94,8 +99,12 @@
                     </v-col>
                     <v-col cols="12">
                       <BarChart :height="100" :options="myOptions" :chartData="productChartData" style="height:300px" />
-                    </v-col><v-col cols="12">
-                      Wochenverlauf für Fehler der Produkte (wann wurde ein Fehler für das Produkt eingetragen)
+                    </v-col>
+                    <v-col cols="12">
+                      <DoughnutChart :height="100" :options="myOptions" :chartData="productChartDataPIE" style="height:300px" />
+                    </v-col>
+                    <v-col cols="12">
+                      Wochenverlauf für Fehler der Produkte (wann wurde ein Fehler für das Produkt eingetragen) StackedBarChart mit den Produkten pro Woche
                     </v-col>
                 </v-row>
               </v-card-text>
@@ -107,9 +116,9 @@
               <v-card-text>
                 <v-row>
                   <v-col cols="12">
-                    <h3>Anteiliger Zeitverlust je Fehlerkategorie</h3>
+                    <h3>Anteiliger Zeitverlust je Fehlerkategorie und Bereich</h3>
                     <p class="font-weight-light">
-                      In dieser Ansicht wird eine Analyse zu der kumulierten Stillstandzeit der Fehlerkategorien vorgenommen. 
+                      In dieser Ansicht wird eine Analyse zu der kumulierten Stillstandzeit der Fehlerkategorien und Bereiche vorgenommen. 
                     </p>
                   </v-col>
                   <v-col cols="6">
@@ -195,11 +204,10 @@
                     <h3>Zeitverlust je KW in Tagen</h3>
                     <p class="font-weight-light">
                       In dieser Ansicht wird eine Analyse zum Zeitverlust für die KWs in Tagen vorgenommen. 
-                       (LINIENDIAGRAMM)
                     </p>
                   </v-col>
                   <v-col cols="8">
-                    CHARTTYPE
+                     <LineChart :height="100" :options="myOptions" :chartData="timestampChartData" style="height:300px" />
                   </v-col>
                 </v-row>
               </v-card-text>
@@ -233,9 +241,11 @@ export default class FailureAnalyze extends Vue {
     }
   }
   chartData = {};
+  chartDataPIE = {};
   workplaceData ={};
   dispoChartData = {};
   productChartData = {};
+  productChartDataPIE = {};
   categoryChartData = {};
   timestampChartData = {};
   departmentChartData = {};
@@ -281,9 +291,11 @@ export default class FailureAnalyze extends Vue {
     }
 
   mounted() {
-    this.loadFaults()
+    this.loadFaultsBAR()
+    this.loadFaultsPIE()
     this.loadDispoLevels()
     this.loadProducts()
+    this.loadProductsPIE()
     this.loadCategory()
     this.loadTimestamp()
     this.loadStackedWorkplaces()
@@ -291,8 +303,7 @@ export default class FailureAnalyze extends Vue {
   }
 
                       
-  async loadFaults() {
-
+  async loadFaultsBAR() {
     const chartData = {
       labels:  new Array<string>(),
       datasets: [
@@ -342,7 +353,88 @@ export default class FailureAnalyze extends Vue {
       console.log(this.chartData)
 
     } catch (err) {}
+
   }
+
+  async loadFaultsPIE() {
+    const chartData = {
+      labels:  new Array<string>(),
+      datasets: [
+        {
+          backgroundColor: [
+            'rgb(186,85,211)',
+            'rgb(100,149,237)',
+            'rgb(58,179,113)',
+            'rgb(190,160,122)',
+            'rgb(180,85,211)',
+            'rgb(90,149,237)',
+            'rgb(55,179,113)',
+            'rgb(205,160,122)',
+            'rgb(170,85,211)',
+            'rgb(80,149,237)',
+            'rgb(53,179,113)',
+            'rgb(215,160,122)',
+            'rgb(160,85,211)',
+            'rgb(70,149,237)',
+            'rgb(50,179,113)',
+            'rgb(225,160,122)',
+            'rgb(150,85,211)',
+            'rgb(60,149,237)',
+            'rgb(48,179,113)',
+            'rgb(235,160,122)',
+            'rgb(140,85,211)',
+            'rgb(45,149,237)',
+            'rgb(60,179,113)',
+            'rgb(245,160,122)',
+          ],
+          data: new Array<number>(),
+          label: "Fehlergrund-Analyse"
+        },
+      ],
+    };
+
+    try {
+      const faults = await this.$api.getAllFaults();
+
+      const items : any[] = []
+      
+      for(const fault of faults) {
+
+        if(items.some(f => f.reason === fault.reason)) {
+          continue
+        }
+
+        const allFaultTypes = faults.filter(f => f.reason === fault.reason)
+
+        let days = 0
+
+        for(const sameTypes of allFaultTypes) {
+          days = days + (sameTypes?.estimatedDownTime ?? 0)
+        }
+
+        items.push({
+          days: days,
+          reason: fault.reason,
+          color: "#CD5C5C"
+        })
+      }
+
+      for(const item of items) {
+        const i = item as any
+        chartData.labels.push(i.reason ?? "")
+        chartData.datasets[0].data.push(i.days)
+        chartData.datasets[0].backgroundColor.push(i.color)
+      }
+
+      this.chartDataPIE = chartData
+
+      console.log(this.chartDataPIE)
+
+    } catch (err) {}
+
+  }
+
+  
 
   async loadStackedWorkplaces() {
 
@@ -467,6 +559,84 @@ export default class FailureAnalyze extends Vue {
     } catch(err) {
 
     }
+  }
+
+  async loadProductsPIE() {
+    const chartData = {
+      labels:  new Array<string>(),
+      datasets: [
+        {
+          backgroundColor: [
+            'rgb(186,85,211)',
+            'rgb(100,149,237)',
+            'rgb(58,179,113)',
+            'rgb(176,224,230)',
+            'rgb(128,128,128)',
+            'rgb(210,105,30)',
+            'rgb(160,82,45)',
+            'rgb(205,160,122)',
+            'rgb(170,85,211)',
+            'rgb(80,149,237)',
+            'rgb(53,179,113)',
+            'rgb(215,160,122)',
+            'rgb(160,85,211)',
+            'rgb(70,149,237)',
+            'rgb(50,179,113)',
+            'rgb(225,160,122)',
+            'rgb(150,85,211)',
+            'rgb(60,149,237)',
+            'rgb(48,179,113)',
+            'rgb(235,160,122)',
+            'rgb(140,85,211)',
+            'rgb(45,149,237)',
+            'rgb(238,130,238)',
+            'rgb(135,206,250)',
+          ],
+          data: new Array<number>(),
+          label: "Fehlergrund-Analyse"
+        },
+      ],
+    };
+
+    try {
+      const faults = await this.$api.getAllFaults();
+
+      const items : any[] = []
+      
+      for(const fault of faults) {
+
+        if(items.some(f => f.product === fault.product)) {
+          continue
+        }
+
+        const allFaultTypes = faults.filter(f => f.product === fault.product)
+
+        let days = 0
+
+        for(const sameTypes of allFaultTypes) {
+          days = days + (sameTypes?.estimatedDownTime ?? 0)
+        }
+
+        items.push({
+          days: days,
+          product: fault.product,
+          color: "#CD5C5C"
+        })
+      }
+
+      for(const item of items) {
+        const i = item as any
+        chartData.labels.push(i.product ?? "")
+        chartData.datasets[0].data.push(i.days)
+        chartData.datasets[0].backgroundColor.push(i.color)
+      }
+
+      this.productChartDataPIE = chartData
+
+      console.log(this.productChartDataPIE)
+
+    } catch (err) {}
+
   }
 
   async loadCategory() {

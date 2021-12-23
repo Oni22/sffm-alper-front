@@ -3,9 +3,6 @@
 <template>
     <div>
         <v-row>
-            <v-col cols="12">
-                <FaultInfoRow :description="fault.category" :title="'Fehlerkategorie'"/>
-            </v-col>
             <v-col cols="12" class="mt-1">
                 <FaultInfoRow :description="fault.workplace" :title="'Arbeitsgang'"/>
             </v-col>

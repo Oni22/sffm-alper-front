@@ -237,7 +237,7 @@ export default class NewFailure extends Vue {
     };
   }
 
-  faultCategories = ["Administration", "Organisation", "Qualität", "Technik"];
+  faultCategories = ["Administration (Planungsfehler)", "Organisation (menschlicher Fehler)", "Qualität (methodischer Fehler)", "Technik (technischer Fehler)"];
 
   areas = [
     "OSM-Planfertigung",

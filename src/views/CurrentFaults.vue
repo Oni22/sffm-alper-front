@@ -65,6 +65,14 @@
 
 <script lang="ts">
 import Fault from "@/api/model/fault";
+import {
+  faults,
+  workspaces,
+  products,
+  actions,
+  primaryCauses,
+  secundaryCauses,
+} from "@/utils";
 import { Component, Vue } from "vue-property-decorator";
 import FaultInfoCard from "@/components/FaultInfoCard.vue"
 

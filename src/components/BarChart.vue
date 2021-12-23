@@ -28,10 +28,12 @@ export default {
       },
       scales: {
         xAxes: [{
-            barPercentage: 0.4
+            barPercentage: 0.4,
+            stacked: true,
         }],
         yAxes: [{
           ticks: {
+            stacked: true,
             beginAtZero: true,
             min: 0,
             stepSize: 1

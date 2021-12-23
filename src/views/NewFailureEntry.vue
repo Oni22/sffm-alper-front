@@ -15,8 +15,8 @@
         </p>
         <v-divider/>
         </v-col> 
-        <v-col cols="12"> <h2>Ist der vorliegende Fehler bereits bekannt?</h2>
-            <small>(bekannt bedeutet hierbei die Kenntnis über "Fehlergrund", "Fehlerkategorie" und weiteren, produktbezogenen Informationen)</small>
+        <v-col cols="12"> 
+          <h2>Ist der vorliegende Fehler bereits bekannt?</h2>
         </v-col>
       </v-row>  
       <v-row>
@@ -27,10 +27,20 @@
               <v-radio label="Ja, der Fehler ist bekannt" value="known" ></v-radio>
               <v-radio label="Nein, der Fehler ist unbekannt" value="unknown" ></v-radio>
             </v-radio-group>
-            <p v-if="currentRadioValue === 'known'">Für den Fehler sind Ursachen, Fehlergründe und weitere Produktionsdaten bekannt. 
-                  Der Fehler soll daher in die Datenbank eingetragen werden, um eine zukünftige Auswertung anzustoßen. </p>
-             <p v-if="currentRadioValue === 'unknown'">Die Daten für diesen Fehler sind unbekannt. Es sind keine passenden bzw. umgesetzten Maßnahmen für dieses Problem vorhanden.
-                  Die Ursachen und Hintergründe für den Fehlerbeseitigungsprozess sind ebenfalls unbekannt.</p>
+            <v-alert border="bottom" color="#80CBC4" >
+              <p v-if="currentRadioValue === 'known'">
+                  <strong>"bekannt": Einer der Fehlergründe 01. - 37. liegt vor. Die Ressourcen, Ziele und weitere produktive Daten sind bekannt.</strong>        
+                  Der Fehler soll daher in die Datenbank eingetragen werden, um eine zukünftige Auswertung anzustoßen. Es soll eine Maßnahme und Stillstandzeit ausgegeben werden.
+                  Dieser Prozess wird angestoßen, wenn ein neuer Fehler in der Fertigung auftritt, dessen Spezifikationen bereits festgelegt wurden.
+              </p>
+             <p v-if="currentRadioValue === 'unknown'">
+                  <strong> "unbekannt": Ein eindeutiger Fehlergrund kann nicht zugewiesen werden. Die Ressourcen, Ziele, Spezifikation und weitere produktive Daten sind unbekannt.
+                  </strong>
+                  Die Ursachen und Hintergründe für den Fehlerbeseitigungsprozess sind ebenfalls unbekannt.
+                  Dieser Prozess wird angestoßen, wenn ein neuer Fehler in der Fertigung auftritt, dessen Spezifikationen 
+                  neuartig sind und eine langfristige Lösung der Störung notwendig ist.
+              </p>
+            </v-alert>
             </v-card-text>
             <v-card-actions>
               <v-btn @click="handleNext()" color="#00695C" dark>Weiter</v-btn>
