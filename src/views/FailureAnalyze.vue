@@ -11,14 +11,18 @@
                 <strong>Klicken Sie auf einen Reiter, um die gewünschte Ansicht zu erhalten. Über den Filter können Sie den Zeitraum der Betrachtung festlegen.</strong>     
           </p>
         <v-divider/>
-          <v-card>
-            <v-card-text>         
               <v-col cols="12">  
-                ZEITLICHER FILTER!!!!
+                <v-row>
+                <v-card>
+                  <v-col cols="12">
+                    <v-date-picker color="#00695C" v-model="dates" full-width range/>
+                  </v-col>
+                </v-card>
+                </v-row>
               </v-col>
-            </v-card-text>
-          </v-card>
-
+        <v-col>
+          <v-divider/>
+        </v-col>      
         <v-tabs v-model="tab" fixed-tabs background-color="#00695C" dark>
           <v-tabs-slider></v-tabs-slider>
           <v-tab href="#tab-1">
@@ -238,6 +242,7 @@ export default class FailureAnalyze extends Vue {
   data (){
     return{
       tab:null,
+      dates: ['', ''],
     }
   }
   chartData = {};
@@ -781,7 +786,7 @@ export default class FailureAnalyze extends Vue {
         {
           backgroundColor: new Array<string>(),
           data: new Array<number>(),
-          label: "Kategorie-Analyse"
+          label: "Zeitraum-Analyse"
         },
       ],
     };

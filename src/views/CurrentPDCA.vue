@@ -15,7 +15,7 @@
         </v-col>
         <v-col cols="12">
             <p class="font-weight-light">  
-              Klicken Sie eine Zeile (einen PDCA-Zyklus) an, um eine detaillierte Ansicht zu erhalten.
+              Klicken Sie eine Zeile (einen PDCA-Zyklus) an, um eine detaillierte Ansicht zu erhalten und die Problemlösung zu ergänzen.
             </p>
           <v-divider/>
           <v-card>
@@ -41,25 +41,21 @@
               <v-card>
                   <v-toolbar color="#90CAF9"> 
                     <h2>
-                      Aktuelle Problemlösung <small>(detaillierte Eigenschaften für den oben ausgewählten PDCA-Zyklus)</small> 
+                      Aktuelle Problemlösung <small>(hier können Sie den oben ausgewählten PDCA-Zyklus anpassen und abspeichern)</small> 
                     </h2>
                   </v-toolbar>
-                  <v-card-text>  
                     <v-row>
                        <v-col v-if="hasCurrentPDCA()">
-                          <PDCAInfoCard :pdca="currentPDCA"/>
+                          <PDCACycle :pdca="currentPDCA"/>
                         </v-col>
                         <v-col align="center" v-else>
                             <p>Kein Fehler ausgewählt</p>
                         </v-col>
                     </v-row>
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-btn @click="handleNext()" color="#00695C" dark>Problemlösung fortsetzen/ anpassen</v-btn>
-                  </v-card-actions>
               </v-card>
           </v-col>
       </v-row>
+      
     </v-container>
   </div>
 </template>
@@ -68,16 +64,27 @@
 <script lang="ts">
 import PDCA from "@/api/model/pdca";
 import { Component, Vue } from "vue-property-decorator";
-import PDCAInfoCard from "@/components/PDCAInfoCard.vue"
+import PDCACycle from "@/components/PDCACycle.vue"
 import { Routes } from '@/router/utils'
 
 
 @Component({
     components: {
-        PDCAInfoCard
+        PDCACycle
     }
 })
+
+
 export default class CurrentPDCA extends Vue {
+  enabled = false;
+
+  data(){
+    return {
+        alert: true,
+        snackbar: false,
+        text: 'Ihr Eintrag wurde gesichert.',
+      }
+  }
 
   headers = [
     {
