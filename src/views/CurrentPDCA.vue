@@ -140,13 +140,6 @@ export default class CurrentPDCA extends Vue {
 
   }
 
-  handleNext() {
-      if(this.currentPDCA) {
-        this.$router.push(Routes.NEW_PDCA)
-      } else {
-         this.$router.push(Routes.NEW_FAILURE_ENTRY)
-      }
-  }
 }
 </script>
 

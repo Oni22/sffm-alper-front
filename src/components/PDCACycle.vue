@@ -112,7 +112,7 @@
                             chips
                             dense
                             clearable
-                            label="Tragen Sie einen Ursachenbereich ein und bestätigen Sie mit ENTER"
+                            label="Tragen Sie einen Ursachenbereich ein"
                             hint="Aus welchen Ursachenbereichen (Mensch, Maschine, Management, Mitwelt, Methode) könnte das Problem auftreten?"
                             persistent-hint
                             multiple
