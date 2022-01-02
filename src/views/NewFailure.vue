@@ -301,7 +301,10 @@ export default class NewFailure extends Vue {
           this.downtimeInDays = parseInt(downtimeResult);
         }
 
-        //if((prediction?.pCause?.length ?? 0) > 0 && prediction?.pCause) {
+        console.log("PREDICTION", prediction);
+      }
+
+      //if((prediction?.pCause?.length ?? 0) > 0 && prediction?.pCause) {
         //  const primaryCauseResult = String(prediction?.pCause[0])
         //  this.primaryCause = primaryCauses[primaryCauseResult];
         //}
@@ -310,9 +313,6 @@ export default class NewFailure extends Vue {
         //  const secundaryCauseResult = String(prediction?.sCause[0])
         //  this.secundaryCause = secundaryCauses[secundaryCauseResult];        
         //  }
-
-        console.log("PREDICTION", prediction);
-      }
       
     } catch (err) {
       console.log(err);
