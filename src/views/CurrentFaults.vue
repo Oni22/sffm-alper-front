@@ -31,6 +31,7 @@
                     :items="faults"
                   >
                     <template v-slot:[`item.timestamp`]="{ item }">{{ formatTimestamp(item.timestamp) }}</template>
+                    <template v-slot:[`item.workplace`]="{ item }">{{ formatWorkplace(item.workplace) }}</template>
                   </v-data-table>
                 </v-col>
               </v-row>
@@ -135,6 +136,11 @@ export default class CurrentFaults extends Vue {
   formatTimestamp(timestamp:string) {
       return new Date(timestamp)
 
+  }
+
+  formatWorkplace(workplace: string) {
+    console.log("WORK",workplace)
+    return workspaces[workplace]
   }
 }
 </script>

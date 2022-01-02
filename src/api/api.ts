@@ -78,7 +78,7 @@ export default class API {
     async getAllPDCA() : Promise<Array<PDCA>> {
         
         try {
-            const faults = await this.api.get("/fault")
+            const faults = await this.api.get("/pdca")
             return faults.data.map((fault : any) => {
                 return new PDCA().fromJson(fault)
             });

@@ -17,6 +17,9 @@
                   <v-col cols="12">
                     <v-date-picker color="#00695C" v-model="dates" full-width range/>
                   </v-col>
+                  <v-card-actions>
+                    <v-btn @click="filterByDateRange()" >Filtern</v-btn>
+                  </v-card-actions>
                 </v-card>
                 </v-row>
               </v-col>
@@ -239,6 +242,7 @@ import DoughnutChart from "@/components/DoughnutChart.vue";
 import BarChart from "@/components/BarChart.vue";
 import LineChart from "@/components/LineChart.vue";
 import StackedBarChart from "@/components/StackedBarChart.vue";
+import Fault from "@/api/model/fault";
 
 @Component({
   name: "FailureAnalyze",
@@ -250,12 +254,10 @@ import StackedBarChart from "@/components/StackedBarChart.vue";
   },
 })
 export default class FailureAnalyze extends Vue {
-  data (){
-    return{
-      tab:null,
-      dates: ['', ''],
-    }
-  }
+  tab = 0
+  dates : string[] = []
+  faults : Fault[] = []
+  faultsFiltered : Fault[] = []
   chartData = {};
   chartDataPIE = {};
   workplaceData = {};
@@ -307,7 +309,12 @@ export default class FailureAnalyze extends Vue {
       }
     }
 
-  mounted() {
+  async mounted() {
+    await this.loadData()
+    this.drawGraphs()
+  }
+
+  drawGraphs() {
     this.loadFaultsBAR()
     this.loadDispoLevels()
     this.loadDispoLevelsPIE()
@@ -319,6 +326,10 @@ export default class FailureAnalyze extends Vue {
     this.loadDepartment()
   }
 
+  async loadData() {
+    this.faults = await this.$api.getAllFaults();
+    this.faultsFiltered = this.faults
+  }
                       
   async loadFaultsBAR() {
     const chartData = {
@@ -333,14 +344,13 @@ export default class FailureAnalyze extends Vue {
     };
 
     try {
-      const faults = await this.$api.getAllFaults();
       const items : any[] = []
     
-      for(const fault of faults) {
+      for(const fault of this.faultsFiltered) {
         if(items.some(f => f.reason === fault.reason)) {
           continue
         }
-        const allFaultTypes = faults.filter(f => f.reason === fault.reason)
+        const allFaultTypes = this.faultsFiltered.filter(f => f.reason === fault.reason)
         let days = 0
 
         for(const sameTypes of allFaultTypes) {
@@ -375,14 +385,13 @@ export default class FailureAnalyze extends Vue {
       ],
     };
     try {
-      const faults = await this.$api.getAllFaults();
       const items : any[] = []
       
-      for(const fault of faults) {
+      for(const fault of this.faultsFiltered) {
         if(items.some(f => f.workplace === fault.workplace)) {
           continue
         }
-        const allFaultTypes = faults.filter(f => f.workplace === fault.workplace)
+        const allFaultTypes = this.faultsFiltered.filter(f => f.workplace === fault.workplace)
         let days = 0
         
         for(const sameTypes of allFaultTypes) {
@@ -421,14 +430,13 @@ export default class FailureAnalyze extends Vue {
     };
 
     try {
-      const faults = await this.$api.getAllFaults();
       const items : any[] = []
     
-      for(const fault of faults) {
+      for(const fault of this.faultsFiltered) {
         if(items.some(f => f.dispolevel === fault.dispolevel)) {
           continue
         }
-        const allFaultTypes = faults.filter(f => f.dispolevel === fault.dispolevel)
+        const allFaultTypes = this.faultsFiltered.filter(f => f.dispolevel === fault.dispolevel)
         let days = 0
 
         for(const sameTypes of allFaultTypes) {
@@ -492,14 +500,13 @@ export default class FailureAnalyze extends Vue {
     };
 
     try {
-      const faults = await this.$api.getAllFaults();
       const items : any[] = []
       
-      for(const fault of faults) {
+      for(const fault of this.faultsFiltered) {
         if(items.some(f => f.dispolevel === fault.dispolevel)) {
           continue
         }
-        const allFaultTypes = faults.filter(f => f.dispolevel === fault.dispolevel)
+        const allFaultTypes = this.faultsFiltered.filter(f => f.dispolevel === fault.dispolevel)
         let days = 0
 
         for(const sameTypes of allFaultTypes) {
@@ -525,6 +532,44 @@ export default class FailureAnalyze extends Vue {
 
   }
 
+  filterByDateRange() {
+
+    if(this.dates.length == 2) {
+      let startDate = new Date(this.dates[0])
+      let endDate = new Date(this.dates[1])
+
+      if(startDate.getTime() > endDate.getTime()) {
+        startDate = new Date(this.dates[1])
+        endDate = new Date(this.dates[0])
+      }
+
+      startDate.setSeconds(0)
+      startDate.setMinutes(0)
+      startDate.setHours(0)
+      startDate.setMilliseconds(0)
+      endDate.setSeconds(0)
+      endDate.setMinutes(0)
+      endDate.setHours(0)
+      endDate.setMilliseconds(0)
+
+
+      this.faultsFiltered = this.faults.filter(f => {
+        const date = new Date(f.timestamp ?? "")
+        date.setSeconds(0)
+        date.setMinutes(0)
+        date.setHours(0)
+        date.setMilliseconds(0)
+        return date.getTime() >= startDate.getTime() && date.getTime() <= endDate.getTime()
+      })
+
+      console.log(this.faultsFiltered)
+
+    }
+
+    this.drawGraphs()
+
+  }
+
   async loadProducts() {
 
     const chartData = {
@@ -539,14 +584,13 @@ export default class FailureAnalyze extends Vue {
     };
 
     try {
-      const faults = await this.$api.getAllFaults();
       const items : any[] = []
       
-      for(const fault of faults) {
+      for(const fault of this.faultsFiltered) {
         if(items.some(f => f.product === fault.product)) {
           continue
         }
-        const allFaultTypes = faults.filter(f => f.product === fault.product)
+        const allFaultTypes = this.faultsFiltered.filter(f => f.product === fault.product)
         let days = 0
 
         for(const sameTypes of allFaultTypes) {
@@ -613,14 +657,13 @@ export default class FailureAnalyze extends Vue {
     };
 
     try {
-      const faults = await this.$api.getAllFaults();
       const items : any[] = []
       
-      for(const fault of faults) {
+      for(const fault of this.faultsFiltered) {
         if(items.some(f => f.product === fault.product)) {
           continue
         }
-        const allFaultTypes = faults.filter(f => f.product === fault.product)
+        const allFaultTypes = this.faultsFiltered.filter(f => f.product === fault.product)
         let days = 0
 
         for(const sameTypes of allFaultTypes) {
@@ -665,14 +708,13 @@ export default class FailureAnalyze extends Vue {
     };
 
     try {
-      const faults = await this.$api.getAllFaults();
       const items : any[] = []
       
-      for(const fault of faults) {
+      for(const fault of this.faultsFiltered) {
         if(items.some(f => f.category === fault.category)) {
           continue
         }
-        const allFaultTypes = faults.filter(f => f.category === fault.category)
+        const allFaultTypes = this.faultsFiltered.filter(f => f.category === fault.category)
         let days = 0
 
         for(const sameTypes of allFaultTypes) {
@@ -730,14 +772,13 @@ export default class FailureAnalyze extends Vue {
     };
 
     try {
-      const faults = await this.$api.getAllFaults();
       const items : any[] = []
       
-      for(const fault of faults) {
+      for(const fault of this.faultsFiltered) {
         if(items.some(f => f.department === fault.department)) {
           continue
         }
-        const allFaultTypes = faults.filter(f => f.department === fault.department)
+        const allFaultTypes = this.faultsFiltered.filter(f => f.department === fault.department)
         let days = 0
 
         for(const sameTypes of allFaultTypes) {
@@ -778,22 +819,47 @@ export default class FailureAnalyze extends Vue {
     };
 
     try {
-      const faults = await this.$api.getAllFaults();
       const items : any[] = []
       
-      for(const fault of faults) {
-        if(items.some(f => f.timestamp === fault.timestamp)) {
+      for(const fault of this.faultsFiltered) {
+        if(items.some(f => {
+          const timeStamp = new Date(f.jsDate ?? "")
+          const currentTimeStamp = new Date(fault.timestamp ?? "")
+          timeStamp.setMilliseconds(0)
+          timeStamp.setSeconds(0)
+          timeStamp.setHours(0)
+          timeStamp.setMinutes(0)
+          currentTimeStamp.setMilliseconds(0)
+          currentTimeStamp.setSeconds(0)
+          currentTimeStamp.setHours(0)
+          currentTimeStamp.setMinutes(0)
+          return currentTimeStamp.getTime() === timeStamp.getTime()
+        })) {
           continue
         }
-        const allFaultTypes = faults.filter(f => f.timestamp === fault.timestamp)
+        const allFaultTypes = this.faultsFiltered.filter(f => {
+          const timeStamp = new Date(f.timestamp ?? "")
+          const currentTimeStamp = new Date(fault.timestamp ?? "")
+          timeStamp.setMilliseconds(0)
+          timeStamp.setSeconds(0)
+          timeStamp.setHours(0)
+          timeStamp.setMinutes(0)
+          currentTimeStamp.setMilliseconds(0)
+          currentTimeStamp.setSeconds(0)
+          currentTimeStamp.setHours(0)
+          currentTimeStamp.setMinutes(0)
+          return currentTimeStamp.getTime() === timeStamp.getTime()
+        })
         let days = 0
 
         for(const sameTypes of allFaultTypes) {
           days = days + (sameTypes?.estimatedDownTime ?? 0)
         }
+        const date = new Date(fault.timestamp ?? "")
         items.push({
           days: days,
-          timestamp: Date.parse(fault.timestamp ?? ""),
+          timestamp: date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear(),
+          jsDate: date.toISOString(),
           color: "blue"
         })
       }

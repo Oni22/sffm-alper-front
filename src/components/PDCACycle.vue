@@ -788,13 +788,14 @@
 
  
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import { mdiCheck,mdiTrashCan } from "@mdi/js";
 import { Routes } from "@/router/utils";
 import PDCA from "@/api/model/pdca";
 
 @Component
 export default class NewPDCA extends Vue {
+
   enabled = false;
   title = "";
   titleTags: Array<string> = [];
@@ -827,6 +828,28 @@ export default class NewPDCA extends Vue {
       }
   }
 
+  setCurrentPDCA(pdca: PDCA) {
+    console.log("HALLO")
+    this.title = pdca.title ?? ""
+    this.titleTags = pdca.titleTags ?? []
+    this.newCauses = pdca.newCauses ?? []
+    this.category = pdca.category ?? ""
+    this.downtime = pdca.downtime ?? ""
+    this.ressources = pdca.ressources ?? []
+    this.shortTimeAction = pdca.shortTimeActions ?? []
+    this.longTimeAction = pdca.longTimeActions ?? []
+    this.results = pdca.results ?? []
+    this.specifications = pdca.specifications ?? []
+    this.goals = pdca.goals ?? []
+    this.standards = pdca.standards ?? []
+    this.processDuration = pdca.processDuration ?? ""
+    this.currentPhase = pdca.currentPhase ?? ""
+    this.userName = pdca.userName ?? ""
+    this.currentPDCAId = pdca.id ?? ""
+    console.log("PDCA ID", this.currentPDCAId)
+
+  }
+
   async save() {
     
     const pdca = new PDCA()
@@ -857,6 +880,8 @@ export default class NewPDCA extends Vue {
       this.currentPDCAId = res?.id ?? ""
 
     }
+
+    this.$emit("onSave")
 
   }
 

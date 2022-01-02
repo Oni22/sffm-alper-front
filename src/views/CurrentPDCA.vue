@@ -23,6 +23,7 @@
               <v-row align="center" justify="center">
                 <v-col cols="12" align="center">
                   <v-data-table
+                    :loading="isTableLoading"
                     @click:row="openPDCA"
                     :headers="headers"
                     :items="pdca"
@@ -45,12 +46,7 @@
                     </h2>
                   </v-toolbar>
                     <v-row>
-                       <v-col v-if="hasCurrentPDCA()">
-                          <PDCACycle :pdca="currentPDCA"/>
-                        </v-col>
-                        <v-col align="center" v-else>
-                            <p>Kein Fehler ausgewählt</p>
-                        </v-col>
+                      <PDCACycle @onSave="reloadPDCAList()" ref="pdcaCycle"/>
                     </v-row>
               </v-card>
           </v-col>
@@ -77,6 +73,7 @@ import { Routes } from '@/router/utils'
 
 export default class CurrentPDCA extends Vue {
   enabled = false;
+  isTableLoading = false
 
   data(){
     return {
@@ -123,21 +120,35 @@ export default class CurrentPDCA extends Vue {
   currentPDCA?: PDCA = new PDCA();
 
   async created() {
+    this.fetchList()
+  }
+
+  async fetchList() {
     const pdca = await this.$api.getAllPDCA();
     this.pdca = pdca;
   }
 
   openPDCA(item: PDCA) {
+    console.log("SET CURRENT")
+    const pdcaCycle = this.$refs.pdcaCycle as PDCACycle
+    pdcaCycle.setCurrentPDCA(item)
     this.currentPDCA = item
-  }
-
-  hasCurrentPDCA() {
-    return this.currentPDCA != null;
   }
 
   formatTimestamp(timestamp:string) {
       return new Date(timestamp)
 
+  }
+
+  async reloadPDCAList() {
+    this.isTableLoading = true
+    try {
+      await this.fetchList()
+    } catch(err) {
+      console.log(err)
+    }
+
+    this.isTableLoading = false
   }
 
 }

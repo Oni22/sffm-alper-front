@@ -38,7 +38,7 @@ export const actions : Record<string,string> = {
 }
 
 
-export const faults = {
+export const faults : Record<string,string> = {
   '"gelöscht" Priorisierung anderes Produkt': "1",
   "Priorisierung OR-Soft": "2",
   "HIP": "3",
@@ -78,7 +78,7 @@ export const faults = {
   "Facility Management/ Stromabschaltung": "37",
 };
 
-export const products = {
+export const products : Record<string,string> = {
   "ESC Grundteil": "1",
   "MMP ESC unbeschichtet": "2",
   "MMP ESC AL203": "3",
@@ -98,7 +98,8 @@ export const products = {
   "Side Mirror B FEPO2  Dispo3 (1042663)": "17",
 };
 
-export const workspaces = {
+// Für Fehlereintragen
+export const workspaces : Record<string,string> = {
   "Ätzen Syrgenstein": "1",
   "AV Modules": "2",
   "AV Modules Klebesatz 1 ": "3",
@@ -398,7 +399,7 @@ export const workspaces = {
 };
 
 //FÜR NEW-FAILURE URSACHENPROGNOSE
-export const primaryCauses = {
+export const primaryCauses : Record<string,string> = {
   '"gelöscht" Priorisierung anderes Produkt': "Management",
   "Priorisierung OR-Soft": "Management",
   "HIP": "Mensch",
@@ -438,7 +439,7 @@ export const primaryCauses = {
   "Facility Management/ Stromabschaltung": "Mitwelt",
 };
 
-export const secundaryCauses = {
+export const secundaryCauses : Record<string,string> = {
   '"gelöscht" Priorisierung anderes Produkt': "Mensch",
   "Priorisierung OR-Soft": "Maschine",
   "HIP": "Methode",
