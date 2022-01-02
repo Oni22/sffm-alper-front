@@ -7,7 +7,7 @@ import PDCA from "./model/pdca";
 export default class API {
 
     api = axios.create({
-        baseURL: "http://localhost:8000"
+        baseURL: "http://aion-sffm.de"
     })
 
     async getAllFaults() : Promise<Array<Fault>> {
@@ -18,6 +18,7 @@ export default class API {
                 return new Fault().fromJson(fault)
             });
         } catch(err) {
+            console.log(err)
             return Promise.reject(err)
         }
 

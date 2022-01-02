@@ -807,7 +807,7 @@ export default class FailureAnalyze extends Vue {
 
         items.push({
           days: days,
-          timestamp: fault.timestamp,
+          timestamp: Date.parse(fault.timestamp ?? ""),
           color: "blue"
         })
       }
