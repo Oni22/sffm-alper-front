@@ -635,8 +635,7 @@
                       </v-row>
                       <v-row no-gutters>
                         <v-col cols="10">
-                          <v-text-field label="Ziele für die Fehlerbeseitigung angeben (Ziel XY / Datum: TT.MM.JJJJ) und HINZUFÜGEN klicken, um einzufügen." 
-                          v-model="currentGoals.name"
+                          <v-text-field label="Ziele für die Fehlerbeseitigung angeben (Ziel XY / Datum: TT.MM.JJJJ) und HINZUFÜGEN klicken, um einzufügen."  v-model="currentGoals.name"
                           hint="Sie können mehrere Ziele eintragen, abhaken und entfernen."
                           persistent-hint
                           />
@@ -697,9 +696,9 @@
                             </p>
                       </v-col> 
                       <v-col cols="12">
-                        <v-row v-for="cause in standards" :key="cause.name">
-                          <v-btn icon @click="removeStandards(cause)" ><v-icon>{{trashIcon}}</v-icon></v-btn>
-                            <v-checkbox v-model="cause.checked"  dense :label="cause.name" />
+                        <v-row v-for="standard in standards" :key="standard.name">
+                          <v-btn icon @click="removeStandards(standard)" ><v-icon>{{trashIcon}}</v-icon></v-btn>
+                            <v-checkbox v-model="standard.checked" dense :label="standard.name" />
                         </v-row>
                       </v-col>
                       <v-row no-gutters>
@@ -812,17 +811,47 @@ export default class NewPDCA extends Vue {
 
   setCurrentPDCA(pdca: PDCA) {
     this.title = pdca.title ?? ""
-    this.titleTags = pdca.titleTags ?? []
+    this.titleTags = pdca?.titleTags ?? []
     this.newCauses = pdca.newCauses ?? []
     this.category = pdca.category ?? ""
     this.downtime = pdca.downtime ?? ""
     this.ressources = pdca.ressources ?? []
-    this.shortTimeAction = pdca.shortTimeActions ?? []
-    this.longTimeAction = pdca.longTimeActions ?? []
-    this.results = pdca.results ?? []
-    this.specifications = pdca.specifications ?? []
-    this.goals = pdca.goals ?? []
-    this.standards = pdca.standards ?? []
+    this.shortTimeAction = (pdca.shortTimeActions ?? []).map(s => {
+      return {
+        name: s,
+        checked: false
+      }
+    })
+    this.longTimeAction = (pdca.longTimeActions ?? []).map(s => {
+      return {
+        name: s,
+        checked: false
+      }
+    })
+    this.results = (pdca.results ?? []).map(s => {
+      return {
+        name: s,
+        checked: false
+      }
+    })
+    this.specifications = (pdca.specifications ?? []).map(s => {
+      return {
+        name: s,
+        checked: false
+      }
+    })
+    this.goals = (pdca.goals ?? []).map(s => {
+      return {
+        name: s,
+        checked: false
+      }
+    })
+    this.standards = (pdca.standards ?? []).map(s => {
+      return {
+        name: s,
+        checked: false
+      }
+    })
     this.processDuration = pdca.processDuration ?? ""
     this.currentPhase = pdca.currentPhase ?? ""
     this.userName = pdca.userName ?? ""
@@ -845,6 +874,7 @@ export default class NewPDCA extends Vue {
     pdca.results = this.results.map(g => g.name)
     pdca.specifications = this.specifications.map(s => s.name)
     pdca.goals = this.goals.map(g => g.name)
+    console.log(this.standards)
     pdca.standards = this.standards.map(s => s.name)
     pdca.processDuration = this.processDuration
     pdca.currentPhase = this.currentPhase
@@ -958,6 +988,11 @@ export default class NewPDCA extends Vue {
 
 
   addShortTimeAction() {
+
+    if(this.currentShortTimeAction.name === "" || this.currentShortTimeAction.name == null) {
+      return
+    }
+
     if(this.shortTimeAction.some(item => item.name === this.currentShortTimeAction.name)) {
       return
     }
@@ -969,6 +1004,11 @@ export default class NewPDCA extends Vue {
   }
 
    addLongTimeAction() {
+    
+    if(this.currentLongTimeAction.name === "" || this.currentLongTimeAction.name == null) {
+      return
+    }
+
     if(this.longTimeAction.some(item => item.name === this.currentLongTimeAction.name)) {
       return
     }
@@ -980,6 +1020,11 @@ export default class NewPDCA extends Vue {
   }
 
    addResult() {
+
+    if(this.currentResults.name === "" || this.currentResults.name == null) {
+      return
+    }
+
     if(this.results.some(item => item.name === this.currentResults.name)) {
       return
     }
@@ -991,6 +1036,11 @@ export default class NewPDCA extends Vue {
   }
 
    addSpecification() {
+
+    if(this.currentSpecifications.name === "" || this.currentSpecifications.name == null) {
+      return
+    }
+
     if(this.specifications.some(item => item.name === this.currentSpecifications.name)) {
       return
     }
@@ -1002,6 +1052,11 @@ export default class NewPDCA extends Vue {
   }
 
    addGoals() {
+
+    if(this.currentGoals.name === "" || this.currentGoals.name == null) {
+      return
+    }
+
     if(this.goals.some(item => item.name === this.currentGoals.name)) {
       return
     }
@@ -1013,6 +1068,13 @@ export default class NewPDCA extends Vue {
   }
 
    addStandards() {
+    
+    console.log(this.currentStandards)
+
+    if(this.currentStandards.name === "" || this.currentStandards.name == null) {
+      return
+    }
+
     if(this.standards.some(item => item.name === this.currentStandards.name)) {
       return
     }

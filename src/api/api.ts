@@ -40,6 +40,7 @@ export default class API {
     async updatePDCA(pdca: PDCA,id: string) : Promise<PDCA | undefined> {
         
         try {
+            console.log("PDCA",pdca.toJson())
             const res = await this.api.post("/pdca/" + id,pdca.toJson())
             console.log(res.data);
             return new PDCA().fromJson(res.data)
