@@ -704,30 +704,12 @@
                       </v-col>
                       <v-row no-gutters>
                         <v-col col="12">
-                            <v-combobox
-                                v-model="userName"
-                                chips
-                                dense
-                                clearable
-                                label="Tragen Sie die Teilnehmer_innen ein und bestätigen Sie mit ENTER."
-                                hint="Teilnehmer_in XY: Frau/Herr Muster (Aufgabe/ Abteilung)"
-                                persistent-hint
-                                multiple
-                              >
-                                <template
-                                  v-slot:selection="{ attrs, item, select, selected }"
-                                >
-                                  <v-chip
-                                    v-bind="attrs"
-                                    :input-value="selected"
-                                    close
-                                    @click="select"
-                                    @click:close="removeUserName(item)"
-                                  >
-                                    <strong>{{ item }}</strong>
-                                  </v-chip>
-                                </template>
-                              </v-combobox>
+                            <v-text-field 
+                              label="Tragen Sie die Teilnehmer_innen ein." 
+                              v-model="userName"
+                              hint="Teilnehmer_in XY: Frau/Herr Muster (Aufgabe/ Abteilung)"
+                              persistent-hint
+                            />
                             <v-text-field 
                               label="Tragen Sie die aktuelle Phase der Problemlösung ein." 
                               v-model="currentPhase"
@@ -829,7 +811,6 @@ export default class NewPDCA extends Vue {
   }
 
   setCurrentPDCA(pdca: PDCA) {
-    console.log("HALLO")
     this.title = pdca.title ?? ""
     this.titleTags = pdca.titleTags ?? []
     this.newCauses = pdca.newCauses ?? []
@@ -973,6 +954,7 @@ export default class NewPDCA extends Vue {
     this.standards.splice(index, 1);
     this.standards = [...this.standards];
   }
+  
 
 
   addShortTimeAction() {

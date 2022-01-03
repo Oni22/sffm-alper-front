@@ -116,7 +116,7 @@
                       <DoughnutChart :height="100" :options="myOptions" :chartData="dispolevelChartDataPIE" style="height:300px" />
                     </v-col>
                     <v-col cols="12">
-                      Wochenverlauf für Fehler der Produkte (wann wurde ein Fehler für das Produkt eingetragen) StackedBarChart mit den Produkten pro Woche
+                      Wochenverlauf für Fehler der Produkte (wann wurde ein Fehler für das Produkt eingetragen)  mit den Produkten pro Woche
                     </v-col>
                 </v-row>
               </v-card-text>
@@ -241,7 +241,6 @@ import { Component, Vue } from "vue-property-decorator";
 import DoughnutChart from "@/components/DoughnutChart.vue";
 import BarChart from "@/components/BarChart.vue";
 import LineChart from "@/components/LineChart.vue";
-import StackedBarChart from "@/components/StackedBarChart.vue";
 import Fault from "@/api/model/fault";
 
 @Component({
@@ -250,8 +249,7 @@ import Fault from "@/api/model/fault";
     DoughnutChart,
     BarChart,
     LineChart,
-    StackedBarChart
-  },
+  }, 
 })
 export default class FailureAnalyze extends Vue {
   tab = 0

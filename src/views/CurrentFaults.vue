@@ -32,6 +32,7 @@
                   >
                     <template v-slot:[`item.timestamp`]="{ item }">{{ formatTimestamp(item.timestamp) }}</template>
                     <template v-slot:[`item.workplace`]="{ item }">{{ formatWorkplace(item.workplace) }}</template>
+                    <template v-slot:[`item.reason`]="{ item }">{{ formatFault(item.reason) }}</template>
                   </v-data-table>
                 </v-col>
               </v-row>
@@ -68,7 +69,9 @@
 import Fault from "@/api/model/fault";
 import {
   faults,
+  faultsOverview,
   workspaces,
+  workspacesOverview,
   products,
   actions,
   primaryCauses,
@@ -139,8 +142,11 @@ export default class CurrentFaults extends Vue {
   }
 
   formatWorkplace(workplace: string) {
-    console.log("WORK",workplace)
-    return workspaces[workplace]
+    return workspacesOverview[workplace]
+  }
+
+  formatFault(reason: string) {
+    return faultsOverview[reason]
   }
 }
 </script>

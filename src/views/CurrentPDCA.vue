@@ -94,7 +94,7 @@ export default class CurrentPDCA extends Vue {
       text: "Störungs-Tags",
       align: "start",
       sortable: false,
-      value: "tilteTags",
+      value: "titleTags",
     },
     {
       text: "Teilnehmer_innen",

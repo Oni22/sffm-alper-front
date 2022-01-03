@@ -146,7 +146,7 @@
                         Primäres Ursachenfeld:
                         <h2 class="mt-5">{{ getPrimaryCause() }}</h2>
                         Sekundäres Ursachenfeld:
-                        <h2 class="mt-5">{{ secundaryCause }}</h2>
+                        <h2 class="mt-5">{{ getSecundaryCause() }}</h2>
                       </v-card-text>
                     </v-card>
                   </v-col>  
@@ -304,15 +304,6 @@ export default class NewFailure extends Vue {
         console.log("PREDICTION", prediction);
       }
 
-      //if((prediction?.pCause?.length ?? 0) > 0 && prediction?.pCause) {
-        //  const primaryCauseResult = String(prediction?.pCause[0])
-        //this.primaryCause = primaryCauses[primaryCauseResult];
-        //}
-        this.primaryCause = fault.reason
-        //if((prediction?.sCause?.length ?? 0) > 0 && prediction?.sCause) {
-        //  const secundaryCauseResult = String(prediction?.sCause[0])
-        //  this.secundaryCause = secundaryCauses[secundaryCauseResult];        
-        //  }
       
     } catch (err) {
       console.log(err);
@@ -332,7 +323,11 @@ export default class NewFailure extends Vue {
   }
 
   getPrimaryCause() {
-    return primaryCauses[this.primaryCause]
+    return primaryCauses[this.currentFault]
+  }
+
+  getSecundaryCause() {
+    return secundaryCauses[this.currentFault]
   }
 
   get productItems() {
